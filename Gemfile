@@ -26,6 +26,8 @@ gem "mini_magick"
 gem 'haml'
 gem 'sass', '~> 3.5', '>= 3.5.5'
 gem 'bootstrap', '~> 4.0.0'
+gem 'compass'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
