@@ -1,21 +1,18 @@
 source 'https://rubygems.org'
-
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.0'
+
 gem 'rails', '~> 5.1.4'
 gem 'puma', '~> 3.7'
-gem "figaro"
+gem 'figaro'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'pg', '~> 1.0'
+gem 'pg', '~> 0.18'
 gem 'omniauth', '~> 1.8', '>= 1.8.1'
 gem 'omniauth-facebook', '~> 5.0'
 gem 'devise'
@@ -37,6 +34,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'erb2haml'
   gem 'web-console', '~> 3.6'
   gem 'listen', '~> 3.1', '>= 3.1.5'
   gem 'spring', '~> 2.0', '>= 2.0.2'
