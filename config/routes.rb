@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'cart/index'
 
   devise_for :users
+  get 'books/index'
   get 'books/show'
 
   get 'orders/index'
