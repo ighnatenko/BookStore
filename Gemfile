@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.0'
+ruby '2.4.2'
 
 gem 'rails', '~> 5.1.4'
 gem 'puma', '~> 3.7'
@@ -24,6 +24,8 @@ gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'carrierwave', '~> 1.2', '>= 1.2.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "font-awesome-rails"
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
