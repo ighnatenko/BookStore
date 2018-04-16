@@ -10,10 +10,89 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180414175500) do
+ActiveRecord::Schema.define(version: 20180416220858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address", null: false
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.string "country", null: false
+    t.string "city", null: false
+    t.string "zipcode", null: false
+    t.string "phone", null: false
+    t.string "addresable_type"
+    t.bigint "addresable_id"
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addresable_type", "addresable_id"], name: "index_addresses_on_addresable_type_and_addresable_id"
+  end
+
+  create_table "authors", force: :cascade do |t|
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "width", precision: 4, scale: 1, null: false
+    t.decimal "height", precision: 4, scale: 1, null: false
+    t.decimal "depth", precision: 4, scale: 1, null: false
+    t.integer "publication_year", null: false
+    t.string "materials", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "title", null: false
+    t.decimal "discount", default: "0.0", null: false
+    t.boolean "available", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string "number"
+    t.string "cvv", limit: 3
+    t.date "expiration"
+    t.string "owner"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_credit_cards_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "summary_price", precision: 10, scale: 2
+    t.boolean "completed", default: false, null: false
+    t.datetime "completed_date", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "description", null: false
+    t.integer "rating", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,6 +108,7 @@ ActiveRecord::Schema.define(version: 20180414175500) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -36,4 +116,6 @@ ActiveRecord::Schema.define(version: 20180414175500) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "credit_cards", "orders"
+  add_foreign_key "orders", "users"
 end

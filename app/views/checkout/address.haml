@@ -1,0 +1,14 @@
+%h1.general-title-margin Checkout
+= render 'steps'
+%form.res-mb-100
+  .hidden-xs.hidden-sm
+    .row
+      .col-md-5
+        %h3.general-subtitle Billing Address
+        %p.general-info-text all fields are required
+      .col-md-5.col-md-offset-1
+        %h3.general-subtitle Shipping Address
+  = render 'shared/address_form'
+  = render 'summary'
+  %button.btn.btn-default.center-block.mb-20 Save and Continue
+  -# = submit_tag Save and Continue, class: 'btn btn-default center-block mb-20'

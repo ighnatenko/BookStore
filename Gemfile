@@ -26,6 +26,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "font-awesome-rails"
 gem 'jquery-rails'
+gem 'country_select'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -36,6 +37,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rails-erd', require: false
   gem 'erb2haml'
   gem 'web-console', '~> 3.6'
   gem 'listen', '~> 3.1', '>= 3.1.5'
