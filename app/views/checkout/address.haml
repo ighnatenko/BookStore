@@ -1,6 +1,6 @@
 %h1.general-title-margin Checkout
 = render 'steps'
-%form.res-mb-100
+= form_tag(checkout_address_path, class: 'res-mb-100', method: :put) do
   .hidden-xs.hidden-sm
     .row
       .col-md-5
@@ -8,7 +8,24 @@
         %p.general-info-text all fields are required
       .col-md-5.col-md-offset-1
         %h3.general-subtitle Shipping Address
-  = render 'shared/address_form'
+  .row
+    .col-md-5.mb-40
+      .visible-xs.visible-sm
+        %h3.general-subtitle Billing Address
+        %p.general-info-text all fields are required
+      = simple_fields_for :billing_address, @billing_address do |address|
+        = render 'shared/address_form', f: address, address_type: :billing
+    .col-md-5.col-md-offset-1.mb-60
+      #checkout_shipping_address{class: (@order.use_billing ? 'hidden' : '')} 
+        .visible-xs.visible-sm
+          %h3.general-subtitle Shipping Address
+        = simple_fields_for :shipping_address, @shipping_address do |address|
+          = render 'shared/address_form', f: address, address_type: :shipping    
+      .form-group.checkbox
+        %label.checkbox-label
+          = check_box_tag :use_billing, true, @order.use_billing, hidden: true, class: 'checkbox-input', id: 'checkout_use_billing'
+          %span.checkbox-icon
+            %i.fa.fa-check
+          %span.checkbox-text Use Billing Adress
   = render 'summary'
-  %button.btn.btn-default.center-block.mb-20 Save and Continue
-  -# = submit_tag Save and Continue, class: 'btn btn-default center-block mb-20'
+  = submit_tag 'Save and Continue', class:'btn btn-default center-block mb-20'

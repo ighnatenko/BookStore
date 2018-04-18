@@ -1,61 +1,46 @@
-.row
-  .col-md-5.mb-40
-    .visible-xs.visible-sm
-      %h3.general-subtitle Billing Address
-      %p.general-info-text all fields are required
-    .form-group.has-error
-      %label.control-label.input-label{for: "firstName"} First Name
-      %input#firstName.form-control{name:"fname", type: "text", placeholder: "First Name"}
-      %span.help-block Please enter your first name
-    .form-group
-      %label.control-label.input-label{for: "lastName"} Last Name
-      %input#lastName.form-control{name:"lname", type: "text", placeholder: "Last Name"}
-    .form-group
-      %label.control-label.input-label{for: "address"} Address
-      %input#address.form-control{name: "address", type: "text", placeholder: "Address"}
-    .form-group
-      %label.control-label.input-label{for: "city"} City
-      %input#city.form-control{name: "city", type: "text", placeholder: "City"}
-    .form-group
-      %label.control-label.input-label{for: "zip"} Zip
-      %input#zip.form-control{name: "zip", type: "text", placeholder: "Zip"}
-    .form-group
-      %label.control-label.input-label{for: "сountry"} Country
-      %input#country.form-control{name: "country", type: "text", placeholder: "Select a country"}
-    .form-group
-      %label.control-label.input-label{for: "phone"} Phone
-      %input#phone.form-control{name: "phone", type: "tel", placeholder: "Example +355 66 123 4567"}
-  .col-md-5.col-md-offset-1.mb-60
-    .visible-xs.visible-sm
-      %h3.general-subtitle Shipping Address
-    .form-group.has-error
-      %label.control-label.input-label{for: "firstName"} First Name
-      %input#firstName.form-control{name:"fname", type: "text", placeholder: "First Name"}
-      %span.help-block Please enter your first name
-    .form-group
-      %label.control-label.input-label{for: "lastName"} Last Name
-      %input#lastName.form-control{name:"lname", type: "text", placeholder: "Last Name"}
-    .form-group
-      %label.control-label.input-label{for: "address"} Address
-      %input#address.form-control{name: "address", type: "text", placeholder: "Address"}
-    .form-group
-      %label.control-label.input-label{for: "city"} City
-      %input#city.form-control{name: "city", type: "text", placeholder: "City"}
-    .form-group
-      %label.control-label.input-label{for: "zip"} Zip
-      %input#zip.form-control{name: "zip", type: "text", placeholder: "Zip"}
-    .form-group
-      %label.control-label.input-label{for: "сountry"} Country
-      %select#country.form-control{name: "country", placeholder: "Select a country"}
-        %option London
-        %option London
-        %option London
-    .form-group
-      %label.control-label.input-label{for: "phone"} Phone
-      %input#phone.form-control{name: "phone", type: "tel", placeholder: "Example +355 66 123 4567"}
-    .form-group.checkbox
-      %label.checkbox-label
-        %input.checkbox-input{type: "checkbox", hidden: "true"}
-        %span.checkbox-icon
-          %i.fa.fa-check
-        %span.checkbox-text Use Billing Adress
+= f.hidden_field :address_type, value: address_type
+.form-group
+  = f.input :firstname, 
+      input_html: { class: 'form-control' }, 
+      label: 'First Name',
+      placeholder: "First Name", 
+      label_html: { class: 'control-label input-label' }
+.form-group
+  = f.input :lastname, 
+      input_html: { class: 'form-control' }, 
+      label: 'Last Name',
+      placeholder: "Last Name", 
+      label_html: { class: 'control-label input-label' }
+.form-group
+  = f.input :address, 
+      input_html: { class: 'form-control' }, 
+      label: 'Address',
+      placeholder: "Address", 
+      label_html: { class: 'control-label input-label' }
+.form-group
+  = f.input :city, 
+      input_html: { class: 'form-control' }, 
+      label: 'City',
+      placeholder: "City", 
+      label_html: { class: 'control-label input-label' }
+.form-group
+  = f.input :zipcode, 
+      input_html: { class: 'form-control' }, 
+      label: 'Zip',
+      placeholder: "Zip", 
+      label_html: { class: 'control-label input-label' }
+.form-group
+  = f.input :country, 
+      input_html: { class: 'form-control' }, 
+      label: 'Country',
+      placeholder: "Country", 
+      label_html: { class: 'control-label input-label' }
+.form-group
+  = f.input :phone, 
+      input_html: { class: 'form-control' }, 
+      label: 'Phone',
+      placeholder: "Example +355 66 123 4567", 
+      label_html: { class: 'control-label input-label' }
+- if visible_submit_btn
+  .text-center.general-text-align
+    = f.button :submit, 'Save', class: 'btn btn-default'

@@ -6,11 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Order.destroy_all
 
-t.string "address", null: false
-      t.string "firstname", null: false
-      t.string "lastname", null: false
-      t.string "country", null: false
-      t.string "city", null: false
-      t.string "zipcode", null: false
-      t.string "phone", null: false
+order = Order.create()
+# order.addresses.create(firstname: 'firstname', lastname: 'lastname', address: 'address',
+# city: 'city', zipcode: 'zipcode', country: 'country', phone: 'phone', 
+# address_type: :billing)

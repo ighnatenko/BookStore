@@ -1,3 +1,11 @@
-- flash.each do |type, value|
-    .flash{ :class => type.to_s }
-      = value
+- flash.each do |key, messages|
+  - alert_class = key == 'alert' ? 'danger' : 'success'
+  - if messages.is_a? Array
+    - messages.each do |text|
+      .alert.alert-dismissible{ class: "alert-#{alert_class}"}
+        %a.close{ href: '#', 'data-dismiss' => 'alert'  } &times;
+        = text
+  - else
+    .alert.alert-dismissible{ class: "alert-#{alert_class}"}
+      %a.close{ href: '#', 'data-dismiss' => 'alert'  } &times;
+      = messages

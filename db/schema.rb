@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416220858) do
+ActiveRecord::Schema.define(version: 20180417144652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20180416220858) do
     t.string "phone", null: false
     t.string "addresable_type"
     t.bigint "addresable_id"
-    t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "address_type"
     t.index ["addresable_type", "addresable_id"], name: "index_addresses_on_addresable_type_and_addresable_id"
   end
 
@@ -80,10 +80,11 @@ ActiveRecord::Schema.define(version: 20180416220858) do
   create_table "orders", force: :cascade do |t|
     t.decimal "summary_price", precision: 10, scale: 2
     t.boolean "completed", default: false, null: false
-    t.datetime "completed_date", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "use_billing", default: false, null: false
+    t.datetime "completed_date"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
