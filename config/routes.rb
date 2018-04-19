@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get 'cart/index'
 
-  devise_for :users
   get 'books/index'
   get 'books/show'
 
@@ -18,8 +17,11 @@ Rails.application.routes.draw do
 
   get 'home/index'
 
-  # root to: "home#index"
-  # root to: "checkout#index"
   root to: "settings#index"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
 end

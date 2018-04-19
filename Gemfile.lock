@@ -37,6 +37,10 @@ GEM
       globalid (>= 0.3.6)
     activemodel (5.1.4)
       activesupport (= 5.1.4)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (5.1.4)
       activemodel (= 5.1.4)
       activesupport (= 5.1.4)
@@ -102,6 +106,12 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    draper (3.0.1)
+      actionpack (~> 5.0)
+      activemodel (~> 5.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (~> 5.0)
+      request_store (~> 1.0)
     erb2haml (0.1.5)
       html2haml
     erubi (1.7.0)
@@ -153,6 +163,13 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    launchy (2.4.3-java)
+      addressable (~> 2.3)
+      spoon (~> 0.0.1)
+    letter_opener (1.6.0)
+      launchy (~> 2.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -265,6 +282,8 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     remotipart (1.3.1)
+    request_store (1.4.1)
+      rack (>= 1.4)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -313,6 +332,8 @@ GEM
     sixarm_ruby_unaccent (1.2.0)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
+    spoon (0.0.6)
+      ffi
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -371,7 +392,8 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   country_select
   database_cleaner (~> 1.6, >= 1.6.2)
-  devise
+  devise (~> 4.4, >= 4.4.1)
+  draper (~> 3.0, >= 3.0.1)
   erb2haml
   faker!
   figaro
@@ -380,6 +402,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   kaminari (~> 1.1, >= 1.1.1)
+  letter_opener
   listen (~> 3.1, >= 3.1.5)
   mini_magick (~> 4.8)
   omniauth (~> 1.8, >= 1.8.1)
