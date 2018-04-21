@@ -1,7 +1,7 @@
 = f.hidden_field :address_type, value: address_type
 .form-group
   = f.input :firstname, 
-      input_html: { class: 'form-control' }, 
+      input_html: { class: 'form-control', id: "#{address_type}_first_name" }, 
       label: 'First Name',
       placeholder: "First Name", 
       label_html: { class: 'control-label input-label' }

@@ -16,10 +16,13 @@ Rails.application.routes.draw do
   put 'checkout/complete'
 
   get 'home/index'
+  
+  resources :addresses, only: %i[create update]
 
   root to: "settings#index"
 
   devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
