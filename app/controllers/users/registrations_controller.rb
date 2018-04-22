@@ -1,4 +1,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  def edit
+    @billing_address = current_user_address(:billing)
+    @shipping_address = current_user_address(:shipping)
+    render :edit
+  end
+
   def create
     build_resource(sign_up_params)
     resource.save
@@ -13,6 +19,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def current_user_address(type)
+    current_user.addresses.find_or_initialize_by(address_type: type)
+  end
 
   def handle_persisted_resource
     clean_up_passwords resource

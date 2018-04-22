@@ -46,7 +46,8 @@
                 %a{href: "#"} Web design
               %li.divider{role: "separator"}
               %li
-                = link_to 'Log out', destroy_user_session_path, :method => :delete 
+                = link_to 'Log out', destroy_user_session_path, :method => :delete
+                = link_to 'Edit', edit_user_registration_path 
                 %a{href: "#"} Log out
           %li
             %a{href: "#"} My account
