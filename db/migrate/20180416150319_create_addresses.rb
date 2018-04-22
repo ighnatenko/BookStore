@@ -10,7 +10,7 @@ class CreateAddresses < ActiveRecord::Migration[5.1]
       t.string :phone, null: false
       t.integer :addressable_id
       t.string  :addressable_type
-      t.file :string
+
       t.timestamps
     end
 
