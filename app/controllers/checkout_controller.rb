@@ -35,7 +35,7 @@ class CheckoutController < ApplicationController
     render 'complete'
   end
 
-  def confirm_order
+  def verify
     order = Order.find_by_confirmation_token(params[:token])
     if order
       order.update(email_confirmed: true, completed_date: DateTime.now.to_date)
@@ -46,9 +46,10 @@ class CheckoutController < ApplicationController
   end
 
   def send_order_confirmation
+    order = Order.last
     order.set_confirmation_token
     order.save(validate: false)
-    OrderMailer.order_confirmation(@user).deliver_now
+    OrderMailer.order_confirmation(order).deliver_now
     redirect_to root_path, notice: "Please confirm your order to continue"
   end
 
