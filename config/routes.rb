@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   resources :orders, only: %i[index]
   resources :books, only: %i[index show]
   resources :addresses, only: %i[create update]
+
+  get '/:token/confirm_order/', :to => "orders#confirm_order", as: 'confirm_order'
+  get '/orders/', to: 'orders#send_order_confirmation', as: 'order_confirmation'
 end

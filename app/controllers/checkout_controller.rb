@@ -35,8 +35,25 @@ class CheckoutController < ApplicationController
     render 'complete'
   end
 
+  def confirm_order
+    order = Order.find_by_confirmation_token(params[:token])
+    if order
+      order.update(email_confirmed: true, completed_date: DateTime.now.to_date)
+      redirect_to root_path, notice: 'Successful order'
+    else
+      redirect_to root_url, alert: "Sorry. Order does not exist"
+    end
+  end
+
+  def send_order_confirmation
+    order.set_confirmation_token
+    order.save(validate: false)
+    OrderMailer.order_confirmation(@user).deliver_now
+    redirect_to root_path, notice: "Please confirm your order to continue"
+  end
+
   private
-  
+
   def billing_address_params
     params.require(:billing_address).permit(:firstname, :lastname, :address,
      :city, :zipcode, :country, :phone, :address_type)
