@@ -20,10 +20,15 @@ Rails.application.routes.draw do
 
   resources :home, only: %i[index show]
   resources :cart, only: %i[index]
-  resources :orders, only: %i[index]
+  resources :orders, only: %i[index] do 
+    get '/confirm/:token', to: 'orders#confirm', as: 'confirm'
+  end
   resources :books, only: %i[index show]
   resources :addresses, only: %i[create update]
 
-  get '/:token/verify/', :to => "orders#verify", as: 'verify'
-  get '/orders/', to: 'orders#send_order_confirmation', as: 'order_confirmation'
+  get 'confirmation', action: :send_order_confirmation, controller: 'checkout'
+
+
+  # get '/:token/confirm/', :to => "orders#confirm", as: 'confirm'
+  # get '/checkout/', to: 'checkout#send_order_confirmation', as: 'send_order_confirmation'
 end

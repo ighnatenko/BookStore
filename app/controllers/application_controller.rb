@@ -3,14 +3,16 @@ class ApplicationController < ActionController::Base
   before_action :set_order
 
   private
-
   def set_order
-    @current_order = session_order || new_order
+    @current_order = session_order
   end
 
   def session_order
-    order = Order.find_by(id: session[:order_id])
-    return if order.blank? || !order.completed
+    order = Order.find_by(id: session[:order_id]) || Order.find_by_user(current_user)
+    if order.blank? || order.completed
+      return new_order
+    end
+    order
   end
 
   def new_order

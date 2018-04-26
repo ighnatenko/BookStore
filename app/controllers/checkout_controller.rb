@@ -35,16 +35,6 @@ class CheckoutController < ApplicationController
     render 'complete'
   end
 
-  def verify
-    order = Order.find_by_confirmation_token(params[:token])
-    if order
-      order.update(email_confirmed: true, completed_date: DateTime.now.to_date)
-      redirect_to root_path, notice: 'Successful order'
-    else
-      redirect_to root_url, alert: "Sorry. Order does not exist"
-    end
-  end
-
   def send_order_confirmation
     order = Order.last
     order.set_confirmation_token

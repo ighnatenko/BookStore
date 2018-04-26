@@ -11,10 +11,10 @@ class Order < ApplicationRecord
   #     super() || public_send("build_#{method}")
   #   end
   # end
-  private
+
   def set_confirmation_token
-    if self.confirm_token.blank?
-        self.confirm_token = SecureRandom.urlsafe_base64.to_s
+    if self.confirmation_token.blank?
+        self.confirmation_token = SecureRandom.urlsafe_base64.to_s
     end
   end
 end
