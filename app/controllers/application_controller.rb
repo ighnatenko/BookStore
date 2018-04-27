@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def session_order
-    order = Order.find_by(id: session[:order_id]) || Order.find_by_user(current_user)
+    order = Order.find_by(id: session[:order_id]) || Order.find_by(user: current_user)
     if order.blank? || order.completed
       return new_order
     end
