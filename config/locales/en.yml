@@ -31,3 +31,18 @@
 
 en:
   hello: "Hello world"
+
+  header:
+    account: My Account
+    orders: Orders
+    settings: Settings
+    log_out: Log Out
+    log_in: Log In
+    sign_up: Sign Up
+    brand: Bookstore
+    home: Home
+    shop: Shop
+  home:
+    get_started_btn: Get Started
+    welcome_to_bookstore: Welcome to our amazing Bookstore!
+    description: We pore through hundreds of new books each month and select the five best we can find to share with our members.

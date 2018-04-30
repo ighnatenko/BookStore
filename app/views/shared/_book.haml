@@ -1,16 +1,17 @@
-.col-sm-6.col-md-3
+.col-xs-6.col-sm-3
   .general-thumb-wrap
-    .thumbnail.general-thumbnail
-      %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+    %div{class: 'thumbnail general-thumbnail' + (book.quantity.zero? ? ' disabled' : '')}
+      = image_tag(book.root_image, class: 'img-shadow general-thumbnail-img')
       .thumb-hover
         .general-thumb-link-wrap
-          %a.thumb-hover-link{href: "#"}
+          = link_to book_path(book.id), class: 'thumb-hover-link eye-show-book-btn' do
             %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-          %a.thumb-hover-link{href: "#"}
+          = link_to cart_item_path(items: {price: book.price, quantity: 1, book_id: book.id}), method: :post, class: 'thumb-hover-link shopping-cart-buy-btn' do
             %i.fa.fa-shopping-cart.thumb-icon
-  .mb-35
-    .clearfix
-      %p.pull-right.font-16.in-gold-500 €28.50
-      %p.title.mr-55 Android Programming for Beginners
+  .general-thumb-info
+    %p.title= book.title
+    %p.font-16.in-gold-500
+      €
+      = book.price
     %span.divider-sm
-    %p.lead.small John Horton
+    %p.lead.small= book.authors  

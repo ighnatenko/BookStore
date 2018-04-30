@@ -3,14 +3,14 @@
     .row
       .col-sm-9
         %ul.list-inline.general-align.mb-25
-          %li
-            %a.nav-link{href: "#"} Home
-          %li
-            %a.nav-link{href: "#"} Shop
-          %li
-            %a.nav-link{href: "#"} Orders
-          %li
-            %a.nav-link{href: "#"} Settings
+          %li= link_to(t('header.home'), root_path, class: 'nav-link')
+          %li= link_to(t('header.catalog'), categories_path, class: 'nav-link')
+          - if current_user
+            %li= link_to(t('header.orders'), orders_path, class: 'nav-link')
+            %li= link_to(t('header.settings'), edit_user_registration_path, class: 'nav-link')
+          - else
+            %li= link_to(t('header.log_in'), new_user_session_path, class: 'nav-link')
+            %li= link_to(t('header.sign_up'), new_user_registration_path, class: 'nav-link')
       .col-sm-3
         %p.general-nav-mail support@bookstore.com
         %p.general-nav-number (555)-555-5555
@@ -26,4 +26,4 @@
               %i.fa.fa-google-plus{'aria-hidden': "true"}
           %li
             %a.nav-link{href: "#"}
-              %i.fa.fa-instagram{'aria-hidden': "true"}
+              %i.fa.fa-instagram{'aria-hidden': "true"}              

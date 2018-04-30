@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423230257) do
+ActiveRecord::Schema.define(version: 20180429224323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 20180423230257) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "authors_books", id: false, force: :cascade do |t|
+    t.bigint "author_id"
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_authors_books_on_author_id"
+    t.index ["book_id"], name: "index_authors_books_on_book_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -50,6 +59,9 @@ ActiveRecord::Schema.define(version: 20180423230257) do
     t.string "materials", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.integer "quantity", default: 0
+    t.index ["category_id"], name: "index_books_on_category_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -77,6 +89,14 @@ ActiveRecord::Schema.define(version: 20180423230257) do
     t.index ["order_id"], name: "index_credit_cards_on_order_id"
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string "url", null: false
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_images_on_book_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.decimal "summary_price", precision: 10, scale: 2
     t.boolean "completed", default: false, null: false
@@ -88,6 +108,16 @@ ActiveRecord::Schema.define(version: 20180423230257) do
     t.boolean "email_confirmed", default: false
     t.string "confirmation_token"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "order_id"
+    t.integer "quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_positions_on_book_id"
+    t.index ["order_id"], name: "index_positions_on_order_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -121,6 +151,12 @@ ActiveRecord::Schema.define(version: 20180423230257) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "authors_books", "authors"
+  add_foreign_key "authors_books", "books"
+  add_foreign_key "books", "categories"
   add_foreign_key "credit_cards", "orders"
+  add_foreign_key "images", "books"
   add_foreign_key "orders", "users"
+  add_foreign_key "positions", "books"
+  add_foreign_key "positions", "orders"
 end

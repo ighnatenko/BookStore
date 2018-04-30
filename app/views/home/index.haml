@@ -1,10 +1,10 @@
 #slider.carousel.slide{'data-ride': "carousel"}
   %ol.carousel-indicators
-    - 3.times do |index|
+    - @slider_books.each_with_index do |item, index|
       %li{'data-target': "#slider", 'data-slide-to': index, class: ('active' if index.zero?) }
   .carousel-inner{role: "listbox"}
-    - 3.times do |idx|
-      = render 'carousel_book', active: (idx.zero? ? true : false)
+    - @slider_books.each_with_index do |item, index|
+      = render 'carousel_book', active: (index.zero? ? true : false), book: item
   %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
     %span.icon-prev{'aria-hidden': "true"}
     %span.sr-only Previous
@@ -13,12 +13,12 @@
     %span.sr-only Next
 .container
 .jumbotron.text-center.mb-0
-  %h2.h1 Welcome to our amazing Bookstore!
+  %h2.h1= t('home.welcome_to_bookstore')
   .mb-res-50
-    %p We pore through hundreds of new books each month and select the five best we can find to share with our members.
-  %button.btn.btn-default Get Started
+    %p= t('home.description')
+  = link_to t('home.get_started_btn'), categories_path, class: 'btn btn-default'  
 .mb-35
   %h3 Best Sellers
   .row
-    - 4.times do
-      = render 'shared/book'
+    - @best_seller_books.each do |item|
+      = render 'shared/book', book: item

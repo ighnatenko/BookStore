@@ -1,8 +1,9 @@
 class Order < ApplicationRecord
   belongs_to :user, optional: true
-
   has_many :addresses, as: :addresable, dependent: :destroy
   has_one :credit_card, dependent: :destroy
+  has_many :positions
+  has_many :books, through: :positions
   
   # accepts_nested_attributes_for :credit_card
 
