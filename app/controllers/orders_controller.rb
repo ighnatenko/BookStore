@@ -1,5 +1,11 @@
 class OrdersController < ApplicationController
   def index
+    @orders = Order.all
+    @orders = @orders.by_state(params[:state].to_sym) if valid_state?
+  end
+
+  def show
+    
   end
 
   def confirm
@@ -10,5 +16,11 @@ class OrdersController < ApplicationController
     else
       redirect_to root_path, alert: "Sorry. Order does not exist"
     end
+  end
+
+  private
+
+  def valid_state?
+    Order.aasm_states.include?(params[:state]&.to_sym)
   end
 end

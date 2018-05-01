@@ -16,7 +16,10 @@ class ApplicationController < ActionController::Base
   end
 
   def new_order
-    order = Order.create(user: current_user)
+    order = Order.new # create(user: current_user)
+    order.user_id = current_user.id
+    order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+    order.save
     session[:order_id] = order.id
     order
   end

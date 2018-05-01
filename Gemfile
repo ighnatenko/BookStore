@@ -14,7 +14,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'pg', '~> 0.18'
 gem 'omniauth', '~> 1.8', '>= 1.8.1'
-gem 'omniauth', '~> 1.8', '>= 1.8.1'
 gem 'omniauth-facebook', '~> 4.0'
 gem 'devise', '~> 4.4', '>= 4.4.1'
 gem 'rails-i18n'
@@ -30,6 +29,7 @@ gem 'country_select'
 gem 'simple_form'
 gem 'draper', '~> 3.0', '>= 3.0.1'
 gem 'cancancan', '~> 2.0'
+gem 'aasm', '~> 4.12', '>= 4.12.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

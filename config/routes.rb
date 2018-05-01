@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: %i[index show]
   resources :home, only: %i[index show]
-  resources :orders, only: %i[index] do 
+  resources :orders, only: %i[index show] do 
     get '/confirm/:token', to: 'orders#confirm', as: 'confirm'
   end
   resources :books, only: %i[show]
