@@ -21,4 +21,4 @@
   %h3 Best Sellers
   .row
     - @best_seller_books.each do |item|
-      = render 'shared/book', book: item
+      = render 'shared/book', book: item.decorate

@@ -11,14 +11,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
 
     if resource.persisted?
-      @current_order.update(user: current_user)
+      @current_order&.update(user: resource)
       resource.active_for_authentication? ? successful_authentication : unsuccessful_authentication
     else
       handle_persisted_resource
     end
   end
 
-  private
+  protected
+
+  def update_resource(resource, params)
+    if params['password']&.present?
+      result = super
+      set_flash_message!(:alert, :password_error) unless result
+      return result
+    end
+    resource.update_without_password(params.except('current_password'))
+  end
 
   def current_user_address(type)
     current_user.addresses.find_or_initialize_by(address_type: type)

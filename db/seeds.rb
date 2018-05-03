@@ -49,30 +49,42 @@ end
 Author.destroy_all
 Book.destroy_all
 Image.destroy_all
+Category.destroy_all
 
-30.times do
-  category = Category.create(title: Faker::Book.genre)
 
-  book = Book.create(
-      title: Faker::Book.title,
-      description: "#{Faker::StarWars.wookiee_sentence} We pore through hundreds of new books each month and select the five best we can find to share with our members.",
-      price: rand(5..300),
-      width: rand(5..30),
-      height: rand(5..30),
-      depth: rand(5..30),
-      publication_year: rand(1970..2018),
-      materials: Faker::StarWars.planet,
-      quantity: rand(5..50),
-      category: category)
+10.times do |index|
+  category = Category.create(title: "#{index + 1} #{Faker::Book.genre}")
 
-  image1 = Image.create(url: 'http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg', book: book)
-  image2 = Image.create(url: Faker::Avatar.image, book: book)
-  image3 = Image.create(url: Faker::Avatar.image, book: book)
-  image4 = Image.create(url: Faker::Avatar.image, book: book)    
-      
-  author = Author.create(
-      firstname: Faker::Name.first_name,
-      lastname: Faker::Name.last_name,
-      description: Faker::StarWars.wookiee_sentence,
-      books: [book])
+  unless category.valid?
+    puts category.errors.full_messages
+  end
+
+  10.times do
+    book = Book.create(
+        title: Faker::Book.title,
+        description: "#{Faker::StarWars.wookiee_sentence} We pore through hundreds of new books each month and select the five best we can find to share with our members.",
+        price: rand(5..300),
+        width: rand(5..30),
+        height: rand(5..30),
+        depth: rand(5..30),
+        publication_year: rand(1970..2018),
+        materials: Faker::StarWars.planet,
+        quantity: rand(5..50),
+        category: category)
+        
+    unless book.valid?
+      puts book.errors.full_messages
+    end
+
+    image1 = Image.create(url: 'http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg', book: book)
+    image2 = Image.create(url: Faker::Avatar.image, book: book)
+    image3 = Image.create(url: Faker::Avatar.image, book: book)
+    image4 = Image.create(url: Faker::Avatar.image, book: book)    
+        
+    author = Author.create(
+        firstname: Faker::Name.first_name,
+        lastname: Faker::Name.last_name,
+        description: Faker::StarWars.wookiee_sentence,
+        books: [book])
+  end
 end

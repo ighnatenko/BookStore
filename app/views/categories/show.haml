@@ -1,0 +1,45 @@
+%h1.general-title-margin= t("catalog.title")
+.hidden-xs.clearfix
+  .dropdowns.pull-right
+    .dropdown.width-240
+      %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        = t("catalog.filters.#{@filter.to_s}")
+        %i.fa.fa-angle-down.dropdown-icon.pull-right
+      %ul.dropdown-menu
+        - Book::FILTERS.each do |filter|
+          %li= link_to t("catalog.filters.#{filter.to_s}"), categories_path(id: params[:id], filter: filter)
+  %ul.list-inline.pt-10.mb-25.mr-240
+    %li.mr-35
+      = link_to(categories_path, class: 'filter-link') do
+        = t('catalog.all_categories')
+        %span.badge.general-badge= Book.count
+    - categories.each do |category|
+      %li.mr-35
+        = link_to(category_path(category.id), class: 'filter-link') do
+          = category.title
+          %span.badge.general-badge= qunatity_book_in_category(category.id)
+.dropdowns.mb-25.visible-xs
+  %p.lead.small.mb-10= t('catalog.for_mobile.filter_by_category')
+  .dropdown
+    %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      = @category ? @category.title : t('catalog.all_categories')
+      %i.fa.fa-angle-down.dropdown-icon.pull-right
+    %ul.dropdown-menu
+      %li= link_to t('catalog.all_categories'), categories_path, class: 'filter-link'
+      - categories.each do |category|
+        %li= link_to category.title, category_path(category.id), class: 'filter-link'
+  %p.lead.small.mb-10= t('catalog.for_mobile.sort_by')
+  .dropdown
+    %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      = t("catalog.filters.#{@filter.to_s}")
+      %i.fa.fa-angle-down.dropdown-icon.pull-right
+    %ul.dropdown-menu
+      - Book::FILTERS.each do |filter|
+        %li= link_to t("catalog.filters.#{filter.to_s}"), categories_path(id: params[:id], filter: filter)
+.mb-120
+  - @books.each_slice(4) do |books|
+    .row.mb-25
+      - books.each do |book|
+        = render 'shared/book', book: book.decorate
+  .text-center
+    = link_to t('catalog.view_more_btn'), categories_path(id: params[:id], filter: @filter, page: @page), class: 'btn btn-primary'

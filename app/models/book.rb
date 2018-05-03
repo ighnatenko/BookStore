@@ -1,4 +1,7 @@
 class Book < ApplicationRecord
+  FILTERS = %i[newest popular price_asc price_desc by_title_asc by_title_desc].freeze
+  DEFAULT_FILTER = :newest
+  
   has_many :images, dependent: :destroy
   belongs_to :category
   has_and_belongs_to_many :authors

@@ -46,3 +46,17 @@ en:
     get_started_btn: Get Started
     welcome_to_bookstore: Welcome to our amazing Bookstore!
     description: We pore through hundreds of new books each month and select the five best we can find to share with our members.
+  catalog:
+    title: Сatalog
+    view_more_btn: View More
+    all_categories: 'All'
+    for_mobile:
+      filter_by_category: Filter by category
+      sort_by: Sort by
+    filters:
+      newest: Newest first
+      popular: Popular first
+      price_asc: "Price: Low to high"
+      price_desc: "Price: High to low"
+      by_title_asc: "Title: A - Z"
+      by_title_desc: "Title: Z - A"
