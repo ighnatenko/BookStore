@@ -3,31 +3,37 @@ class CategoriesController < ApplicationController
 
   def index
     if params[:id]
-      @category = Category.find_by(id: params[:id])
-      @books = Book.where(category_id: params[:id]).by_filter(@filter, params[:page])
-      if params[:page]
-        @page = params[:page].to_i + 1
-      else
-        @page = 2
-      end
+      load_category
+      load_books
     else
       @books = Book.by_filter(@filter, params[:page])
-      if params[:page]
-        @page = params[:page].to_i + 1
-      else
-        @page = 2
-      end
-      
     end
+    set_page_number
     render :show
   end
 
   def show
-    @category = Category.find_by(id: params[:id])
-    @books = Book.where(category_id: params[:id]).by_filter(@filter, params[:page])
+    load_category
+    load_books
   end
 
   private
+
+  def load_category
+    @category = Category.find_by(id: params[:id])
+  end
+
+  def load_books
+    @books = Book.where(category_id: params[:id]).by_filter(@filter, params[:page])
+  end
+
+  def set_page_number
+    if params[:page]
+      @page = params[:page].to_i + 1
+    else
+      @page = 2
+    end
+  end
 
   def set_filter
     @filter = Book::FILTERS.include?(params[:filter]&.to_sym) ? params[:filter] : Book::DEFAULT_FILTER
