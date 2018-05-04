@@ -16,7 +16,7 @@ class CheckoutController < ApplicationController
     shipping_params[:address_type] = :shipping
     @shipping_address = update_address(@order, :shipping, shipping_params)
 
-    render 'address'
+    render address_valid?(@order) ? :delivery : :address
   end
 
   def delivery
@@ -45,6 +45,16 @@ class CheckoutController < ApplicationController
 
   private
 
+  def address_valid?(order)
+    billing_address = order.addresses.find_by_address_type(:billing)
+    shipping_address = order.addresses.find_by_address_type(:shipping)
+    (nil_or_invalid?(billing_address) || nil_or_invalid?(shipping_address)) ? false : true
+  end
+
+  def nil_or_invalid?(object)
+    object.nil? || object.invalid?
+  end
+
   def billing_address_params
     params.require(:billing_address).permit(:firstname, :lastname, :address,
      :city, :zipcode, :country, :phone, :address_type)
@@ -56,7 +66,7 @@ class CheckoutController < ApplicationController
   end
 
   def update_address(order, address_type, params)
-    address = @order.addresses.find_by_address_type(address_type)
+    address = order.addresses.find_by_address_type(address_type)
     address ? address.update(params) : address = order.addresses.create(params)
     address
   end

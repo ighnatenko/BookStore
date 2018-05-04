@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'categories/index'
-
-  get 'categories/show'
-
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions',
@@ -11,16 +7,12 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :checkout do
-    collection do
-      get 'index'
-      put 'address'
-      put 'delivery'
-      put 'payment'
-      put 'confirm'
-      put 'complete'
-    end
-  end
+  resources :checkout, only: %i[index]
+  put 'checkout_address', to: 'checkout#address'
+  put 'checkout_delivery', to: 'checkout#delivery'
+  put 'checkout_payment', to: 'checkout#payment'
+  put 'checkout_confirm', to: 'checkout#confirm'
+  put 'checkout_complete', to: 'checkout#complete'
 
   resources :categories, only: %i[index show]
   resources :home, only: %i[index show]
@@ -33,7 +25,6 @@ Rails.application.routes.draw do
   get 'cart', action: :index, controller: 'cart'
   post 'cart_item', action: :add_item, controller: 'cart'
   
-
   get 'confirmation', action: :send_order_confirmation, controller: 'checkout'
 
   # resources :cart, only: %i[index show]

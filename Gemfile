@@ -26,10 +26,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "font-awesome-rails"
 gem 'jquery-rails'
 gem 'country_select'
-gem 'simple_form'
 gem 'draper', '~> 3.0', '>= 3.0.1'
 gem 'cancancan', '~> 2.0'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
+gem 'simple_form'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

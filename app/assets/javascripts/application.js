@@ -15,4 +15,5 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require checkout_address
+//= a
 //= require_tree .

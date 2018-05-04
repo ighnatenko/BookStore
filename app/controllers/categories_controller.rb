@@ -28,10 +28,10 @@ class CategoriesController < ApplicationController
   end
 
   def set_page_number
-    if params[:page]
-      @page = params[:page].to_i + 1
+    @page = if params[:page]
+      params[:page].to_i + 1
     else
-      @page = 2
+      2
     end
   end
 

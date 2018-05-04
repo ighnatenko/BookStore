@@ -9,6 +9,8 @@ class Order < ApplicationRecord
   validates :tracking_number, presence: true
   validates :state, presence: true
 
+  # accepts_nested_attributes_for :addresses
+
   scope :by_state, ->(state) { where(state: state) }
 
   aasm column: :state do
