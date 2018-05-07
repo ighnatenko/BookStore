@@ -15,5 +15,5 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require checkout_address
-//= a
+//= book
 //= require_tree .

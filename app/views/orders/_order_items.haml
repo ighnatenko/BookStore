@@ -22,7 +22,7 @@
           %td
             %span.in-grey-600 Total
           %td
-            %strong.font-16= "€ #{item.total_price}"
+            %strong.font-16= "€#{item.total_price}"
 .hidden-xs.mb-res-50
   %table.table.table-hover
     %thead
@@ -46,4 +46,4 @@
             %span.font-16.fw-300{class: (item.state.to_s == 'delivered' ? 'text-success' : 'in-grey-900')}
               = item.state.to_s.tr('_', ' ').capitalize
           %td
-            %strong.font-16= "€ #{item.total_price}"
+            %strong.font-16= "€#{item.total_price}"

@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  authorize_resource
-  
   def index
     @orders = Order.all
     @orders = @orders.by_state(params[:state].to_sym) if valid_state?

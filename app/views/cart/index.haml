@@ -1,139 +1,79 @@
 %h1.general-title-margin Cart
-.visible-xs
-  .general-cart-item.divider-lg-bottom
-    %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-      %span{'aria-hidden': "true"} &times;
-    .general-img-wrap-table
-      %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-    %p.title Android Programming for Beginners
-    %table.table
-      %tr
-        %td
-          %span.in-grey-600 Price
-        %td
-          %span.font-16.in-gold-500 €28.50
-      %tr
-        %td.vertical-middle
-          %span.in-grey-600 Quantity
-        %td
-          .input-group
-            %a.input-link{href: "#"}
-              %i.fa.fa-minus.line-heaght-40
-            %input.form-control.quantity-input{type: "text"}
-            %a.input-link{href: "#"}
-              %i.fa.fa-plus.line-heaght-40
-      %tr
-        %td
-          %span.in-grey-600 SubTotal
-        %td
-          %span.font-16.in-gold-500 €32.90
-  .general-cart-item.divider-lg-bottom.mb-30
-    %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-      %span{'aria-hidden': "true"} &times;
-    .general-img-wrap-table
-      %img.cart-img-shadow{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-    %p.title Android Programming for Beginners
-    %table.table
-      %tr
-        %td
-          %span.in-grey-600 Price
-        %td
-          %span.font-16.in-gold-500 €28.50
-      %tr
-        %td.vertical-middle
-          %span.in-grey-600 Quantity
-        %td
-          .input-group
-            %a.input-link{href: "#"}
-              %i.fa.fa-minus.line-heaght-40
-            %input.form-control.quantity-input{type: "text"}
-            %a.input-link{href: "#"}
-              %i.fa.fa-plus.line-heaght-40
-      %tr
-        %td
-          %span.in-grey-600 SubTotal
-        %td
-          %span.font-16.in-gold-500 €32.90
-.hidden-xs
-  %table.table.table-hover
-    %tr.no-hover
-      %th.col-pic.pl-0
-        %span.in-grey-600 Product
-      %th.col-title
-      %th.col-price
-        %span.in-grey-600 Price
-      %th.col-quantity
-        %span.in-grey-600 Quantity
-      %th.col-total
-        %span.in-grey-600 SubTotal
-      %th.col-close
-    %tr
-      %td
-        .general-img-wrap-table
-          %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-      %td
-        %p.title Android Programming for Beginners
-      %td
-        %span.font-16.in-gold-500 €28.50
-      %td
-        .input-group
-          %a.input-link{href: "#"}
-            %i.fa.fa-minus.line-heaght-40
-          %input.form-control.quantity-input{type: "text"}
-          %a.input-link{href: "#"}
-            %i.fa.fa-plus.line-heaght-40
-      %td
-        %span.font-16.in-gold-500 €32.90
-      %td
-        %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
+- if @items.count == 0
+  %br
+  %h1= "Empty cart"
+  %br
+  .text-center
+    = link_to 'Back to Store', root_path, class: 'btn btn-default mb-20'
+- else    
+  .visible-xs
+    - @items.each do |item|
+      .general-cart-item.divider-lg-bottom.mb-30
+        = link_to(cart_path(book_id: item.id), method: :delete, class: 'close general-cart-close', 'aria-label': "Close") do
           %span{'aria-hidden': "true"} &times;
-    %tr
-      %td
         .general-img-wrap-table
-          %img.cart-img-shadow.pull-left{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-      %td
-        %p.title Android Programming for Beginners
-      %td
-        %span.font-16.in-gold-500 €28.50
-      %td
-        .input-group
-          %a.input-link{href: "#"}
-            %i.fa.fa-minus.line-heaght-40
-          %input.form-control.quantity-input{type: "text"}
-          %a.input-link{href: "#"}
-            %i.fa.fa-plus.line-heaght-40
-      %td
-        %span.font-16.in-gold-500 €32.90
-      %td
-        %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-          %span{'aria-hidden': "true"} &times;
-.general-order-wrap
-  .row
-    .col-sm-4
-      .input-group.general-input-group
-        %label.input-label Enter Your Coupon Code
-        %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code "}
-        %div
-          %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
-          %button.btn.btn-primary.mb-15.res-block Update cart
-    .col-sm-8
-      .res-mr-200.text-center.general-text-right
-        %p.in-gold-500.font-18 Order Summary
-        %table.general-summary-table.general-summary-table-right.general-text-right
+          = image_tag(item.decorate.root_image, class: 'cart-img-shadow')
+        %p.title= item.decorate.title
+        %table.table
           %tr
             %td
-              %p.font-16 Subtotal:
+              %span.in-grey-600 Price
             %td
-              %p.font-16 €117.69
+              %span.font-16.in-gold-500= "€#{item.decorate.price}"
+          %tr
+            %td.vertical-middle
+              %span.in-grey-600 Quantity
+            %td
+              .input-group
+                = link_to cart_decrement_item_path(book_id: item.id), method: :put, class: 'input-link' do
+                  %i.fa.fa-minus.line-heaght-40
+                %input.form-control.quantity-input{type: "text", value: item.decorate.quantity_in_cart}
+                = link_to cart_increment_item_path(book_id: item.id), method: :put, class: 'input-link' do
+                  %i.fa.fa-plus.line-heaght-40
           %tr
             %td
-              %p.font-16 Coupon:
+              %span.in-grey-600 SubTotal
             %td
-              %p.font-16 €0.00
-          %tr
-            %td
-              %strong.font-18 Order Total:
-            %td
-              %strong.font-18 €117.69
-        %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-%button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+              %span.font-16.in-gold-500= "€#{item.decorate.total_price}"
+  .hidden-xs
+    %table.table.table-hover
+      %tr.no-hover
+        %th.col-pic.pl-0
+          %span.in-grey-600 Product
+        %th.col-title
+        %th.col-price
+          %span.in-grey-600 Price
+        %th.col-quantity
+          %span.in-grey-600 Quantity
+        %th.col-total
+          %span.in-grey-600 SubTotal
+        %th.col-close
+      - @items.each do |item|    
+        %tr
+          %td
+            .general-img-wrap-table
+              = image_tag(item.decorate.root_image, class: 'cart-img-shadow pull-left')
+          %td
+            %p.title= item.decorate.title
+          %td
+            %span.font-16.in-gold-500= "€#{item.decorate.price}"
+          %td
+            .input-group
+              = link_to cart_decrement_item_path(book_id: item.id), method: :put, class: 'input-link' do
+                %i.fa.fa-minus.line-heaght-40
+              %input.form-control.quantity-input{type: "text", value: item.decorate.quantity_in_cart}
+              = link_to cart_increment_item_path(book_id: item.id), method: :put, class: 'input-link' do
+                %i.fa.fa-plus.line-heaght-40
+          %td
+            %span.font-16.in-gold-500= "€#{item.decorate.total_price}"
+          %td
+            = link_to(cart_path(book_id: item.id), method: :delete, class: 'close general-cart-close', 'aria-label': "Close") do
+              %span{'aria-hidden': "true"} &times;
+  .general-order-wrap
+    .row
+      .col-sm-4
+        - unless @order.coupon
+          = render 'coupon'
+      = render 'order_summary'   
+  = link_to checkout_index_path do
+    %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout

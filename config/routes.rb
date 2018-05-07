@@ -21,10 +21,14 @@ Rails.application.routes.draw do
   end
   resources :books, only: %i[show]
   resources :addresses, only: %i[create update]
+  resources :coupons, only: %i[create]
 
   get 'cart', action: :index, controller: 'cart'
   post 'cart_item', action: :add_item, controller: 'cart'
-  
+  delete 'cart', action: :destroy, controller: 'cart'
+  put 'cart_decrement_item', action: :decrement, controller: 'cart'
+  put 'cart_increment_item', action: :increment, controller: 'cart'
+
   get 'confirmation', action: :send_order_confirmation, controller: 'checkout'
 
   # resources :cart, only: %i[index show]

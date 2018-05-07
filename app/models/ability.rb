@@ -10,7 +10,6 @@ class Ability
       can :manage, :all
     elsif user.confirmed_at
       can :manage, :all
-      # can %i[read], Order, user_id: user.id
     end
   end
 end

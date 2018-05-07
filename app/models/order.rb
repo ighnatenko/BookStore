@@ -2,16 +2,20 @@ class Order < ApplicationRecord
   include AASM
   belongs_to :user, optional: true
   has_many :addresses, as: :addressable, dependent: :destroy
-  has_one :credit_card, dependent: :destroy
+  has_one :credit_card, as: :cardable, dependent: :destroy
   has_many :positions
   has_many :books, through: :positions
-  
+  belongs_to :delivery, optional: true
+  has_one :coupon
+
   validates :tracking_number, presence: true
   validates :state, presence: true
-
-  # accepts_nested_attributes_for :addresses
-
+  
   scope :by_state, ->(state) { where(state: state) }
+
+  # In delivery
+  # Delivered
+  # Canceled
 
   aasm column: :state do
     state :in_progress, initial: true

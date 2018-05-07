@@ -16,15 +16,37 @@ class CheckoutController < ApplicationController
     shipping_params[:address_type] = :shipping
     @shipping_address = update_address(@order, :shipping, shipping_params)
 
-    render address_valid?(@order) ? :delivery : :address
+    if address_valid?(@order)
+      @order = Order.last
+      @deliveries = Delivery.all
+      render :delivery
+    else 
+      render :address
+    end
   end
 
   def delivery
-    render 'delivery'
+    @order = Order.last
+    @deliveries = Delivery.all
+    if update_delivery(@order, params) && params[:delivery].present?
+      @credit_card = @order.credit_card
+      if nil_or_invalid?(@credit_card)
+        @credit_card = CreditCard.new
+      end
+      render :payment
+    else
+      render :delivery, alert: 'Выберите способ оплаты'
+    end
   end
 
   def payment
-    render 'payment'
+    @order = Order.last
+    @credit_card = update_credit_card(@order, credit_card_params)
+    if credit_card_valid?(@order)
+      render :confirm
+    else
+      render :payment
+    end
   end
 
   def confirm
@@ -44,11 +66,15 @@ class CheckoutController < ApplicationController
   end
 
   private
-
+  
   def address_valid?(order)
     billing_address = order.addresses.find_by_address_type(:billing)
     shipping_address = order.addresses.find_by_address_type(:shipping)
     (nil_or_invalid?(billing_address) || nil_or_invalid?(shipping_address)) ? false : true
+  end
+
+  def credit_card_valid?(order)
+    !nil_or_invalid?(order.credit_card)
   end
 
   def nil_or_invalid?(object)
@@ -65,9 +91,23 @@ class CheckoutController < ApplicationController
      :city, :zipcode, :country, :phone, :address_type)
   end
 
+  def credit_card_params
+    params.require(:credit_card).permit(:number, :cvv, :expiration_date, :card_name)
+  end
+
   def update_address(order, address_type, params)
     address = order.addresses.find_by_address_type(address_type)
     address ? address.update(params) : address = order.addresses.create(params)
     address
+  end
+
+  def update_credit_card(order, params)
+    credit_card = order.credit_card
+    credit_card ? credit_card.update(params) : credit_card = order.create_credit_card(params)
+    credit_card
+  end
+
+  def update_delivery(order, params)
+    order.update(delivery_id: params[:delivery])
   end
 end

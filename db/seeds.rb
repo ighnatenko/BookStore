@@ -12,6 +12,13 @@
 # city: 'city', zipcode: 'zipcode', country: 'country', phone: 'phone', 
 # address_type: :billing)
 
+Delivery.destroy_all
+
+3.times do |index|
+  Delivery.create(title: 'Delivery - test', price: index * 5, days: '3 to 5 days')
+end
+
+
 Order.destroy_all
         
 2.times do
@@ -50,13 +57,19 @@ Author.destroy_all
 Book.destroy_all
 Image.destroy_all
 Category.destroy_all
-
+Coupon.destroy_all
 
 10.times do |index|
   category = Category.create(title: "#{index + 1} #{Faker::Book.genre}")
 
   unless category.valid?
     puts category.errors.full_messages
+  end
+
+  coupon = Coupon.create(code: "code-#{index}", discount: index + 3)
+
+  unless coupon.valid?
+    puts coupon.errors.full_messages
   end
 
   10.times do

@@ -9,11 +9,15 @@ class BookDecorator < Draper::Decorator
     images.any? ? images.first.url : 'default'
   end
 
-  def authors
-    authors = []
-    authors.each do |a|
-      authors << "#{a.firstname} #{a.lastname}"
-    end
-    authors.join(', ')
+  def authors_names
+    authors.map { |author| author.decorate.full_name }.join(', ')
+  end
+
+  def quantity_in_cart
+    Position.find_by(book_id: self.id).quantity
+  end
+
+  def total_price
+    quantity_in_cart * price
   end
 end

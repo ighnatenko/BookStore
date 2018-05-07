@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501172053) do
+ActiveRecord::Schema.define(version: 20180507224300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,22 +71,33 @@ ActiveRecord::Schema.define(version: 20180501172053) do
   end
 
   create_table "coupons", force: :cascade do |t|
-    t.string "title", null: false
-    t.decimal "discount", default: "0.0", null: false
-    t.boolean "available", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "order_id"
+    t.string "code", null: false
+    t.decimal "discount", null: false
+    t.index ["order_id"], name: "index_coupons_on_order_id"
   end
 
   create_table "credit_cards", force: :cascade do |t|
     t.string "number"
     t.string "cvv", limit: 3
-    t.date "expiration"
-    t.string "owner"
-    t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_credit_cards_on_order_id"
+    t.string "cardable_type"
+    t.bigint "cardable_id"
+    t.string "card_name", null: false
+    t.string "expiration_date", null: false
+    t.index ["cardable_type", "cardable_id"], name: "index_credit_cards_on_cardable_type_and_cardable_id"
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "days", null: false
+    t.decimal "price", precision: 5, scale: 2, null: false
+    t.boolean "active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "images", force: :cascade do |t|
@@ -110,6 +121,8 @@ ActiveRecord::Schema.define(version: 20180501172053) do
     t.string "state", default: "in_progress"
     t.string "tracking_number"
     t.decimal "total_price", precision: 10, scale: 2, default: "0.0"
+    t.bigint "delivery_id"
+    t.index ["delivery_id"], name: "index_orders_on_delivery_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -157,8 +170,8 @@ ActiveRecord::Schema.define(version: 20180501172053) do
   add_foreign_key "authors_books", "authors"
   add_foreign_key "authors_books", "books"
   add_foreign_key "books", "categories"
-  add_foreign_key "credit_cards", "orders"
   add_foreign_key "images", "books"
+  add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "users"
   add_foreign_key "positions", "books"
   add_foreign_key "positions", "orders"
