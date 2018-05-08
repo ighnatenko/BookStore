@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :addresses, as: :addressable, dependent: :destroy
   has_one :credit_card, as: :cardable, dependent: :destroy
   has_many :positions
-  has_many :books, through: :positions
+  has_many :books, through: :positions, dependent: :destroy
   belongs_to :delivery, optional: true
   has_one :coupon
 
@@ -13,31 +13,17 @@ class Order < ApplicationRecord
   
   scope :by_state, ->(state) { where(state: state) }
 
-  # In delivery
-  # Delivered
-  # Canceled
-
   aasm column: :state do
     state :in_progress, initial: true
-    state :in_delivery
+    state :in_delivery, after_enter: :send_confirmation
     state :delivered
-    state :completed
-    state :canceled
 
-    event :in_progress do
+    event :deliver do
       transitions from: :in_progress, to: :in_delivery
     end
 
-    event :in_delivery do
+    event :completed do
       transitions from: :in_delivery, to: :delivered
-    end
-
-    event :delivered do
-      transitions from: :delivered, to: :completed
-    end
-
-    event :cancel do
-      transitions from: %i[in_progress in_delivery delivered completed], to: :canceled
     end
   end
 
@@ -48,6 +34,13 @@ class Order < ApplicationRecord
   def set_confirmation_token
     if self.confirmation_token.blank?
       self.confirmation_token = SecureRandom.urlsafe_base64.to_s
+      self.save(validate: false)
     end
+  end
+
+  def send_confirmation
+    set_confirmation_token
+    OrderMailer.order_confirmation(self).deliver_now
+    redirect_to root_path, notice: "Please confirm your order to continue"
   end
 end

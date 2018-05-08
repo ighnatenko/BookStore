@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :set_order
 
   private
+
   def set_order
     @current_order = session_order
   end
@@ -16,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def new_order
-    order = Order.new # create(user: current_user)
+    order = Order.new
     order.user_id = current_user.id
     order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
     order.save

@@ -8,12 +8,6 @@ class CouponsController < ApplicationController
     redirect_to cart_path, notice: 'coupon.added'
   end
 
-  # def destroy
-  #   @order = Order.last
-  #   @order.coupon.update(order_id: nil)
-  #   redirect_to cart_path, notice: t('coupon.removed')
-  # end
-
   private
 
   def coupon_params

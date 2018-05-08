@@ -1,5 +1,5 @@
 %h1.general-title-margin Checkout
-= render 'steps'
+= render 'steps', step: :confirm
 .row.mb-20
   - @order.addresses.each do |address|
     .col-sm-3
@@ -7,7 +7,7 @@
       %p.general-address
         = "#{address.firstname} #{address.lastname}"
         %span
-          = link_to 'edit', checkout_index_path, class: 'general-edit'
+          = link_to 'edit', checkout_address_path, class: 'general-edit'
         %br
         = address.address
         %br

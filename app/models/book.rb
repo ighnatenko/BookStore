@@ -6,7 +6,7 @@ class Book < ApplicationRecord
   belongs_to :category
   has_and_belongs_to_many :authors
   has_many :positions
-  has_many :orders, through: :positions
+  has_many :orders, through: :positions, dependent: :destroy
   
   validates :title, :price, :materials, presence: true
   validates :height, :width, :depth, numericality: { greater_than_or_equal_to: 0 }

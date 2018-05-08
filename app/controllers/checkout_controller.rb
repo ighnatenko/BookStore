@@ -1,72 +1,60 @@
 class CheckoutController < ApplicationController
-  def index
-    @order = Order.last
-    @billing_address = @order.addresses.find_by_address_type(:billing)
-    @shipping_address = @order.addresses.find_by_address_type(:shipping)
-    render 'address'
-  end
+  include CheckoutParams
 
   def address
     @order = Order.last
-    @order.update(use_billing: params[:use_billing] || false)
-    @billing_address = update_address(@order, :billing, billing_address_params)
-
-    shipping_params = 
-    params[:use_billing] ? billing_address_params : shipping_address_params
-    shipping_params[:address_type] = :shipping
-    @shipping_address = update_address(@order, :shipping, shipping_params)
-
-    if address_valid?(@order)
-      @order = Order.last
-      @deliveries = Delivery.all
-      render :delivery
-    else 
-      render :address
-    end
+    @billing_address = @order.addresses.find_by_address_type(:billing)
+    @shipping_address = @order.addresses.find_by_address_type(:shipping)
+    render :address
   end
 
   def delivery
     @order = Order.last
     @deliveries = Delivery.all
-    if update_delivery(@order, params) && params[:delivery].present?
-      @credit_card = @order.credit_card
-      if nil_or_invalid?(@credit_card)
-        @credit_card = CreditCard.new
-      end
-      render :payment
-    else
-      render :delivery, alert: 'Выберите способ оплаты'
-    end
+    set_address_for_order(@order)
+    address_valid?(@order) ? (render :delivery) : (render :address)
   end
 
   def payment
     @order = Order.last
-    @credit_card = update_credit_card(@order, credit_card_params)
-    if credit_card_valid?(@order)
-      render :confirm
-    else
+
+    update_delivery(@order, params) if params[:delivery].present?
+
+    if @order.credit_card
+      @credit_card = @order.credit_card
+      @credit_card = CreditCard.new if nil_or_invalid?(@credit_card)
       render :payment
+    else
+      delivery
     end
   end
 
   def confirm
-    render 'confirm'
+    @order = Order.last
+    @credit_card = update_credit_card(@order, credit_card_params)
+    credit_card_valid?(@order) ? (render :confirm) : (render :payment)
   end
 
   def complete
-    render 'complete'
-  end
-
-  def send_order_confirmation
-    order = Order.last
-    order.set_confirmation_token
-    order.save(validate: false)
-    OrderMailer.order_confirmation(order).deliver_now
-    redirect_to root_path, notice: "Please confirm your order to continue"
+    @order = Order.last
+    @order.deliver
+    @shipping_address = @order.addresses.find_by_address_type(:shipping)
+    render :complete
   end
 
   private
-  
+
+  def set_address_for_order(order)
+    if params[:billing_address].present? && params[:shipping_address].present?
+      order.update(use_billing: params[:use_billing] || false)
+      @billing_address = update_address(order, :billing, billing_address_params)
+
+      shipping_params = params[:use_billing] ? billing_address_params : shipping_address_params
+      shipping_params[:address_type] = :shipping
+      @shipping_address = update_address(order, :shipping, shipping_params)
+    end
+  end
+
   def address_valid?(order)
     billing_address = order.addresses.find_by_address_type(:billing)
     shipping_address = order.addresses.find_by_address_type(:shipping)
@@ -79,20 +67,6 @@ class CheckoutController < ApplicationController
 
   def nil_or_invalid?(object)
     object.nil? || object.invalid?
-  end
-
-  def billing_address_params
-    params.require(:billing_address).permit(:firstname, :lastname, :address,
-     :city, :zipcode, :country, :phone, :address_type)
-  end
-
-  def shipping_address_params
-    params.require(:shipping_address).permit(:firstname, :lastname, :address,
-     :city, :zipcode, :country, :phone, :address_type)
-  end
-
-  def credit_card_params
-    params.require(:credit_card).permit(:number, :cvv, :expiration_date, :card_name)
   end
 
   def update_address(order, address_type, params)
