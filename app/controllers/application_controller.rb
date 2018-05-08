@@ -10,17 +10,14 @@ class ApplicationController < ActionController::Base
 
   def session_order
     order = Order.find_by(id: session[:order_id]) || Order.find_by(user: current_user)
-    if order.blank? || order.completed
+    if order.blank? || order.state == 'in_delivery'
       return new_order
     end
     order
   end
 
   def new_order
-    order = Order.new
-    order.user_id = current_user.id
-    order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-    order.save
+    order = Order.create(user_id: current_user.id, tracking_number: "R#{Time.now.strftime('%d%m%y%H%M%S')}")
     session[:order_id] = order.id
     order
   end
