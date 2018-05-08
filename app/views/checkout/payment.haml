@@ -20,5 +20,5 @@
           = f.input :cvv, input_html: { class: 'form-control' }, label: "CVV",
           placeholder: "CVV", label_html: { class: 'control-label input-label' }
           %i.fa.fa-question-circle.general-form-help
-  = render 'order_summary'
+  = render 'order_summary', order: @order
   = submit_tag 'Save and Continue', class:'btn btn-default center-block mb-20'

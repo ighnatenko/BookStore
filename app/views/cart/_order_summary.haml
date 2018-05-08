@@ -6,16 +6,16 @@
         %td
           %p.font-16 Subtotal:
         %td
-          %p.font-16 €117.69
+          %p.font-16= "€#{order.decorate.subtotal}"
       %tr
         %td
           %p.font-16 Coupon:
         %td
-          %p.font-16 €0.00
+          %p.font-16= "€#{order.decorate.coupon_discount}"
       %tr
         %td
           %strong.font-18 Order Total:
         %td
-          %strong.font-18 €117.69
+          %strong.font-18= "€#{order.decorate.order_total}"
     = link_to checkout_index_path do        
       %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout

@@ -51,6 +51,6 @@
               %span= delivery.days
             %td
               %span.font-16.in-gold-500="€#{delivery.price}"
-    = render 'order_summary'
+    = render 'order_summary', order: @order
     .text-center
       = submit_tag('Save and Continue', class: 'btn btn-default mb-20', id: 'deliveries-submit-btn')

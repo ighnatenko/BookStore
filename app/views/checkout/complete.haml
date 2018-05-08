@@ -72,6 +72,6 @@
             %span.ml-30= book.decorate.quantity_in_cart
           %td
             %span.font-16.in-gold-500= "€#{book.decorate.total_price}"
-= render 'order_summary'
+= render 'order_summary', order: @order
 .text-center
   = link_to 'Back to Store', root_path, class: 'btn btn-default mb-20'

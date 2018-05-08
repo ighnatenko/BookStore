@@ -27,5 +27,5 @@
           %span.checkbox-icon
             %i.fa.fa-check
           %span.checkbox-text Use Billing Adress
-  = render 'order_summary'
+  = render 'order_summary', order: @order
   = submit_tag 'Save and Continue', class:'btn btn-default center-block mb-20'
