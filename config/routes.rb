@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions',
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  get 'checkout_address', to: 'checkout#address'
+  put 'checkout_address', to: 'checkout#address'
   put 'checkout_delivery', to: 'checkout#delivery'
   put 'checkout_payment', to: 'checkout#payment'
   put 'checkout_confirm', to: 'checkout#confirm'
