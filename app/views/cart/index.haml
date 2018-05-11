@@ -27,14 +27,14 @@
               .input-group
                 = link_to cart_decrement_item_path(book_id: item.id), method: :put, class: 'input-link' do
                   %i.fa.fa-minus.line-heaght-40
-                %input.form-control.quantity-input{type: "text", value: item.decorate.quantity_in_cart}
+                %input.form-control.quantity-input{type: "text", value: item.decorate.quantity_in_cart(@order)}
                 = link_to cart_increment_item_path(book_id: item.id), method: :put, class: 'input-link' do
                   %i.fa.fa-plus.line-heaght-40
           %tr
             %td
               %span.in-grey-600 SubTotal
             %td
-              %span.font-16.in-gold-500= "€#{item.decorate.total_price}"
+              %span.font-16.in-gold-500= "€#{item.decorate.total_price(@order)}"
   .hidden-xs
     %table.table.table-hover
       %tr.no-hover
@@ -61,11 +61,11 @@
             .input-group
               = link_to cart_decrement_item_path(book_id: item.id), method: :put, class: 'input-link' do
                 %i.fa.fa-minus.line-heaght-40
-              %input.form-control.quantity-input{type: "text", value: item.decorate.quantity_in_cart}
+              %input.form-control.quantity-input{type: "text", value: item.decorate.quantity_in_cart(@order)}
               = link_to cart_increment_item_path(book_id: item.id), method: :put, class: 'input-link' do
                 %i.fa.fa-plus.line-heaght-40
           %td
-            %span.font-16.in-gold-500= "€#{item.decorate.total_price}"
+            %span.font-16.in-gold-500= "€#{item.decorate.total_price(@order)}"
           %td
             = link_to(cart_path(book_id: item.id), method: :delete, class: 'close general-cart-close', 'aria-label': "Close") do
               %span{'aria-hidden': "true"} &times;

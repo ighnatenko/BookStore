@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_filter
+  before_action :authenticate_user!, :set_filter
 
   def index
     if params[:id]

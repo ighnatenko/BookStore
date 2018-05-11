@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   def session_order
     order = Order.find_by(id: session[:order_id]) || Order.find_by(user: current_user)
-    if order.blank? || order.state == 'in_delivery'
+    if order.blank? || order.state == 'in_delivery' || order.state == 'delivered'
       return new_order
     end
     order

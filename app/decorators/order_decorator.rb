@@ -7,7 +7,7 @@ class OrderDecorator < Draper::Decorator
   end
 
   def subtotal
-    books.map(&:decorate).map(&:total_price).reduce(&:+)
+    books.map(&:decorate).map{ |item| item.total_price(self) }.reduce(&:+)
   end
 
   def coupon_discount

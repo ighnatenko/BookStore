@@ -1,7 +1,7 @@
 .col-xs-6.col-sm-3
   .general-thumb-wrap
     %div{class: 'thumbnail general-thumbnail' + (book.quantity.zero? ? ' disabled' : '')}
-      = image_tag(book.root_image, class: 'img-shadow general-thumbnail-img')
+      = cl_image_tag(book.root_image, class: 'img-shadow general-thumbnail-img')
       .thumb-hover
         .general-thumb-link-wrap
           = link_to book_path(book.id), class: 'thumb-hover-link eye-show-book-btn' do

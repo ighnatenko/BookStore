@@ -30,6 +30,7 @@ gem 'draper', '~> 3.0', '>= 3.0.1'
 gem 'cancancan', '~> 2.0'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 gem 'simple_form'
+gem 'cloudinary'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

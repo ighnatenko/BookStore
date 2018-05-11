@@ -13,11 +13,11 @@ class BookDecorator < Draper::Decorator
     authors.map { |author| author.decorate.full_name }.join(', ')
   end
 
-  def quantity_in_cart
-    Position.find_by(book_id: self.id).quantity
+  def quantity_in_cart(order)
+    Position.find_by(order_id: order.id, book_id: self.id).quantity
   end
 
-  def total_price
-    quantity_in_cart * price
+  def total_price(order)
+    quantity_in_cart(order) * price
   end
 end

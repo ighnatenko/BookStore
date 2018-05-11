@@ -13,14 +13,17 @@
 # address_type: :billing)
 
 Delivery.destroy_all
+Order.destroy_all
+Author.destroy_all
+Book.destroy_all
+Image.destroy_all
+Category.destroy_all
+Coupon.destroy_all
 
 3.times do |index|
   Delivery.create(title: 'Delivery - test', price: index * 5, days: '3 to 5 days')
 end
-
-
-Order.destroy_all
-        
+     
 2.times do
   order = Order.new
   order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
@@ -51,13 +54,6 @@ Order.destroy_all
   order5.state = 'canceled'
   order5.save
 end
-
-
-Author.destroy_all
-Book.destroy_all
-Image.destroy_all
-Category.destroy_all
-Coupon.destroy_all
 
 10.times do |index|
   category = Category.create(title: "#{index + 1} #{Faker::Book.genre}")
