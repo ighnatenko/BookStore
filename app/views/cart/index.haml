@@ -72,7 +72,9 @@
   .general-order-wrap
     .row
       .col-sm-4
-        - unless @order.coupon
+        - if @order.coupon
+          %h3= 'Coupon used'
+        - else
           = render 'coupon'
       = render 'order_summary', order: @order
   = link_to checkout_address_path, method: :put do

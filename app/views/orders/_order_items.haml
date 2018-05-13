@@ -6,7 +6,10 @@
           %td.col-half
             %span.in-grey-600 Number
           %td.col-half
-            %span.general-order-number= link_to(item.tracking_number, order_path(item))
+            - if item.in_progress?
+              %span.general-order-number= item.tracking_number
+            - else
+              %span.general-order-number= link_to(item.tracking_number, order_path(item))
         %tr
           %td
             %span.in-grey-600 Completed at
@@ -39,7 +42,10 @@
       - orders.each do |item|
         %tr
           %td
-            %span.general-order-number= link_to(item.tracking_number, order_path(item))
+            - if item.in_progress?
+              %span.general-order-number= item.tracking_number
+            - else
+              %span.general-order-number= link_to(item.tracking_number, order_path(item))
           %td
             %span.in-grey-900.font-16.fw-300= item.created_at.strftime('%Y-%m-%d')
           %td

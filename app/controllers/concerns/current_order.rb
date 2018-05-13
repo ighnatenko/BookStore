@@ -4,13 +4,9 @@ module CurrentOrder
   included do
 
     def present_order
-      @_current_order ||= order_from_session || order_from_current_user
+      @_current_order ||= order_from_current_user || order_from_session
 
-      unless @_current_order&.in_progress? 
-        @_current_order = new_order
-      end
-
-      if @_current_order == nil
+      if @_current_order == nil || !@_current_order.in_progress?
         @_current_order = new_order
       end
     end
@@ -18,7 +14,9 @@ module CurrentOrder
     private
   
     def order_from_current_user
-      current_user&.orders&.find_by(state: 'in_progress')
+      order = current_user&.orders&.find_by(state: 'in_progress')
+      session[:order_id] = order.id if order
+      order
     end
   
     def order_from_session
@@ -26,11 +24,10 @@ module CurrentOrder
     end
   
     def new_order
-      order = Order.create(user: current_user)
-      order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-      order.save
+      tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+      order = Order.create(user: current_user, tracking_number: tracking_number)
       session[:order_id] = order.id
-      order
+      order 
     end
   end
 end
