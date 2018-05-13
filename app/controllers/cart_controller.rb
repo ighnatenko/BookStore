@@ -1,37 +1,39 @@
 class CartController < ApplicationController
+  load_and_authorize_resource :order, :book, :position
+  before_action :set_order
+
   def index
-    @order = Order.last
     @items = @order.books
   end
 
   def add_item
-    @order = Order.last
     if @order.books.where(id: items_params[:book_id]).any?
       return redirect_to cart_path, alert: 'cart.alredy_added'
     end
     Position.create(order_id: @order.id, book_id: items_params[:book_id], quantity: items_params[:quantity].to_i)
-    redirect_to cart_path, notice: 'cart.successful_added'
+    redirect_to cart_path, notice: "cart.successful_added = #{@order.id}"
   end
 
   def destroy
-    @order = Order.last
     @order.books.delete(Book.find(params[:book_id]))
     redirect_to cart_path, notice: "Book successful removed from cart"
   end
 
   def increment
-    @order = Order.last
     change_quantity(true, @order, params[:book_id])
     redirect_to cart_path
   end
 
   def decrement
-    @order = Order.last
     change_quantity(false, @order, params[:book_id])
     redirect_to cart_path
   end
 
   private
+
+  def set_order
+    @order = @_current_order
+  end
 
   def change_quantity(increment, order, book_id)
     position = Position.find_by(order_id: order.id, book_id: book_id)

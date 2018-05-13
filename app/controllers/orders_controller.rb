@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
+  load_and_authorize_resource
+  
   def index
-    @orders = Order.all
+    @orders = current_user.orders.newest
     @orders = @orders.by_state(params[:state].to_sym) if valid_state?
   end
 
   def show
-    
   end
 
   def confirm

@@ -11,5 +11,7 @@
     = render 'shared/header'
     %main.container
       = render 'shared/flash'
+      %p= "pppp == #{@_current_order&.state}"
+      %p= "session == #{session[:order_id]}"
       = yield
     = render 'shared/footer'

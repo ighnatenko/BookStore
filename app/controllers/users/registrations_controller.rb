@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
 
     if resource.persisted?
-      @current_order&.update(user: resource)
+      @_current_order&.update(user: resource)
       resource.active_for_authentication? ? successful_authentication : unsuccessful_authentication
     else
       handle_persisted_resource

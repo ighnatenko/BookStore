@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, :set_filter
-
+  load_and_authorize_resource
+  before_action :set_filter
+  
   def index
     if params[:id]
       load_category

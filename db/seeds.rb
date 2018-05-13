@@ -13,7 +13,7 @@
 # address_type: :billing)
 
 Delivery.destroy_all
-Order.destroy_all
+# Order.destroy_all
 Author.destroy_all
 Book.destroy_all
 Image.destroy_all
@@ -24,36 +24,36 @@ Coupon.destroy_all
   Delivery.create(title: 'Delivery - test', price: index * 5, days: '3 to 5 days')
 end
      
-2.times do
-  order = Order.new
-  order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-  order.save
+# 2.times do
+#   order = Order.new
+#   order.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+#   order.save
 
-  order1 = Order.new
-  order1.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-  order1.state = 'in_delivery'
-  order1.save
+#   order1 = Order.new
+#   order1.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+#   order1.state = 'in_delivery'
+#   order1.save
 
-  order2 = Order.new
-  order2.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-  order2.state = 'delivered'
-  order2.save
+#   order2 = Order.new
+#   order2.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+#   order2.state = 'delivered'
+#   order2.save
 
-  order3 = Order.new
-  order3.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-  order3.state = 'in_delivery'
-  order3.save
+#   order3 = Order.new
+#   order3.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+#   order3.state = 'in_delivery'
+#   order3.save
 
-  order4 = Order.new
-  order4.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-  order4.state = 'completed'
-  order4.save
+#   order4 = Order.new
+#   order4.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+#   order4.state = 'completed'
+#   order4.save
 
-  order5 = Order.new
-  order5.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
-  order5.state = 'canceled'
-  order5.save
-end
+#   order5 = Order.new
+#   order5.tracking_number = "R#{Time.now.strftime('%d%m%y%H%M%S')}"
+#   order5.state = 'canceled'
+#   order5.save
+# end
 
 10.times do |index|
   category = Category.create(title: "#{index + 1} #{Faker::Book.genre}")

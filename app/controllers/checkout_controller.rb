@@ -1,26 +1,23 @@
 class CheckoutController < ApplicationController
   include CheckoutParams
-
+  before_action :authenticate_user!, :set_order
+  
   def address
-    @order = Order.last
     @billing_address = @order.addresses.find_by_address_type(:billing)
     @shipping_address = @order.addresses.find_by_address_type(:shipping)
     render :address
   end
 
   def delivery
-    @order = Order.last
     @deliveries = Delivery.all
     set_address_for_order(@order)
     address_valid?(@order) ? (render :delivery) : (render :address)
   end
 
   def payment
-    @order = Order.last
-
     update_delivery(@order, params) if params[:delivery].present?
 
-    if @order.credit_card
+    if @order.delivery
       @credit_card = @order.credit_card
       @credit_card = CreditCard.new if nil_or_invalid?(@credit_card)
       render :payment
@@ -30,19 +27,21 @@ class CheckoutController < ApplicationController
   end
 
   def confirm
-    @order = Order.last
     @credit_card = update_credit_card(@order, credit_card_params)
     credit_card_valid?(@order) ? (render :confirm) : (render :payment)
   end
 
   def complete
-    @order = Order.last
     @order.deliver
     @shipping_address = @order.addresses.find_by_address_type(:shipping)
     render :complete
   end
 
   private
+
+  def set_order
+    @order = @_current_order
+  end
 
   def set_address_for_order(order)
     if params[:billing_address].present? && params[:shipping_address].present?

@@ -12,7 +12,7 @@
         = link_to(cart_path(book_id: item.id), method: :delete, class: 'close general-cart-close', 'aria-label': "Close") do
           %span{'aria-hidden': "true"} &times;
         .general-img-wrap-table
-          = image_tag(item.decorate.root_image, class: 'cart-img-shadow')
+          = cl_image_tag(item.decorate.root_image, class: 'cart-img-shadow')
         %p.title= item.decorate.title
         %table.table
           %tr
@@ -52,7 +52,7 @@
         %tr
           %td
             .general-img-wrap-table
-              = image_tag(item.decorate.root_image, class: 'cart-img-shadow pull-left')
+              = cl_image_tag(item.decorate.root_image, class: 'cart-img-shadow pull-left')
           %td
             %p.title= item.decorate.title
           %td

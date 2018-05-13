@@ -25,7 +25,7 @@
   - @order.books.each do |book|
     .general-cart-item.divider-lg
       .general-img-wrap-table
-        = image_tag(book.decorate.root_image, class: 'cart-img-shadow')
+        = cl_image_tag(book.decorate.root_image, class: 'cart-img-shadow')
       %p.title= book.title
       %P.in-grey-600.fw-300= book.description
       %table.table
@@ -38,12 +38,12 @@
           %td.vertical-middle
             %span.in-grey-600 Quantity
           %td
-            %span= book.decorate.quantity_in_cart
+            %span= book.decorate.quantity_in_cart(@order)
         %tr
           %td
             %span.in-grey-600 SubTotal
           %td
-            %span.font-16.in-gold-500= "€#{book.decorate.total_price}"
+            %span.font-16.in-gold-500= "€#{book.decorate.total_price(@order)}"
 .hidden-xs.divider-lg.pt-20
   %table.table.table-hover
     %thead
@@ -62,16 +62,16 @@
         %tr
           %td
             .general-img-wrap-table
-              = image_tag(book.decorate.root_image, class: 'cart-img-shadow pull-left')
+              = cl_image_tag(book.decorate.root_image, class: 'cart-img-shadow pull-left')
           %td
             %p.title= book.title
             %p.in-grey-600.fw-300= book.description
           %td
             %span.font-16.in-gold-500= book.price
           %td
-            %span.ml-30= book.decorate.quantity_in_cart
+            %span.ml-30= book.decorate.quantity_in_cart(@order)
           %td
-            %span.font-16.in-gold-500= "€#{book.decorate.total_price}"
+            %span.font-16.in-gold-500= "€#{book.decorate.total_price(@order)}"
 = render 'order_summary', order: @order
 .text-center
   = link_to 'Back to Store', root_path, class: 'btn btn-default mb-20'

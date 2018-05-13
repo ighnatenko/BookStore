@@ -8,4 +8,4 @@
     %li= link_to 'All', orders_path
     - Order.aasm_states.each do |state|
       %li= link_to state.to_s.tr('_', ' ').capitalize, orders_path(state: state)    
-= render 'order_items', items: @orders
+= render 'order_items', orders: @orders

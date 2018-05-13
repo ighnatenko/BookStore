@@ -8,9 +8,9 @@ class Order < ApplicationRecord
   belongs_to :delivery, optional: true
   has_one :coupon
 
-  validates :tracking_number, presence: true
-  validates :state, presence: true
+  validates :tracking_number, :state, presence: true
   
+  scope :newest, -> { order('created_at DESC') }
   scope :by_state, ->(state) { where(state: state) }
 
   aasm column: :state do
@@ -22,7 +22,7 @@ class Order < ApplicationRecord
       transitions from: :in_progress, to: :in_delivery
     end
 
-    event :completed do
+    event :confirm do
       transitions from: :in_delivery, to: :delivered
     end
   end
@@ -40,7 +40,6 @@ class Order < ApplicationRecord
 
   def send_confirmation
     set_confirmation_token
-    OrderMailer.order_confirmation(self).deliver_now
-    redirect_to root_path, notice: "Please confirm your order to continue"
+    OrderMailer.order_confirmation(user, self).deliver_now
   end
 end
