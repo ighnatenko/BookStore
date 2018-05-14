@@ -1,37 +1,4 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
-
   header:
     account: My Account
     orders: Orders
@@ -41,8 +8,24 @@ en:
     sign_up: Sign Up
     brand: Bookstore
     home: Home
-    shop: Shop
+    shop: Shop  
+  checkout:
+    payment_info: Payment Information
+    shipments: Shipments
+    confirmation: "An order confirmation has been has been sent to %{email}"
+    thank_for_order: Thank You for your Order!
+    checkout: Checkout
+    address: Address
+    delivery: Delivery
+    payment: Payment
+    confirm: Confirm
+    complete: Complete
+    use_billing_adress: Use Billing Adress
+    shipping_address: Shipping Address
+    required: all fields are required
+    billing_address: Billing Address
   home:
+    best_sellers: Best Sellers
     get_started_btn: Get Started
     welcome_to_bookstore: Welcome to our amazing Bookstore!
     description: We pore through hundreds of new books each month and select the five best we can find to share with our members.
@@ -60,4 +43,69 @@ en:
       price_desc: "Price: High to low"
       by_title_asc: "Title: A - Z"
       by_title_desc: "Title: Z - A"
-      
+  review:
+    successful:
+      create: Thanks for Review
+    failure:
+      create: Review does not sended
+  cart:
+    credit_card:
+      title: Credit Card
+      method: Method
+      days: Days
+    total: Total
+    empty_cart: Empty cart
+    back_to_store: 'Back to Store'
+    checkout: Checkout
+    order_total: Order Total
+    coupon: Coupon
+    price: Price
+    quantity: Quantity
+    product: Product
+    subtotal: SubTotal
+    order_summary: Order Summary
+    apply_coupon: Apply Coupon
+    enter_coupon: Enter Your Coupon Code
+    alredy_added: Book alredy added
+    successful_added: Book added successful
+    removed: Book successful removed from cart
+  address:
+    successful:
+      create: Address successful created
+      update: Address successful updated
+    failure:
+      create: Address does not created
+      update: Address does not updated    
+    inputs_fields:
+      phone: Phone
+      first_name: First Name
+      last_name: Last Name
+      address: Address
+      city: City
+      zip: Zip
+      country: Country
+      phone_example: Example +355 66 123 4567
+  coupon:
+    not_exist: Coupon not exist
+    used: Coupon used
+    added: Coupon added
+  orders:
+    mailer:
+      title: Confirm your order
+      confirm_message: To confirm your order, just follow this link
+    order: Order
+    shipments: Shipments
+    sort_by: Sort by
+    title: My Orders
+    status: Status
+    completed_at: Completed at
+    number: Number
+    successful: Successful order
+    not_exist: Sorry. Order does not exist
+  books:
+    book: Book
+    send_btn: Send Review 
+    add_review: Add a review
+    add_to_cart: Add to Cart
+    read_more: Read More
+    reviews: Reviews

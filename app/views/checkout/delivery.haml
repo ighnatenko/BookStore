@@ -1,6 +1,6 @@
-%h1.general-title-margin Checkout
+%h1.general-title-margin= t('checkout.checkout')
 = render 'steps', step: :delivery
-%h3.general-subtitle Credit Card
+%h3.general-subtitle= t('cart.credit_card.title')
 .visible-xs
   .general-cart-item.divider-lg-bottom.mb-30
     = form_tag(checkout_payment_path, method: :put) do
@@ -8,7 +8,7 @@
         - @deliveries.each do |delivery|
           %tr
             %td.col-half
-              %span.in-grey-600 Method
+              %span.in-grey-600= t('cart.credit_card.method')
             %td.col-half
               .form-group.radio.mt-0.mb-0
                 %label.radio-label
@@ -17,12 +17,12 @@
                   %span.radio-text= delivery.title
           %tr
             %td
-              %span.in-grey-600 Days
+              %span.in-grey-600= t('cart.credit_card.days')
             %td
               %span.font-16.fw-300= delivery.title
           %tr
             %td
-              %span.in-grey-600 Price
+              %span.in-grey-600= t('cart.price')
             %td
               %span.font-16.in-gold-500="€#{delivery.price}"
       .text-center        
@@ -33,11 +33,11 @@
       %thead
         %tr
           %th.col-method
-            %span.in-grey-600.ml-40 Method
+            %span.in-grey-600.ml-40= t('cart.credit_card.method')
           %th
-            %span.in-grey-600 Days
+            %span.in-grey-600= t('cart.credit_card.days')
           %th
-            %span.in-grey-600 Price
+            %span.in-grey-600= t('cart.price')
       %tbody
         - @deliveries.each do |delivery|
           %tr

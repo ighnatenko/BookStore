@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :orders, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   def self.new_with_session(params, session)
     super.tap do |user|

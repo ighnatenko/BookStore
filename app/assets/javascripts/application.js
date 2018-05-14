@@ -16,4 +16,5 @@
 //= require bootstrap-sprockets
 //= require checkout_address
 //= book
+//= reviews
 //= require_tree .

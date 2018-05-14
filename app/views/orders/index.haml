@@ -1,5 +1,5 @@
-%h1.mt-0.mb-25 My Orders
-%p.lead.small.mb-10.visible-xs Sort by
+%h1.mt-0.mb-25= t('orders.title')
+%p.lead.small.mb-10.visible-xs= t('orders.sort_by')
 .dropdowns.dropdown.general-order-dropdown
   %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
     = params[:state] ? params[:state].to_s.tr('_', ' ').capitalize : 'All'  

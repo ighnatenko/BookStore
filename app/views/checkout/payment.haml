@@ -1,6 +1,6 @@
-%h1.general-title-margin Checkout
+%h1.general-title-margin= t('checkout.checkout')
 = render 'steps', step: :payment
-%h3.general-subtitle Credit Card
+%h3.general-subtitle= t('cart.credit_card.title')
 = form_tag(checkout_confirm_path, class: 'max-600 mb-80', method: :put) do
   = simple_fields_for(:credit_card, @credit_card) do |f|
     .form-group

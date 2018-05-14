@@ -14,9 +14,9 @@ class OrdersController < ApplicationController
     order = Order.find_by_confirmation_token(params[:token])
     if order
       order.update(email_confirmed: true, completed_date: DateTime.now.to_date, state: "delivered")
-      redirect_to root_path, notice: 'Successful order'
+      redirect_to root_path, notice: t('orders.successful')
     else
-      redirect_to root_path, alert: "Sorry. Order does not exist"
+      redirect_to root_path, alert: t('orders.not_exist')
     end
   end
 

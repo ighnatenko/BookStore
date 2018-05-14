@@ -1,16 +1,18 @@
 .general-message-wrap.divider-lg
   .clearfix
-    %span.img-circle.logo-size.inlide-block.pull-left.logo-empty M
+    - if review.decorate.owner.image
+      = cl_image_tag(review.decorate.owner.image, class: 'img-circle logo-size inlide-block pull-left')
+    - else
+      %span.img-circle.logo-size.inlide-block.pull-left.logo-empty M
     .ml-70
       %div
-        .general-message-date.hidden-xs 11/11/16
+        .general-message-date.hidden-xs= review.created_at.strftime("%d/%m/%y")
         .max-240
           .general-message-verified.pull-right Verified Reviewer
-          .general-message-name May J. Novoa
+          .general-message-name= (review.decorate.owner.name ? review.decorate.owner.name : 'John Doe')
       .mb-15
-        %i.fa.fa-star.rate-star
-        %i.fa.fa-star.rate-star
-        %i.fa.fa-star.rate-star
-        %i.fa.fa-star.rate-star
-        %i.fa.fa-star.rate-star.rate-empty
-      %p If ‘Get a better job’ had landed on my desk a year ago, I might have been dismissive of it. Instead I was prepared to be open-minded. There have been many occasions where I turned to career books with practical activities to look for some inspiration when developing education activities for learners or assessment.
+        - review.rating.times do |i|
+          %i.fa.fa-star.rate-star
+        - (5 - review.rating).times do |i|
+          %i.fa.fa-star.rate-star.rate-empty
+      %p= review.description

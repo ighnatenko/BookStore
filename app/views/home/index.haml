@@ -18,7 +18,7 @@
     %p= t('home.description')
   = link_to t('home.get_started_btn'), categories_path, class: 'btn btn-default'  
 .mb-35
-  %h3 Best Sellers
+  %h3= t('home.best_sellers')
   .row
     - @best_seller_books.each do |item|
       = render 'shared/book', book: item.decorate

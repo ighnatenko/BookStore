@@ -1,9 +1,9 @@
-%h1.general-title-margin Checkout
+%h1.general-title-margin= t('checkout.checkout')
 = render 'steps', step: :confirm
 .row.mb-20
   - @order.addresses.each do |address|
     .col-sm-3
-      %h3.general-subtitle= "#{address.address_type.capitalize} Address"
+      %h3.general-subtitle= "#{address.address_type.capitalize} #{t('checkout.address')}"
       %p.general-address
         = "#{address.firstname} #{address.lastname}"
         %span
@@ -17,7 +17,7 @@
         %br
         = "Phone #{address.phone}"
   .col-sm-3
-    %h3.general-subtitle Shipments
+    %h3.general-subtitle= t('checkout.shipments')
     %p.general-address
       = @order.delivery.title
       %span
@@ -25,7 +25,7 @@
       %br
       = @order.delivery.days
   .col-sm-3
-    %h3.general-subtitle Payment Information
+    %h3.general-subtitle= t('checkout.payment_info')  
     %p.general-address
       = "** ** ** #{@order.credit_card.number.last(4)}"
       %span
@@ -42,17 +42,17 @@
       %table.table
         %tr
           %td
-            %span.in-grey-600 Price
+            %span.in-grey-600= t('books.book')
           %td
             %span.font-16.in-gold-500= "€#{book.price}"
         %tr
           %td.vertical-middle
-            %span.in-grey-600 Quantity
+            %span.in-grey-600= t('cart.quantity')
           %td
             %span= book.decorate.quantity_in_cart(@order)
         %tr
           %td
-            %span.in-grey-600 SubTotal
+            %span.in-grey-600= t('cart.subtotal')
           %td
             %span.font-16.in-gold-500= "€#{book.decorate.total_price(@order)}"
 .hidden-xs.divider-lg.pt-20
@@ -60,14 +60,14 @@
     %thead
       %tr
         %th
-          %span.in-grey-600 Book
+          %span.in-grey-600= t('books.book')
         %th.col-method
         %th
-          %span.in-grey-600 Price
+          %span.in-grey-600= t('cart.price')
         %th
-          %span.in-grey-600 Quantity
+          %span.in-grey-600= t('cart.quantity')
         %th
-          %span.in-grey-600 Total
+          %span.in-grey-600= t('cart.total')
     %tbody
       - @order.books.each do |book|
         %tr

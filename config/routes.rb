@@ -14,23 +14,20 @@ Rails.application.routes.draw do
   put 'checkout_confirm', to: 'checkout#confirm'
   put 'checkout_complete', to: 'checkout#complete'
 
+  get 'cart', to: 'cart#index'
+  delete 'cart', to: 'cart#destroy'
+  post 'cart_item', to: 'cart#add_item'
+  put 'cart_decrement_item', to: 'cart#decrement'
+  put 'cart_increment_item', to: 'cart#increment'
+
   resources :categories, only: %i[index show]
   resources :home, only: %i[index show]
   resources :orders, only: %i[index show] do 
     get '/confirm/:token', to: 'orders#confirm', as: 'confirm'
   end
-  resources :books, only: %i[show]
+  resources :books, only: :show do
+    resources :reviews, only: :create
+  end
   resources :addresses, only: %i[create update]
   resources :coupons, only: %i[create]
-
-  get 'cart', action: :index, controller: 'cart'
-  delete 'cart', action: :destroy, controller: 'cart'
-  post 'cart_item', action: :add_item, controller: 'cart'
-  put 'cart_decrement_item', action: :decrement, controller: 'cart'
-  put 'cart_increment_item', action: :increment, controller: 'cart'
-
-  # get 'confirmation', action: :send_order_confirmation, controller: 'checkout'
-  # resources :cart, only: %i[index show]
-  # get '/:token/confirm/', :to => "orders#confirm", as: 'confirm'
-  # get '/checkout/', to: 'checkout#send_order_confirmation', as: 'send_order_confirmation'
 end

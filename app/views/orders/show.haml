@@ -1,8 +1,8 @@
-%h1.general-title-margin= " Order #{@order.tracking_number}"
+%h1.general-title-margin= " #{'orders.order'} #{@order.tracking_number}"
 .row.mb-20
   - @order.addresses.each do |address|
     .col-sm-3
-      %h3.general-subtitle.mt-0= "#{address.address_type.capitalize} Address"
+      %h3.general-subtitle.mt-0= "#{address.address_type.capitalize} #{t('checkout.address')}"
       %p.general-address
         = "#{address.firstname} #{address.lastname}"
         %br
@@ -14,13 +14,13 @@
         %br
         = "Phone #{address.phone}"
   .col-sm-3
-    %h3.general-subtitle.mt-0 Shipments
+    %h3.general-subtitle.mt-0= t('orders.shipments')
     %p.general-address
       = @order.delivery.title
       %br
       = @order.delivery.days
   .col-sm-3
-    %h3.general-subtitle.mt-0 Payment Information
+    %h3.general-subtitle.mt-0= t('checkout.payment_info')
     %p.general-address
       = "** ** ** #{@order.credit_card.number.last(4)}"
       %br
@@ -34,17 +34,17 @@
       %table.table
         %tr
           %td
-            %span.in-grey-600 Price
+            %span.in-grey-600= t('cart.price')
           %td
             %span.font-16.in-gold-500= "€#{book.price}"
         %tr
           %td.vertical-middle
-            %span.in-grey-600 Quantity
+            %span.in-grey-600= t('cart.quantity') 
           %td
             %span= book.decorate.quantity_in_cart(@order)
         %tr
           %td
-            %span.in-grey-600 SubTotal
+            %span.in-grey-600= t('cart.subtotal')
           %td
             %span.font-16.in-gold-500= "€#{book.decorate.total_price(@order)}"
 .hidden-xs.divider-lg.pt-20
@@ -52,14 +52,14 @@
     %thead
       %tr
         %th
-          %span.in-grey-600 Book
+          %span.in-grey-600= t('books.book')
         %th.col-method
         %th
-          %span.in-grey-600 Price
+          %span.in-grey-600= t('cart.price')
         %th
-          %span.in-grey-600 Quantity
+          %span.in-grey-600= t('cart.quantity')
         %th
-          %span.in-grey-600 Total
+          %span.in-grey-600= t('cart.total')
     %tbody
       - @order.books.each do |book|
         %tr
@@ -76,20 +76,20 @@
           %td
             %span.font-16.in-gold-500= "€#{book.decorate.total_price(@order)}"
 .text-center.general-text-right
-  %p.in-gold-500.font-18 Order Summary
+  %p.in-gold-500.font-18= t('cart.order_summary')
   %table.general-summary-table.general-summary-table-right.general-text-right
     %tr
       %td
-        %p.font-16 Subtotal:
+        %p.font-16= "#{t('cart.subtotal')}:"
       %td
         %p.font-16= "€#{@order.decorate.subtotal}"
     %tr
       %td
-        %p.font-16 Coupon:
+        %p.font-16= "#{t('cart.coupon')}:"
       %td
         %p.font-16= "€#{@order.decorate.coupon_discount}"
     %tr
       %td
-        %strong.font-18 Order Total:
+        %strong.font-18= "#{t('cart.order_total')}:"
       %td
         %strong.font-18= "€#{@order.decorate.order_total}"

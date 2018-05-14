@@ -1,10 +1,10 @@
 %h1.general-title-margin Cart
 - if @items.count == 0
   %br
-  %h1= "Empty cart"
+  %h1= t('cart.empty_cart')
   %br
   .text-center
-    = link_to 'Back to Store', root_path, class: 'btn btn-default mb-20'
+    = link_to t('cart.back_to_store'), root_path, class: 'btn btn-default mb-20'
 - else    
   .visible-xs
     - @items.each do |item|
@@ -39,14 +39,14 @@
     %table.table.table-hover
       %tr.no-hover
         %th.col-pic.pl-0
-          %span.in-grey-600 Product
+          %span.in-grey-600= t('cart.product')
         %th.col-title
         %th.col-price
-          %span.in-grey-600 Price
+          %span.in-grey-600= t('cart.price')
         %th.col-quantity
-          %span.in-grey-600 Quantity
+          %span.in-grey-600= t('cart.quantity') 
         %th.col-total
-          %span.in-grey-600 SubTotal
+          %span.in-grey-600= t('cart.subtotal')
         %th.col-close
       - @items.each do |item|    
         %tr
@@ -73,7 +73,7 @@
     .row
       .col-sm-4
         - if @order.coupon
-          %h3= 'Coupon used'
+          %h3= t('coupon.used')
         - else
           = render 'coupon'
       = render 'order_summary', order: @order
