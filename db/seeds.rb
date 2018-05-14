@@ -7,12 +7,18 @@ Category.destroy_all
 Coupon.destroy_all
 User.destroy_all
 
+User.create(email: "user@example.com",
+            password: 'password',
+            password_confirmation: 'password',
+            confirmed_at: Time.now.utc,
+            admin: true)
+
 3.times do |index|
   Delivery.create(title: 'Delivery - test', price: index * 5, days: '3 to 5 days')
 end
 
 10.times do |index|
-  category = Category.create(title: "#{index + 1} #{Faker::Book.genre}")
+  category = Category.create(title: Faker::Book.genre)
 
   unless category.valid?
     puts category.errors.full_messages

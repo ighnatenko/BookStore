@@ -17,4 +17,5 @@
 //= require checkout_address
 //= book
 //= reviews
+//= user_settings
 //= require_tree .

@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Image, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:image) { FactoryBot.create :image }
+  
+  context 'field validation' do
+    it { should validate_presence_of(:url) }
+  end
+
+  context 'associations' do
+    it { should belong_to(:book) }
+  end
 end

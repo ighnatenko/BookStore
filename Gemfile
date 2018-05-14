@@ -33,10 +33,14 @@ gem 'simple_form'
 gem 'cloudinary'
 
 group :development, :test do
+  gem 'rspec-rails', '~> 3.7'
+  gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 3.0', '>= 3.0.2'
   gem 'selenium-webdriver', '~> 3.11'
-  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
@@ -48,10 +52,4 @@ group :development do
   gem 'listen', '~> 3.1', '>= 3.1.5'
   gem 'spring', '~> 2.0', '>= 2.0.2'
   gem 'spring-watcher-listen', '~> 2.0', '>= 2.0.1'
-end
-
-group :test do
-  gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
-  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
-  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.2'
 end

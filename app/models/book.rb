@@ -8,11 +8,10 @@ class Book < ApplicationRecord
   has_many :positions
   has_many :orders, through: :positions, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  
   validates :title, :price, :materials, presence: true
   validates :height, :width, :depth, numericality: { greater_than_or_equal_to: 0 }
   validates :publication_year, numericality: { less_than_or_equal_to: Time.current.year }
-
+  
   scope :for_slider, -> { order(:created_at).last(3) }
   scope :best_sellers, -> { order(:created_at).last(4) }
   scope :newest, -> { order('created_at DESC') }

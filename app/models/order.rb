@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   has_many :books, through: :positions, dependent: :destroy
   belongs_to :delivery, optional: true
   has_one :coupon
-
+  
   validates :tracking_number, :state, presence: true
   
   scope :newest, -> { order('created_at DESC') }
