@@ -57,7 +57,7 @@ class CheckoutController < ApplicationController
   def address_valid?(order)
     billing_address = order.addresses.find_by_address_type(:billing)
     shipping_address = order.addresses.find_by_address_type(:shipping)
-    (nil_or_invalid?(billing_address) || nil_or_invalid?(shipping_address)) ? false : true
+    !(nil_or_invalid?(billing_address) || nil_or_invalid?(shipping_address))
   end
 
   def credit_card_valid?(order)

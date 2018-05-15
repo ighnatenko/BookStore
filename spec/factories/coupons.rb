@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :coupon do
-    code { Faker::Color.hex_code }
+    code { "code-#{rand(1..10)}" }
     discount { rand(6..10) }
     order
 

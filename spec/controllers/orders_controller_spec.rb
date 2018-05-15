@@ -1,12 +1,51 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
+  let(:user) { create(:user) }
+  let!(:order) { create(:order, user: user, state: 'delivered') }
 
-  describe "GET #index" do
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
+  before { allow(controller).to receive(:current_user).and_return(user) }
+
+  describe 'GET #index' do
+    context 'successful load' do
+      before do
+        get :index, session: { order_id: order.id }
+      end
+
+      it 'assigns @items' do
+        expect(assigns(:orders)).not_to be_nil
+      end
+
+      it 'renders :index template' do
+        expect(response).to render_template(:index)
+      end
+
+      it 'has a 200 status code' do
+        expect(response.status).to eq(200)
+      end
     end
   end
 
+  describe 'GET #show' do
+    before { get :show, params: { id: order.id }, session: { order_id: order.id } }
+
+    it 'assigns @items' do
+      expect(assigns(:order)).not_to be_nil
+    end
+
+    it 'renders :index template' do
+      expect(response).to render_template(:show)
+    end
+
+    it 'has a 200 status code' do
+      expect(response.status).to eq(200)
+    end
+
+    context 'calling needed methods' do
+      after { get :show, params: { id: order.id }, session: { order_id: order.id } }
+      it 'finds needed order' do
+        expect(Order).to receive(:find_by).with(id: order.id.to_s).and_call_original
+      end
+    end
+  end
 end

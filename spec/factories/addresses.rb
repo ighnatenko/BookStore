@@ -7,5 +7,17 @@ FactoryBot.define do
     zipcode { Faker::Address.zip_code }
     country { Faker::Address.country }
     phone { Faker::PhoneNumber.phone_number }
+
+    trait :shipping do
+      address_type :shipping
+    end
+
+    trait :billing do
+      address_type :billing
+    end
+
+    trait :invalid do
+      zipcode nil
+    end
   end
 end

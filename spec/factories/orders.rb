@@ -4,6 +4,8 @@ FactoryBot.define do
     state { 'in_progress' }
     tracking_number { "R#{Time.now.strftime('%d%m%y%H%M%S')}" }
     total_price { rand(100..200) }
+    use_billing false
     delivery
+    user
   end
 end

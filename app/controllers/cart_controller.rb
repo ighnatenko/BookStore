@@ -16,7 +16,7 @@ class CartController < ApplicationController
 
   def destroy
     @order.books.delete(Book.find(params[:book_id]))
-    redirect_to cart_path, notice:  t("cart.removed")
+    redirect_to cart_path, notice: t("cart.removed")
   end
 
   def increment
