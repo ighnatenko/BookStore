@@ -17,7 +17,7 @@ User.create(email: "user@example.com",
   Delivery.create(title: 'Delivery - test', price: index * 5, days: '3 to 5 days')
 end
 
-10.times do |index|
+5.times do |index|
   category = Category.create!(title: Faker::Book.title)
 
   coupon = Coupon.create!(code: "code-#{index}", discount: index + 3)
