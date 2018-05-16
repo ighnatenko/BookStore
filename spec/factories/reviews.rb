@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :review do
-    rating { rand(1..10) }
+    rating { rand(1..5) }
     description { Faker::StarWars.wookiee_sentence }
     book
     user

@@ -1,6 +1,6 @@
 = link_to :back, class: "general-back-link" do
   %i.fa.fa-long-arrow-left.mr-15
-  Back to results
+  =  t('link.back')
 .row
   .col-sm-6
     .product-gallery
@@ -10,7 +10,7 @@
         - if @book.images.length > 1
           - @book.images.offset(1).each do |image|
             = link_to '#', class: 'img-link' do
-              = image_tag(image.url)
+              = cl_image_tag(image.url)
   .col-sm-6
     %h1.mt-res-0= @book.title
     %p.lead.small= @book.authors_names
@@ -36,15 +36,15 @@
         %a.in-gold-500.ml-10{href: "#"}= t('books.read_more')
     .general-info-wrap.divider-lg
       .clearfix
-        %p.pull-left Year of publication
+        %p.pull-left= t('books.publication_year')
         %p.lead.small.pull-right= @book.publication_year
     .general-info-wrap.divider-lg
       .clearfix
-        %p.pull-left Dimensions
+        %p.pull-left= t('books.dimensions')
         %p.lead.small.pull-right= @book.dimensions
     .general-info-wrap.divider-lg
       .clearfix
-        %p.pull-left Materials
+        %p.pull-left= t('books.materials')
         %p.lead.small.pull-right= @book.materials
 .mb-80
   %h3.in-gold-500.mb-25= "#{t('books.reviews')} (#{@book.reviews.count})" 

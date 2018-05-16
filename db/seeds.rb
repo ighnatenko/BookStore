@@ -18,17 +18,9 @@ User.create(email: "user@example.com",
 end
 
 10.times do |index|
-  category = Category.create(title: Faker::Book.genre)
+  category = Category.create!(title: Faker::Book.genre)
 
-  unless category.valid?
-    puts category.errors.full_messages
-  end
-
-  coupon = Coupon.create(code: "code-#{index}", discount: index + 3)
-
-  unless coupon.valid?
-    puts coupon.errors.full_messages
-  end
+  coupon = Coupon.create!(code: "code-#{index}", discount: index + 3)
 
   10.times do
     book = Book.create(
@@ -43,11 +35,7 @@ end
       quantity: rand(5..50),
       category: category)
         
-    unless book.valid?
-      puts book.errors.full_messages
-    end
-  
-    author = Author.create(
+    Author.create!(
       firstname: Faker::Name.first_name,
       lastname: Faker::Name.last_name,
       description: Faker::StarWars.wookiee_sentence,

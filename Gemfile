@@ -33,6 +33,7 @@ gem 'simple_form'
 gem 'cloudinary'
 
 group :development, :test do
+  gem 'pry', '~> 0.11.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
   gem 'factory_bot_rails'

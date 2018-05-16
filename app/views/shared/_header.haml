@@ -23,7 +23,7 @@
             %a{type: "button", 'data-toggle': "collapse", href: "#menu", 'aria-expanded': "false", 'aria-controls': "menu"}= t('header.shop')
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               - categories.each do |item|
-                %li= link_to(item.title, categories_path(item.id))
+                %li= link_to(item.title, category_path(item.id))
           - if current_user
             %li
               %a{type: "button", 'data-toggle': "collapse", href: "#account", 'aria-expanded': "false", 'aria-controls': "account"}= t('header.account')
@@ -43,7 +43,7 @@
             %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu
               - categories.each do |category|
-                %li= link_to(category.title, categories_path(category.id))
+                %li= link_to(category.title, category_path(category.id))
           - if current_user
             %li.dropdown
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('header.account')
