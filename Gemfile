@@ -31,6 +31,7 @@ gem 'cancancan', '~> 2.0'
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 gem 'simple_form'
 gem 'cloudinary'
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 
 group :development, :test do
   gem 'pry', '~> 0.11.3'
@@ -42,7 +43,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 3.0', '>= 3.0.2'
   gem 'selenium-webdriver', '~> 3.11'
-  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do
