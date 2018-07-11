@@ -32,7 +32,7 @@ class CartController < ApplicationController
   private
 
   def set_order
-    @order = @_current_order
+    @order = @current_order
   end
 
   def change_quantity(increment, order, book_id)

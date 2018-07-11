@@ -40,7 +40,7 @@ class CheckoutController < ApplicationController
   private
 
   def set_order
-    @order = @_current_order
+    @order = @current_order
   end
 
   def set_address_for_order(order)

@@ -14,7 +14,7 @@ class BookDecorator < Draper::Decorator
   end
 
   def quantity_in_cart(order)
-    Position.find_by(order_id: order.id, book_id: self.id).quantity
+    Position.find_by(order_id: order.id, book_id: id).quantity
   end
 
   def total_price(order)
