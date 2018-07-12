@@ -1,9 +1,9 @@
 %h1.general-title-margin= t('checkout.checkout')
-= render 'steps', step: :delivery
+= render 'steps', number: 2
 %h3.general-subtitle= t('cart.credit_card.title')
 .visible-xs
   .general-cart-item.divider-lg-bottom.mb-30
-    = form_tag(checkout_payment_path, method: :put) do
+    = form_tag(wizard_path, method: :put) do
       %table.table
         - @deliveries.each do |delivery|
           %tr
@@ -28,7 +28,7 @@
       .text-center        
         = submit_tag('Save and Continue', class: 'btn btn-default mb-20')
 .hidden-xs.mb-res-50
-  = form_tag(checkout_payment_path, method: :put) do
+  = form_tag(wizard_path, method: :put) do
     %table.table.table-hover
       %thead
         %tr

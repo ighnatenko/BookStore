@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180513212552) do
+ActiveRecord::Schema.define(version: 20180711234605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,10 +85,10 @@ ActiveRecord::Schema.define(version: 20180513212552) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cardable_type"
-    t.bigint "cardable_id"
     t.string "card_name", null: false
     t.string "expiration_date", null: false
-    t.index ["cardable_type", "cardable_id"], name: "index_credit_cards_on_cardable_type_and_cardable_id"
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_credit_cards_on_order_id"
   end
 
   create_table "deliveries", force: :cascade do |t|
@@ -175,6 +175,7 @@ ActiveRecord::Schema.define(version: 20180513212552) do
   add_foreign_key "authors_books", "authors"
   add_foreign_key "authors_books", "books"
   add_foreign_key "books", "categories"
+  add_foreign_key "credit_cards", "orders"
   add_foreign_key "images", "books"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "users"

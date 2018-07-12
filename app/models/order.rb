@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   include AASM
   belongs_to :user, optional: true
   has_many :addresses, as: :addressable, dependent: :destroy
-  has_one :credit_card, as: :cardable, dependent: :destroy
+  has_one :credit_card, dependent: :destroy
   has_many :positions
   has_many :books, through: :positions, dependent: :destroy
   belongs_to :delivery, optional: true

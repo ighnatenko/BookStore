@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   }
 
   root to: "home#index"
-
-  put 'checkout_address', to: 'checkout#address'
-  put 'checkout_delivery', to: 'checkout#delivery'
-  put 'checkout_payment', to: 'checkout#payment'
-  put 'checkout_confirm', to: 'checkout#confirm'
-  put 'checkout_complete', to: 'checkout#complete'
+  
+  resources :checkout
+  # put 'checkout_address', to: 'checkout#address'
+  # put 'checkout_delivery', to: 'checkout#delivery'
+  # put 'checkout_payment', to: 'checkout#payment'
+  # put 'checkout_confirm', to: 'checkout#confirm'
+  # put 'checkout_complete', to: 'checkout#complete'
 
   get 'cart', to: 'cart#index'
   delete 'cart', to: 'cart#destroy'

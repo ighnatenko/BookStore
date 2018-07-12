@@ -4,5 +4,6 @@ FactoryBot.define do
     cvv { rand(111..999) }
     expiration_date { "#{rand(10..99)}/#{rand(10..99)}" }
     card_name { FFaker::Internet.domain_word }
+    order
   end
 end

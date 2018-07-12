@@ -1,10 +1,10 @@
 class CreditCard < ApplicationRecord
+  belongs_to :order
+  
   CVV_REGEXP = /\A\d{3}\z/
   NUMBER_REGEXP = /\A\d{16}\z/
   EXIRATION_DATE_REGEXP = /\A(\d{2})\/(\d{2})\z/
   CARD_NAME_REGEXP = /[a-zA-Z]/
-
-  belongs_to :cardable, polymorphic: true
 
   validates :number, :cvv, :expiration_date, :card_name, presence: true
   validates :number, format: { with: NUMBER_REGEXP }

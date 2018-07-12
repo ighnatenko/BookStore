@@ -1,6 +1,6 @@
 %h1.general-title-margin Checkout
-= render 'steps', step: :address
-= form_tag(checkout_delivery_path, class: 'res-mb-100', method: :put) do
+= render 'steps', number: 1
+= form_tag(wizard_path, method: :put, class: 'res-mb-100') do
   .hidden-xs.hidden-sm
     .row
       .col-md-5

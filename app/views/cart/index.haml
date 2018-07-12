@@ -77,5 +77,5 @@
         - else
           = render 'coupon'
       = render 'order_summary', order: @order
-  = link_to checkout_address_path, method: :put do
+  = link_to checkout_index_path do
     %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout

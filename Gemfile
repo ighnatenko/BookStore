@@ -32,6 +32,7 @@ gem 'aasm', '~> 4.12', '>= 4.12.3'
 gem 'simple_form'
 gem 'cloudinary'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+gem 'wicked'
 
 group :development, :test do
   gem 'pry', '~> 0.11.3'

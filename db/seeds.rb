@@ -14,7 +14,7 @@ User.create(email: "user@example.com",
             admin: true)
 
 3.times do |index|
-  Delivery.create(title: 'Delivery - test', price: index * 5, days: '3 to 5 days')
+  Delivery.create(title: 'Delivery - test', price: index * 5 + 5, days: '3 to 5 days')
 end
 
 5.times do |index|
