@@ -12,7 +12,10 @@
             %td.col-half
               .form-group.radio.mt-0.mb-0
                 %label.radio-label
-                  = radio_button_tag(:delivery, delivery.id, @order.delivery&.id == delivery.id, class: 'radio-input', hidden: "true", require: 'true' )
+                  = radio_button_tag(:delivery, delivery.id, @order.delivery&.id == delivery.id,
+                  class: 'radio-input delivery_row', hidden: "true", require: 'true',
+                  delivery_price: delivery.price, 
+                  total: @order.decorate.total_without_delivery)
                   %span.radio-icon
                   %span.radio-text= delivery.title
           %tr
