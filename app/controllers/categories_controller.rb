@@ -29,11 +29,7 @@ class CategoriesController < ApplicationController
   end
 
   def set_page_number
-    @page = if params[:page]
-      params[:page].to_i + 1
-    else
-      2
-    end
+    @page = params[:page] ? (params[:page].to_i + 1) : 2
   end
 
   def set_filter
