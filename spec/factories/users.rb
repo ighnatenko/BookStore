@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     after(:build, &:skip_confirmation_notification!)
@@ -6,7 +8,7 @@ FactoryBot.define do
     sequence :email do |n|
       "person#{n}@example.com"
     end
-    
+
     password '123456'
     password_confirmation '123456'
     admin true

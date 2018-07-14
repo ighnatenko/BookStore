@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAddresses < ActiveRecord::Migration[5.1]
   def change
     create_table :addresses do |t|
@@ -14,6 +16,6 @@ class CreateAddresses < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :addresses, [:addressable_type, :addressable_id]
+    add_index :addresses, %i[addressable_type addressable_id]
   end
 end

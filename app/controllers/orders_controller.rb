@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   authorize_resource
-  
+
   def index
     @orders = current_user.orders.newest
     @orders = @orders.by_state(params[:state].to_sym) if valid_state?
@@ -13,7 +15,7 @@ class OrdersController < ApplicationController
   def confirm
     order = Order.find_by_confirmation_token(params[:token])
     if order
-      order.update(email_confirmed: true, completed_date: DateTime.now.to_date, state: "delivered")
+      order.update(email_confirmed: true, completed_date: DateTime.now.to_date, state: 'delivered')
       redirect_to root_path, notice: t('orders.successful')
     else
       redirect_to root_path, alert: t('orders.not_exist')

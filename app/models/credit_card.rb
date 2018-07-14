@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreditCard < ApplicationRecord
   belongs_to :order
-  
+
   CVV_REGEXP = /\A\d{3}\z/
   NUMBER_REGEXP = /\A\d{16}\z/
   EXIRATION_DATE_REGEXP = /\A(\d{2})\/(\d{2})\z/

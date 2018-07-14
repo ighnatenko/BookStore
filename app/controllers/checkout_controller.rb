@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CheckoutController < ApplicationController
   include CheckoutParams
   include Wicked::Wizard
   before_action :authenticate_user!, :set_order
-  
+
   steps :address, :delivery, :payment, :confirm, :complete
 
   def show
@@ -17,7 +19,7 @@ class CheckoutController < ApplicationController
     render_wizard unless performed?
   end
 
-  def update 
+  def update
     case step
     when :address  then update_address
     when :delivery then update_delivery
@@ -29,15 +31,16 @@ class CheckoutController < ApplicationController
   end
 
   def show_address
+    @order.update(user: current_user) if @order.user_id.nil?
     @billing_address = current_user.addresses.find_by_address_type(:billing)
     @shipping_address = current_user.addresses.find_by_address_type(:shipping)
-
+    
     @billing_address ||= @order.addresses.find_by_address_type(:billing)
     @shipping_address ||= @order.addresses.find_by_address_type(:shipping)
   end
 
   def show_delivery
-    return jump_to(valid_step) unless address_valid?(@order) 
+    return jump_to(valid_step) unless address_valid?(@order)
     @deliveries = Delivery.all
   end
 
@@ -70,12 +73,12 @@ class CheckoutController < ApplicationController
         jump_to(:confirm)
       end
       render_wizard unless performed?
-    end 
+    end
   end
 
   def valid_step
     case true
-    when nil_or_invalid?(current_user.orders.last.addresses.find_by_address_type(:billing)) || 
+    when nil_or_invalid?(current_user.orders.last.addresses.find_by_address_type(:billing)) ||
       nil_or_invalid?(current_user.orders.last.addresses.find_by_address_type(:shipping)) then :address
     when nil_or_invalid?(current_user.orders.last.delivery) then :delivery
     when nil_or_invalid?(current_user.orders.last.credit_card) then :payment
@@ -85,7 +88,7 @@ class CheckoutController < ApplicationController
 
   def update_address
     set_address_for_order(@order)
-    render_wizard unless @billing_address.valid? && @shipping_address.valid? && @order.update(user: current_user)
+    render_wizard unless @billing_address.valid? && @shipping_address.valid?
   end
 
   def update_delivery
@@ -100,8 +103,7 @@ class CheckoutController < ApplicationController
     render_wizard unless credit_card_valid?(@order)
   end
 
-  def update_confirm
-  end
+  def update_confirm; end
 
   def update_complete
     redirect_to root_path

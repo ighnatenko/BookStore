@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature "Books", type: :feature do
+RSpec.feature 'Books', type: :feature do
   let(:book) { create(:book).decorate }
   let(:user) { create(:user) }
   let(:review) { create(:review, book: book) }

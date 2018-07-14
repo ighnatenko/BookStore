@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature "Homes", type: :feature do
+RSpec.feature 'Homes', type: :feature do
   let(:user) { create(:user) }
 
   background do

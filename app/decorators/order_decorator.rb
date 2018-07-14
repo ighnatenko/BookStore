@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrderDecorator < Draper::Decorator
   delegate_all
   decorates_association :book
@@ -7,8 +9,8 @@ class OrderDecorator < Draper::Decorator
   end
 
   def subtotal
-    sub_total = books.map(&:decorate).map{ |item| item.total_price(self) }.reduce(&:+)
-    sub_total ? sub_total : 0.0
+    sub_total = books.map(&:decorate).map { |item| item.total_price(self) }.reduce(&:+)
+    sub_total || 0.0
   end
 
   def coupon_discount

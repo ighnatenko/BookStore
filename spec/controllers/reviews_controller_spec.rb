@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ReviewsController, type: :controller do
@@ -9,7 +11,7 @@ RSpec.describe ReviewsController, type: :controller do
   describe 'POST #create' do
     context 'valid attributes' do
       before do
-        params = { rating: 5, review: {description: 'test'}, book_id: book.id, user_id: user.id }
+        params = { rating: 5, review: { description: 'test' }, book_id: book.id, user_id: user.id }
         expect { post :create, params: params }.to change(Review, :count).by(1)
       end
 
@@ -22,16 +24,16 @@ RSpec.describe ReviewsController, type: :controller do
       end
     end
 
-    context 'invalid params' do  
-      before do 
-        params = { review: {description: 'test'}, book_id: book.id, user_id: user.id }
+    context 'invalid params' do
+      before do
+        params = { review: { description: 'test' }, book_id: book.id, user_id: user.id }
         post :create, params: params
       end
 
       it 'redirect to user settings' do
         expect(response).to redirect_to(book_path(book))
       end
-  
+
       it 'show notice' do
         expect(flash[:alert]).to eq I18n.t('review.failure.create')
       end

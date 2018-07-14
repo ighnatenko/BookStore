@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Order < ApplicationRecord
   include AASM
   belongs_to :user, optional: true
@@ -7,9 +9,9 @@ class Order < ApplicationRecord
   has_many :books, through: :positions, dependent: :destroy
   belongs_to :delivery, optional: true
   has_one :coupon
-  
+
   validates :tracking_number, :state, presence: true
-  
+
   scope :newest, -> { order('created_at DESC') }
   scope :by_state, ->(state) { where(state: state) }
 
@@ -32,9 +34,9 @@ class Order < ApplicationRecord
   end
 
   def set_confirmation_token
-    if self.confirmation_token.blank?
+    if confirmation_token.blank?
       self.confirmation_token = SecureRandom.urlsafe_base64.to_s
-      self.save(validate: false)
+      save(validate: false)
     end
   end
 

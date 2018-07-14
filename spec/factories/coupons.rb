@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :coupon do
     code { "code-#{rand(1..10)}" }

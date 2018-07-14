@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Delivery.destroy_all
 Order.destroy_all
 Author.destroy_all
@@ -7,7 +9,7 @@ Category.destroy_all
 Coupon.destroy_all
 User.destroy_all
 
-User.create(email: "user@example.com",
+User.create(email: 'user@example.com',
             password: 'password',
             password_confirmation: 'password',
             confirmed_at: Time.now.utc,
@@ -33,12 +35,14 @@ end
       publication_year: rand(1970..2018),
       materials: Faker::StarWars.planet,
       quantity: rand(5..50),
-      category: category)
-        
+      category: category
+    )
+
     Author.create!(
       firstname: Faker::Name.first_name,
       lastname: Faker::Name.last_name,
       description: Faker::StarWars.wookiee_sentence,
-      books: [book])
+      books: [book]
+    )
   end
 end

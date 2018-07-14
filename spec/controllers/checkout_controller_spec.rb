@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CheckoutController, type: :controller do
@@ -5,7 +7,7 @@ RSpec.describe CheckoutController, type: :controller do
 
   before { allow(controller).to receive(:current_user).and_return(user) }
 
-  describe "PUT #address" do
+  describe 'PUT #address' do
     before { put :address }
 
     it 'assigns items' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CartController, type: :controller do
@@ -10,7 +12,7 @@ RSpec.describe CartController, type: :controller do
 
   describe 'GET #index' do
     before { get :index, session: { order_id: order.id } }
- 
+
     it 'assigns @items' do
       expect(assigns(:items)).not_to be_nil
     end

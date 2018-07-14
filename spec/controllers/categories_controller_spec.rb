@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
@@ -20,7 +22,7 @@ RSpec.describe CategoriesController, type: :controller do
 
   describe 'GET #show' do
     before { get :show, params: { id: book.category.id } }
-    
+
     it 'assigns @books' do
       expect(assigns(:books)).not_to be_nil
     end

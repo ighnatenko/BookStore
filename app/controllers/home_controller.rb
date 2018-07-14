@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
   def index
     @slider_books = Book.for_slider.map(&:decorate)
