@@ -22,7 +22,7 @@ end
 5.times do |index|
   category = Category.create!(title: Faker::Book.title)
 
-  coupon = Coupon.create!(code: "code-#{index}", discount: index + 3)
+  Coupon.create!(code: "code-#{index}", discount: index + 3)
 
   10.times do
     book = Book.create(
@@ -45,4 +45,12 @@ end
       books: [book]
     )
   end
+end
+
+Book.all.last(10).each do |b|
+  b.update(best_seller: true)
+end
+
+Book.all.first(10).each do |b|
+  b.update(popular: true)
 end

@@ -6,16 +6,16 @@ class CustomerController < ApplicationController
 
   def register
     password = Devise.friendly_token.first(8)
-    @user = User.new(email: customer_params[:email], password: password,
-                     password_confirmation: password)
-    @user.skip_confirmation!
-    @user.skip_reconfirmation!
-    if @user.save
+    @user = User.create(email: customer_params[:email],
+                        password: password,
+                        password_confirmation: password,
+                        confirmed_at: Time.now.utc)
+    if @user.persisted?
       sign_in(:user, @user)
       flash[:success] = t('devise.registrations.signed_up')
       redirect_to checkout_index_path
     else
-      flash[:alert] = 'Please enter email'
+      flash[:alert] = 'User already exists'
       return redirect_to customer_index_path
     end
   end

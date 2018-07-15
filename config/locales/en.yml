@@ -58,6 +58,7 @@ en:
     back_to_store: 'Back to Store'
     checkout: Checkout
     order_total: Order Total
+    shipping: Shipping
     coupon: Coupon
     price: Price
     quantity: Quantity

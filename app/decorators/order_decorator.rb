@@ -17,6 +17,11 @@ class OrderDecorator < Draper::Decorator
     subtotal * sale / 100
   end
 
+  def shipping
+    return 0.to_f if delivery_id.nil?
+    Delivery.find_by(id: delivery_id)&.price
+  end
+
   def total_without_delivery
     order_total = subtotal - coupon_discount
   end
