@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
+# routes
 Rails.application.routes.draw do
-  get 'customer/create'
-
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',

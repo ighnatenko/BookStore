@@ -11,4 +11,4 @@
         %p.lead.small= book.authors_names
         .general-align
           = link_to cart_item_path(items: {price: book.price, quantity: 1, book_id: book.id}), method: :post do
-            %button{class: (book.quantity.zero? ? 'disabled btn' : 'btn btn-primary'), disabled: book.quantity.zero? }= 'Buy Now'
+            %button{class: (book.quantity.zero? ? 'disabled btn' : 'btn btn-primary'), disabled: book.quantity.zero? }= t('home.buy_now')

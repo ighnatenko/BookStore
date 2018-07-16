@@ -1,32 +1,32 @@
 .row
   .col-md-6.col-xs-12.mb-40
     .text-center
-      %h3.general-subtitle.mt-0 Returning Customer
+      %h3.general-subtitle.mt-0= t('customer.returning_customer')
       %a.general-login-icon{ href: user_facebook_omniauth_authorize_path }
         %i.fa.fa-facebook-official
-      %p.general-login-text or
+      %p.general-login-text= t('register.or')
     = form_for(User.new, url: customer_login_path, method: :put, html: { class: 'general-form' }) do |f|
       .form-group.mb-40
-        %h4.general-login-title Log In with Password
-        = f.label :email, 'Enter Email', class: 'control-label input-label'
-        = f.email_field :email, placeholder: 'Enter Email', class: 'form-control', required: true
+        %h4.general-login-title= t('customer.log_in_with_password')
+        = f.label :email, t('register.email'), class: 'control-label input-label'
+        = f.email_field :email, placeholder: t('register.enter_email'), class: 'form-control', required: true
       .form-group.mb-40
         = f.label :password, class: 'control-label input-label'
-        = f.password_field :password, placeholder: 'Password', class: 'form-control', required: true
-        %a.help-block.in-gold-500{ href: new_user_password_path } Forgot password?
+        = f.password_field :password, placeholder: t('register.password'), class: 'form-control', required: true
+        %a.help-block.in-gold-500{ href: new_user_password_path }= t('register.forgot_password')
       .actions
-        = f.submit 'Log In with Password', class: 'btn btn-default mb-20'
+        = f.submit t('customer.log_in_with_password'), class: 'btn btn-default mb-20'
   .col-md-6.col-xs-12.mb-40
     .text-center
-      %h3.general-subtitle.mt-0 New Customer
+      %h3.general-subtitle.mt-0= t('customer.new_customer')
       %a.general-login-icon{href: user_facebook_omniauth_authorize_path}
         %i.fa.fa-facebook-official
-      %p.general-login-text or
+      %p.general-login-text= t('register.or')
     = form_for(User.new, url: customer_register_path, method: :post, html: { class: 'general-form' }) do |f|
       .form-group.mb-40
-        %h4.general-login-title.mb-5 Quick Register
-        %p.general-login-text.mt-0 You'll be able to create password later
-        = f.label :email, 'Enter Email', class: 'control-label input-label'
-        = f.email_field :email, placeholder: 'Enter Email', class: 'form-control', required: true
+        %h4.general-login-title.mb-5= t('customer.quick_register')
+        %p.general-login-text.mt-0= t('customer.able_create_password_later')
+        = f.label :email, t('register.email'), class: 'control-label input-label'
+        = f.email_field :email, placeholder: t('register.enter_email'), class: 'form-control', required: true
       .actions
-        = f.submit 'Continue to Checkout', class: 'btn btn-default mb-20'
+        = f.submit t('customer.continue_to_checkout'), class: 'btn btn-default mb-20'

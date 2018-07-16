@@ -1,4 +1,4 @@
-%h1.general-title-margin Cart
+%h1.general-title-margin= t('cart.cart')
 - if @items.count == 0
   %br
   %h1= t('cart.empty_cart')
@@ -17,12 +17,12 @@
         %table.table
           %tr
             %td
-              %span.in-grey-600 Price
+              %span.in-grey-600= t('cart.price')
             %td
               %span.font-16.in-gold-500= "€#{item.decorate.price}"
           %tr
             %td.vertical-middle
-              %span.in-grey-600 Quantity
+              %span.in-grey-600= t('cart.quantity') 
             %td
               .input-group
                 = link_to cart_decrement_item_path(book_id: item.id), method: :put, class: 'input-link' do
@@ -32,7 +32,7 @@
                   %i.fa.fa-plus.line-heaght-40
           %tr
             %td
-              %span.in-grey-600 SubTotal
+              %span.in-grey-600= t('cart.subtotal')
             %td
               %span.font-16.in-gold-500= "€#{item.decorate.total_price(@order)}"
   .hidden-xs
@@ -79,7 +79,7 @@
       = render 'order_summary', order: @order
   - if user_signed_in?
     = link_to checkout_index_path do
-      %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+      %button.btn.btn-default.mb-20.hidden-xs.center-block= t('checkout.checkout')
   - else
     = link_to customer_index_path do
-      %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+      %button.btn.btn-default.mb-20.hidden-xs.center-block= t('checkout.checkout')

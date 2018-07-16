@@ -1,0 +1,167 @@
+ru:
+  header:
+    account: Моя учетная запись
+    orders: Заказы
+    settings: Настройки
+    log_out: Выход
+    log_in: Войти
+    sign_up: Зарегистрироваться
+    brand: Книжный магазин
+    home: Главная
+    shop: Магазин
+    catalog: Каталог
+  settings:
+    settings: Настройки
+    address: Адрес
+    privacy: Конфиденциальность
+    billing_address: Платежный адрес
+    shipping_address: Адрес доставки
+    save: Сохранить
+    remove_account: Удалить Учетную запись
+    understand: Я понимаю, что все данные будут потеряны
+    please_remove_account: Удалить мою учетную запись
+  checkout:
+    back_to_tore: Назад в Магазин
+    edit: редактировать
+    place_order: Продолжить
+    cvv: CVV
+    expiration_date: MM / YY
+    card_name: Название карты
+    card_number: Номер карты
+    save: Сохранить и продолжить
+    payment_info: Информация об оплате
+    shipments: Отгрузки
+    confirmation: "Подтверждение заказа было отправлено на адрес %{email}"
+    thank_for_order: Спасибо за ваш заказ!
+    checkout: Оформить
+    address: Адрес
+    delivery: Доставка
+    payment: Оплата
+    confirm: Подтвердить
+    complete: Завершить
+    use_billing_adress: Использовать платежный адрес
+    shipping_address: Адрес доставки
+    required: Все поля обязательны для заполнения
+    billing_address: Адрес выставления счетов
+  home:
+    buy_now: Купить сейчас
+    best_sellers: Лучшие продавцы
+    get_started_btn: Начать
+    welcome_to_bookstore: Добро пожаловать в наш удивительный книжный магазин!
+    description: Каждый месяц мы читаем сотни новых книг и выбираем пять лучших, которые мы можем найти, чтобы поделиться с нашими участниками.
+  catalog:
+    title: Каталог
+    view_more_btn: Просмотреть больше
+    all_categories: Все
+    for_mobile:
+      filter_by_category: Фильтровать по категориям
+      sort_by: Сортировать по
+    filters:
+      newest: Сначала новые
+      popular: Сначала популярные
+      price_asc: "Цена: От низкой к высокой"
+      price_desc: "Цена: От высокой к низкой"
+      by_title_asc: "Название: A - Я"
+      by_title_desc: "Название: Я - A"
+  review:
+    successful:
+      create: Спасибо за обзор
+    failure:
+      create: Обзор не отправлен
+  cart:
+    cart: Корзина
+    credit_card:
+      title: Кредитная карта
+      method: Доставка
+      days: Количество дней
+    total: Всего
+    empty_cart: Пустая корзина
+    back_to_store: Вернуться в магазин
+    checkout: Оформить заказ
+    order_total: Всего
+    shipping: Доставка
+    coupon: Купон
+    price: Цена
+    quantity: Количество
+    product: Продукт
+    subtotal: Цена книг
+    order_summary: Сводка заказов
+    apply_coupon: Применить купон
+    enter_coupon: Введите свой код
+    alredy_added: Книга уже добавлена
+    successful_added: Книга успешно добавлена
+    removed: Книга удалена из корзины
+  address:
+    successful:
+      create: Успешно создан адрес
+      update: Успешно обновлен адрес
+    failure:
+      create: Адрес не создан
+      update: Адрес не обновляется   
+    inputs_fields:
+      phone: Телефон
+      first_name: Имя
+      last_name: Фамилия
+      address: Адрес
+      city: Город
+      zip: Zip
+      country: Страна
+      phone_example: Пример +355 66 123 4567
+  coupon:
+    not_exist: Купон не существует
+    used: Купон использован
+    added: Добавлен купон
+  orders:
+    all: Все
+    in_progress: В процессe
+    in_delivery: Отправлен
+    delivered: Доставлен
+    mailer:
+      title: Подтвердите заказ
+      confirm_message: Чтобы подтвердить заказ, просто следуйте по этой ссылке
+    order: Заказ
+    shipments: Отгрузки
+    sort_by: Сортировать по
+    title: Мои заказы
+    status: Статус
+    completed_at: Дата заказа
+    number: Номер
+    successful: Успешный заказ
+    not_exist: Извините. Заказ не существует
+  books:
+    book: Книга
+    send_btn: Отправить отзыв
+    add_review: Добавить отзыв
+    add_to_cart: Добавить в корзину
+    read_more: Подробнее
+    reviews: Отзывы
+    publication_year: Год публикации
+    dimensions: Размеры
+    materials: Материалы
+  link:
+    back: Вернуться к результатам
+  customer:
+    user_exist: Пользователь уже существует
+    returning_customer: Возвращающийся клиент
+    new_customer: Новый Пользователь
+    quick_register: Быстрая Регистрация
+    log_in_with_password: Вход с Паролем
+    able_create_password_later: Вы сможете создать пароль позже.
+    continue_to_checkout: Продолжить оформление заказа
+  register:
+    email_instructions: Email Инструкции
+    cancel: Отмена
+    enter_email: Введите email
+    or: или
+    back_to_store: Назад в Магазин
+    email: Email
+    password: Пароль
+    confirm_pasword: Подтвердите пароль
+    have_account:
+    signup: Регистрация
+    login: Вход
+    remember_me: Запомнить меня
+    forgot_password: Забыли пароль?
+    forgot_password_message: Мы отправим вам по электронной почте инструкции по его сбросу
+    do_not_have: У вас нет аккаунта?
+    have_account: У вас есть аккаунт?

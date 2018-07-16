@@ -8,8 +8,27 @@ en:
     sign_up: Sign Up
     brand: Bookstore
     home: Home
-    shop: Shop  
+    shop: Shop 
+    catalog: Catalog
+  settings:
+    settings: Settings
+    address: Address
+    privacy: Privacy
+    billing_address: Billing Address
+    shipping_address: Shipping Address
+    save: Save
+    remove_account: Remove Account
+    understand: I understand that all data will be lost
+    please_remove_account: Please Remove My Account
   checkout:
+    back_to_tore: Back to Store
+    edit: edit
+    place_order: Place Order
+    cvv: CVV
+    expiration_date: MM / YY
+    card_name: Name on Card
+    card_number: Card Number
+    save: Save and Continue
     payment_info: Payment Information
     shipments: Shipments
     confirmation: "An order confirmation has been has been sent to %{email}"
@@ -25,6 +44,7 @@ en:
     required: all fields are required
     billing_address: Billing Address
   home:
+    buy_now: Buy Now
     best_sellers: Best Sellers
     get_started_btn: Get Started
     welcome_to_bookstore: Welcome to our amazing Bookstore!
@@ -49,6 +69,7 @@ en:
     failure:
       create: Review does not sended
   cart:
+    cart: Cart
     credit_card:
       title: Credit Card
       method: Method
@@ -91,6 +112,10 @@ en:
     used: Coupon used
     added: Coupon added
   orders:
+    all: All
+    in_progress: In progress
+    in_delivery: Sent
+    delivered: Delivered
     mailer:
       title: Confirm your order
       confirm_message: To confirm your order, just follow this link
@@ -111,9 +136,32 @@ en:
     read_more: Read More
     reviews: Reviews
     publication_year: Year of publication
-  link:
-    back: Back to results  
     dimensions: Dimensions
     materials: Materials
+  link:
+    back: Back to results 
   customer:
     user_exist: User already exists
+    returning_customer: Returning Customer
+    new_customer: New Customer
+    quick_register: Quick Register
+    log_in_with_password: Log In with Password
+    able_create_password_later: You'll be able to create password later
+    continue_to_checkout: Continue to Checkout
+  register:
+    email_instructions: Email Instructions
+    cancel: Cancel
+    or: or
+    enter_email: Enter Email
+    back_to_store: Back to Store
+    email: Email
+    password: Password
+    confirm_pasword: Confirm Password
+    have_account:
+    signup: Sign Up
+    login: Log In
+    remember_me: Remember me
+    forgot_password: Forgot your password?
+    forgot_password_message: We'll email you instructions on how to reset it
+    do_not_have: Don’t have an Account?
+    have_account: Have an Account?

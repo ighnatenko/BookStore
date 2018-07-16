@@ -74,4 +74,4 @@
             %span.font-16.in-gold-500= "€#{book.decorate.total_price(@order)}"
 = render 'order_summary', order: @order
 .text-center
-  = link_to 'Back to Store', wizard_path, method: :put, class: 'btn btn-default mb-20'
+  = link_to t('checkout.back_to_tore'), wizard_path, method: :put, class: 'btn btn-default mb-20'

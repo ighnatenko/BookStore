@@ -29,7 +29,7 @@
             %td
               %span.font-16.in-gold-500="€#{delivery.price}"
       .text-center        
-        = submit_tag('Save and Continue', class: 'btn btn-default mb-20')
+        = submit_tag(t('checkout.save'), class: 'btn btn-default mb-20')
 .hidden-xs.mb-res-50
   = form_tag(wizard_path, method: :put) do
     %table.table.table-hover
@@ -58,4 +58,4 @@
               %span.font-16.in-gold-500="€#{delivery.price}"
     = render 'order_summary', order: @order
     .text-center
-      = submit_tag('Save and Continue', class: 'btn btn-default mb-20', id: 'deliveries-submit-btn')
+      = submit_tag(t('checkout.save'), class: 'btn btn-default mb-20', id: 'deliveries-submit-btn')

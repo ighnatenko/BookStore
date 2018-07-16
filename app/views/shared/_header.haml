@@ -40,7 +40,7 @@
         %ul.nav.navbar-nav
           %li= link_to t('header.home'), root_path
           %li.dropdown
-            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
+            %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('header.shop')
             %ul.dropdown-menu
               - categories.each do |category|
                 %li= link_to(category.title, category_path(category.id))
