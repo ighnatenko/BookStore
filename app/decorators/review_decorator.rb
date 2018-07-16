@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ReviewDecorator
 class ReviewDecorator < Draper::Decorator
   delegate_all
 

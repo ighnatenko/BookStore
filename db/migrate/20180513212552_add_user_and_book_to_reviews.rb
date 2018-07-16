@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# AddUserAndBookToReviews
 class AddUserAndBookToReviews < ActiveRecord::Migration[5.1]
   def change
     add_reference :reviews, :user, foreign_key: true

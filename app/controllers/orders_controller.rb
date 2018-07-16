@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# OrdersController
 class OrdersController < ApplicationController
   authorize_resource
 

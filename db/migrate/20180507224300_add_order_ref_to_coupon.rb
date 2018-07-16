@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# AddOrderRefToCoupon
 class AddOrderRefToCoupon < ActiveRecord::Migration[5.1]
   def change
     add_reference :coupons, :order, index: true

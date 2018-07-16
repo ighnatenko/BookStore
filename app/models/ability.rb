@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Ability
 class Ability
   include CanCan::Ability
 
@@ -15,7 +16,8 @@ class Ability
     elsif user.confirmed_at
       can :create, Review, user_id: user.id
       can %i[create update], CreditCard, user_id: user.id
-      can %i[create update], Address, addressable_type: 'User', addressable_id: user.id
+      can %i[create update], Address, addressable_type: 'User',
+                                      addressable_id: user.id
     end
   end
 end

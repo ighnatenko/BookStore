@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Order
 class Order < ApplicationRecord
   include AASM
   belongs_to :user, optional: true

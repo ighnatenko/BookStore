@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# Book
 class Book < ApplicationRecord
-  FILTERS = %i[newest popular price_asc price_desc by_title_asc by_title_desc].freeze
+  FILTERS = %i[newest popular price_asc price_desc
+               by_title_asc by_title_desc].freeze
   DEFAULT_FILTER = :newest
 
   has_many :images, dependent: :destroy
@@ -11,8 +13,10 @@ class Book < ApplicationRecord
   has_many :orders, through: :positions, dependent: :destroy
   has_many :reviews, dependent: :destroy
   validates :title, :price, :materials, presence: true
-  validates :height, :width, :depth, numericality: { greater_than_or_equal_to: 0 }
-  validates :publication_year, numericality: { less_than_or_equal_to: Time.current.year }
+  validates :height, :width, :depth,
+            numericality: { greater_than_or_equal_to: 0 }
+  validates :publication_year,
+            numericality: { less_than_or_equal_to: Time.current.year }
 
   scope :for_slider, -> { order(:created_at).last(3) }
   scope :best_sellers, -> { where(best_seller: true).last(4) }

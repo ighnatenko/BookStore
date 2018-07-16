@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CreateAuthors
 class CreateAuthors < ActiveRecord::Migration[5.1]
   def change
     create_table :authors do |t|

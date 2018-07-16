@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CategoriesController
 class CategoriesController < ApplicationController
   load_and_authorize_resource
   before_action :set_filter
@@ -35,6 +36,10 @@ class CategoriesController < ApplicationController
   end
 
   def set_filter
-    @filter = Book::FILTERS.include?(params[:filter]&.to_sym) ? params[:filter] : Book::DEFAULT_FILTER
+    @filter = if Book::FILTERS.include?(params[:filter]&.to_sym)
+                params[:filter]
+              else
+                Book::DEFAULT_FILTER
+              end
   end
 end

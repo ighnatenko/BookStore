@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# OrderMailer
 class OrderMailer < ApplicationMailer
   def order_confirmation(user, order)
     @url = order_confirm_url(order, order.confirmation_token)

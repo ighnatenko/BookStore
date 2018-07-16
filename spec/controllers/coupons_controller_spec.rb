@@ -7,7 +7,7 @@ RSpec.describe CouponsController, type: :controller do
   let(:order) { FactoryBot.create(:order, user: user) }
   let(:coupon) { FactoryBot.create(:coupon, order: order) }
   let(:unused_coupon) { FactoryBot.create(:coupon, :without_order) }
-  let(:invalid_coupon) { FactoryBot.attributes_for(:coupon, :invalid).stringify_keys }
+  let(:invalid_coupon) { FactoryBot.attributes_for(:coupon, :invalid) }
 
   before { allow(controller).to receive(:current_user).and_return(user) }
 

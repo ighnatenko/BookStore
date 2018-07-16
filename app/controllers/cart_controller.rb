@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CartController
 class CartController < ApplicationController
   load_and_authorize_resource :order, :book, :position
   before_action :set_order

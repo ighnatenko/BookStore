@@ -31,6 +31,8 @@ class CheckoutController < ApplicationController
     redirect_to_valid_step
   end
 
+  private
+
   def show_confirm
     return jump_to(valid_step) if nil_or_invalid?(current_user.orders.last.credit_card)
   end
@@ -40,8 +42,6 @@ class CheckoutController < ApplicationController
     @shipping_address = @order.addresses.find_by_address_type(:shipping)
     @order.deliver
   end
-
-  private
 
   def show_address
     @address_service = CheckoutAddressService.new(@order, nil, current_user)

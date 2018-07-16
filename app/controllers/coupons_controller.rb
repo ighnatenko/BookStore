@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CouponsController
 class CouponsController < ApplicationController
   def create
     coupon = Coupon.find_by(code: coupon_params[:code])

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# BookDecorator
 class BookDecorator < Draper::Decorator
   delegate_all
 

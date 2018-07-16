@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# AddressesController
 class AddressesController < ApplicationController
   load_resource
 
@@ -18,10 +19,15 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:firstname, :lastname, :address, :city, :zipcode, :country, :phone, :address_type)
+    params.require(:address).permit(:firstname, :lastname, :address, :city,
+                                    :zipcode, :country, :phone, :address_type)
   end
 
   def show_flash(action)
-    @address.errors.any? ? flash[:alert] = t("address.failure.#{action}") : flash[:notice] = t("address.successful.#{action}")
+    if @address.errors.any?
+      flash[:alert] = t("address.failure.#{action}")
+    else
+      flash[:notice] = t("address.successful.#{action}")
+    end
   end
 end

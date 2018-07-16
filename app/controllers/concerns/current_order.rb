@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CurrentOrder
 module CurrentOrder
   extend ActiveSupport::Concern
 

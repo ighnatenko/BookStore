@@ -29,7 +29,9 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe 'GET #show' do
-    before { get :show, params: { id: order.id }, session: { order_id: order.id } }
+    before do
+      get :show, params: { id: order.id }, session: { order_id: order.id }
+    end
 
     it 'assigns @items' do
       expect(assigns(:order)).not_to be_nil
@@ -44,9 +46,13 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     context 'calling needed methods' do
-      after { get :show, params: { id: order.id }, session: { order_id: order.id } }
+      after do
+        get :show, params: { id: order.id }, session: { order_id: order.id }
+      end
+
       it 'finds needed order' do
-        expect(Order).to receive(:find_by).with(id: order.id.to_s).and_call_original
+        expect(Order).to receive(:find_by).with(id: order.id.to_s)
+                                          .and_call_original
       end
     end
   end

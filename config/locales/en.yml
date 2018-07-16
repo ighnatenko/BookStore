@@ -115,3 +115,5 @@ en:
     back: Back to results  
     dimensions: Dimensions
     materials: Materials
+  customer:
+    user_exist: User already exists

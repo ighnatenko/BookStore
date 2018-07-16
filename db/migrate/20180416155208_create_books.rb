@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CreateBooks
 class CreateBooks < ActiveRecord::Migration[5.1]
   def change
     create_table :books do |t|
@@ -11,7 +12,6 @@ class CreateBooks < ActiveRecord::Migration[5.1]
       t.decimal :depth, precision: 4, scale: 1, null: false
       t.integer :publication_year, null: false
       t.string :materials, null: false
-
       t.timestamps
     end
   end

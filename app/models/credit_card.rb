@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CreditCard
 class CreditCard < ApplicationRecord
   belongs_to :order
 

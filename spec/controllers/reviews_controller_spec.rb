@@ -11,7 +11,8 @@ RSpec.describe ReviewsController, type: :controller do
   describe 'POST #create' do
     context 'valid attributes' do
       before do
-        params = { rating: 5, review: { description: 'test' }, book_id: book.id, user_id: user.id }
+        params = { rating: 5, review: { description: 'test' },
+                   book_id: book.id, user_id: user.id }
         expect { post :create, params: params }.to change(Review, :count).by(1)
       end
 
@@ -26,7 +27,8 @@ RSpec.describe ReviewsController, type: :controller do
 
     context 'invalid params' do
       before do
-        params = { review: { description: 'test' }, book_id: book.id, user_id: user.id }
+        params = { review: { description: 'test' },
+                   book_id: book.id, user_id: user.id }
         post :create, params: params
       end
 

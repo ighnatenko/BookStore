@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# RegistrationsController
 class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     @billing_address = current_user_address(:billing)

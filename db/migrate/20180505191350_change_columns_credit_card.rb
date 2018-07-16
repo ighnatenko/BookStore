@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ChangeColumnsCreditCard
 class ChangeColumnsCreditCard < ActiveRecord::Migration[5.1]
   def change
     add_column :credit_cards, :card_name, :string, null: false
