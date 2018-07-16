@@ -23,11 +23,12 @@ class OrderDecorator < Draper::Decorator
   end
 
   def total_without_delivery
-    order_total = subtotal - coupon_discount
+    subtotal - coupon_discount
   end
 
   def order_total
     order_total = subtotal - coupon_discount
     order_total += delivery_id.nil? ? 0 : Delivery.find(delivery_id).price
+    order_total
   end
 end

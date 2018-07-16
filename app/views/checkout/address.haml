@@ -13,13 +13,13 @@
       .visible-xs.visible-sm
         %h3.general-subtitle= t('checkout.billing_address')
         %p.general-info-text= t('checkout.required')
-      = simple_fields_for :billing_address, @billing_address do |address|
+      = simple_fields_for :billing_address, @address_service.billing_address do |address|
         = render 'shared/address_form', f: address, address_type: :billing, visible_submit_btn: false
     .col-md-5.col-md-offset-1.mb-60
       #checkout_shipping_address{class: (@order.use_billing ? 'hidden' : '')} 
         .visible-xs.visible-sm
           %h3.general-subtitle= t('checkout.shipping_address')
-        = simple_fields_for :shipping_address, @shipping_address do |address|
+        = simple_fields_for :shipping_address, @address_service.shipping_address do |address|
           = render 'shared/address_form', f: address, address_type: :shipping, visible_submit_btn: false
       .form-group.checkbox
         %label.checkbox-label

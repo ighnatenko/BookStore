@@ -11,10 +11,4 @@ class ApplicationController < ActionController::Base
       redirect_to main_app.root_path, alert: exception.message
     end
   end
-
-  # def after_sign_in_path_for(resource) 
-  #   raise 'aaa'
-  #   "www.google.com" 
-    
-  #   end 
 end
