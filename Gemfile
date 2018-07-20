@@ -5,6 +5,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.2'
 
+# 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'cancancan', '~> 2.0'
@@ -53,6 +55,7 @@ group :development do
   gem 'letter_opener'
   gem 'listen', '~> 3.1', '>= 3.1.5'
   gem 'rails-erd', require: false
+  gem 'rubycritic', require: false
   gem 'spring', '~> 2.0', '>= 2.0.2'
   gem 'spring-watcher-listen', '~> 2.0', '>= 2.0.1'
   gem 'web-console', '~> 3.6'

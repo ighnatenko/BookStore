@@ -13,7 +13,13 @@ class Order < ApplicationRecord
 
   validates :tracking_number, :state, presence: true
 
-  scope :newest, -> { order('created_at DESC') }
+  scope :newest, (lambda do
+    joins(:books)
+    .group('orders.id')
+    .having('count(books) > 0')
+    .order('created_at DESC')
+  end)
+
   scope :by_state, ->(state) { where(state: state) }
 
   aasm column: :state do

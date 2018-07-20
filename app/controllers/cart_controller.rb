@@ -40,7 +40,8 @@ class CartController < ApplicationController
 
   def change_quantity(increment, order, book_id)
     position = Position.find_by(order_id: order.id, book_id: book_id)
-    quantity = increment ? position.quantity + 1 : position.quantity - 1
+    quantity = position.quantity
+    quantity = increment ? quantity + 1 : quantity - 1
     quantity = 1 if quantity < 1
     position.update(quantity: quantity)
   end

@@ -19,6 +19,6 @@
         .form-group.relative
           = f.input :cvv, input_html: { class: 'form-control' }, label: t('checkout.cvv'),
           placeholder: t('checkout.cvv'), label_html: { class: 'control-label input-label' }
-          %i.fa.fa-question-circle.general-form-help
+          %i.fa.fa-question-circle.general-form-help{'data-toggle': 'tooltip', 'data-placement': :top, title: t('checkout.cvv_tooltip')}
   = render 'order_summary', order: @order
   = submit_tag t('checkout.save'), class:'btn btn-default center-block mb-20'

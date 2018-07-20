@@ -7,6 +7,11 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand= t('header.brand')
+      .navbar-brand
+        = link_to "en", url_for( :locale => 'en' ),
+          class: ['in-gold-500', ('lead' if params[:locale] == 'en')]
+        = link_to "ru", url_for( :locale => 'ru' ),
+          class: ['in-gold-500', ('lead' if params[:locale] == 'ru')]
       = link_to cart_path, class: 'shop-link pull-right visible-xs' do
         %span.shop-icon
           %span.shop-quantity= quantity_book_in_cart
@@ -29,7 +34,7 @@
               %a{type: "button", 'data-toggle': "collapse", href: "#account", 'aria-expanded': "false", 'aria-controls': "account"}= t('header.account')
               %ul#account.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
                 %li= link_to t('header.orders'), orders_path
-                %li= link_to t('header.settings'), edit_user_registration_path
+                %li= link_to t('header.settings'), addresses_path
             %li.divider{role: "separator"}
             %li= link_to t('header.log_out'), destroy_user_session_path, method: :delete
           - else
@@ -49,7 +54,7 @@
               %a.dropdown-toggle{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('header.account')
               %ul.dropdown-menu
                 %li= link_to(t('header.orders'), orders_path)
-                %li= link_to(t('header.settings'), edit_user_registration_path)
+                %li= link_to(t('header.settings'), addresses_path)
                 %li.divider{role: "separator"}
                 %li= link_to(t('header.log_out'), destroy_user_session_path, method: :delete)
           - else

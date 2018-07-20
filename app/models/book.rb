@@ -4,7 +4,10 @@
 class Book < ApplicationRecord
   FILTERS = %i[newest popular price_asc price_desc
                by_title_asc by_title_desc].freeze
+
   DEFAULT_FILTER = :newest
+  PER_PAGE = 5
+  CURRENT_PAGE = 1
 
   has_many :images, dependent: :destroy
   belongs_to :category
@@ -12,6 +15,7 @@ class Book < ApplicationRecord
   has_many :positions
   has_many :orders, through: :positions, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
   validates :title, :price, :materials, presence: true
   validates :height, :width, :depth,
             numericality: { greater_than_or_equal_to: 0 }
@@ -21,10 +25,13 @@ class Book < ApplicationRecord
   scope :for_slider, -> { order(:created_at).last(3) }
   scope :best_sellers, -> { where(best_seller: true).last(4) }
   scope :newest, -> { order('created_at DESC') }
-  scope :popular, -> { where(popular: true) }
+  scope :popular, -> { order(popular: :desc, created_at: :asc) }
   scope :price_asc, -> { order('price') }
   scope :price_desc, -> { order('price DESC') }
   scope :by_title_asc, -> { order('title') }
   scope :by_title_desc, -> { order('title DESC') }
-  scope :by_filter, ->(filter, page) { public_send(filter).page(page) }
+
+  scope :by_filter, (lambda do |filter, page|
+    public_send(filter).page(CURRENT_PAGE).per(PER_PAGE * page)
+  end)
 end

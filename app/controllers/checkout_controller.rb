@@ -26,22 +26,12 @@ class CheckoutController < ApplicationController
     when :delivery then update_delivery
     when :payment then update_payment
     when :confirm  then update_confirm
-    when :complete then update_complete
+    when :complete then redirect_to root_path
     end
     redirect_to_valid_step
   end
 
   private
-
-  def show_confirm
-    return jump_to(valid_step) if nil_or_invalid?(current_user.orders.last.credit_card)
-  end
-
-  def show_complete
-    return jump_to(valid_step) if nil_or_invalid?(current_user.orders.last.credit_card)
-    @shipping_address = @order.addresses.find_by_address_type(:shipping)
-    @order.deliver
-  end
 
   def show_address
     @address_service = CheckoutAddressService.new(@order, nil, current_user)
@@ -49,28 +39,44 @@ class CheckoutController < ApplicationController
 
   def show_delivery
     @delivery_service = CheckoutDeliveryService.new(@order)
-    jump_to(valid_step) unless @delivery_service.show_delivery?
+    jump_to(valid_step) unless address_valid?(@order)
   end
 
   def show_payment
     @payment_service = CheckoutPaymentService.new(@order, nil, current_user)
-    jump_to(valid_step) unless @payment_service.show_payment?
+    jump_to(valid_step) if @order.delivery.nil?
+  end
+
+  def show_confirm
+    return jump_to(valid_step) if nil_or_invalid?(current_user
+      .orders.last.credit_card)
+  end
+
+  def show_complete
+    return jump_to(valid_step) if nil_or_invalid?(current_user
+      .orders.last.credit_card)
+    @shipping_address = @order.addresses.find_by_address_type(:shipping)
+    @order.deliver
   end
 
   def update_address
-    @address_service = CheckoutAddressService.new(@order, params)
-    render_wizard unless @address_service.updated_address?
+    @address_service =
+      CheckoutAddressService.new(@order, params, current_user).call
+    return if @address_service.billing_address.valid? &&
+              @address_service.shipping_address.valid?
+    render_wizard
   end
 
   def update_delivery
-    @delivery_service = CheckoutDeliveryService.new(@order, params)
-    render_wizard unless @delivery_service.updated_delivery?
+    @delivery_service = CheckoutDeliveryService.new(@order, params).call
+    return if @delivery_service.updated
+    render_wizard
   end
 
   def update_payment
-    @payment_service = CheckoutPaymentService.new(@order, params)
-    @payment_service.update
-    render_wizard unless @payment_service.credit_card_valid?(@order)
+    @payment_service = CheckoutPaymentService.new(@order, params).call
+    return unless nil_or_invalid?(@order.credit_card)
+    render_wizard
   end
 
   def redirect_to_valid_step
@@ -88,11 +94,13 @@ class CheckoutController < ApplicationController
 
   def update_confirm; end
 
-  def update_complete
-    redirect_to root_path
-  end
-
   def set_order
     @order = @current_order
+  end
+
+  def address_valid?(order)
+    billing_address = order.addresses.find_by_address_type(:billing)
+    shipping_address = order.addresses.find_by_address_type(:shipping)
+    !nil_or_invalid?(billing_address) && !nil_or_invalid?(shipping_address)
   end
 end

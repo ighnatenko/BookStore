@@ -21,6 +21,7 @@ ru:
     understand: Я понимаю, что все данные будут потеряны
     please_remove_account: Удалить мою учетную запись
   checkout:
+    cvv_tooltip: 3 цифры секретного кода на вашей карте
     back_to_tore: Назад в Магазин
     edit: редактировать
     place_order: Продолжить

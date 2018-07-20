@@ -3,43 +3,17 @@
 # CategoriesController
 class CategoriesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_filter
+  before_action :load_categories
 
   def index
-    if params[:id]
-      load_category
-      load_books
-    else
-      @books = Book.by_filter(@filter, params[:page])
-    end
-    set_page_number
     render :show
   end
 
-  def show
-    load_category
-    load_books
-  end
+  def show; end
 
   private
 
-  def load_category
-    @category = Category.find_by(id: params[:id])
-  end
-
-  def load_books
-    @books = Book.where(category_id: params[:id]).by_filter(@filter, params[:page])
-  end
-
-  def set_page_number
-    @page = params[:page] ? (params[:page].to_i + 1) : 2
-  end
-
-  def set_filter
-    @filter = if Book::FILTERS.include?(params[:filter]&.to_sym)
-                params[:filter]
-              else
-                Book::DEFAULT_FILTER
-              end
+  def load_categories
+    @category_service = CategoryService.new.call(params)
   end
 end

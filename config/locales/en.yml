@@ -21,6 +21,7 @@ en:
     understand: I understand that all data will be lost
     please_remove_account: Please Remove My Account
   checkout:
+    cvv_tooltip: 3-digit security code, usually found on the back of your card.
     back_to_tore: Back to Store
     edit: edit
     place_order: Place Order
