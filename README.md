@@ -2,6 +2,7 @@
 
 <h3>BookStore: https://bookstore-x.herokuapp.com</h3>
 <br/>
+<p>Admin:</p>
 <p>login: "user@example.com"</p>
 <p>password: 'password'</p>
 <br/>
