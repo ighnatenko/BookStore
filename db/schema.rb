@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 20_180_712_234_700) do
     t.datetime 'updated_at', null: false
     t.bigint 'category_id'
     t.integer 'quantity', default: 0
-    t.boolean 'popular', default: false
     t.boolean 'best_seller', default: false
     t.index ['category_id'], name: 'index_books_on_category_id'
   end

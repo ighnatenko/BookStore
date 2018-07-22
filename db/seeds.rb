@@ -50,7 +50,3 @@ end
 Book.all.last(10).each do |b|
   b.update(best_seller: true)
 end
-
-Book.all.first(8).each_with_index do |b, index|
-  b.update(popular: true, title: "popular ##{index}")
-end

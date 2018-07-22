@@ -2,7 +2,7 @@
 
 # CartController
 class CartController < ApplicationController
-  load_and_authorize_resource :order, :book, :position
+  authorize_resource :order, :book, :position
   before_action :set_order
 
   def index
@@ -13,8 +13,7 @@ class CartController < ApplicationController
     if @order.books.where(id: items_params[:book_id]).any?
       return redirect_to cart_path, alert: t('cart.alredy_added')
     end
-    Position.create(order_id: @order.id, book_id: items_params[:book_id], quantity: items_params[:quantity].to_i)
-    redirect_to cart_path, notice: t('cart.successful_added')
+    create_position
   end
 
   def destroy
@@ -48,5 +47,11 @@ class CartController < ApplicationController
 
   def items_params
     params.require(:items).permit(:price, :quantity, :book_id)
+  end
+
+  def create_position
+    Position.create(order_id: @order.id, book_id: items_params[:book_id],
+                    quantity: items_params[:quantity].to_i)
+    redirect_to cart_path, notice: t('cart.successful_added')
   end
 end

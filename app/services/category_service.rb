@@ -31,7 +31,8 @@ class CategoryService
     category_id = params[:id]
     init_page_number(params)
     init_filter(params)
-    @books = Book.where(category_id: category_id).by_filter(@filter, @page_number)
+    @books = Book.where(category_id: category_id)
+                 .by_filter(@filter, @page_number)
   end
 
   def init_page_number(params)
@@ -43,12 +44,12 @@ class CategoryService
   end
 
   def show_more_button?(params)
-    return if @books.count.zero?
+    return if @books.to_a.size.zero?
     if params[:id]
-      if @books.count != qunatity_book_in_category(@category.id)
+      if @books.to_a.size != qunatity_book_in_category(@category.id)
         @active_more_btn = true
       end
-    elsif @books.count != Book.all.count
+    elsif @books.to_a.size != Book.all.count
       @active_more_btn = true
     end
   end

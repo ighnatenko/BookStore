@@ -15,15 +15,23 @@ class CheckoutAddressService
       @order.update(use_billing: @params[:use_billing] || false)
       @billing_address =
         update_address_with_type(@order, :billing, billing_address_params)
-
-      shipping_params = @params[:use_billing] ? billing_address_params : shipping_address_params
+      shipping_params = address_params
       shipping_params[:address_type] = :shipping
-      @shipping_address = update_address_with_type(@order, :shipping, shipping_params)
+      @shipping_address =
+        update_address_with_type(@order, :shipping, shipping_params)
     end
     self
   end
 
   private
+
+  def address_params
+    if @params[:use_billing]
+      billing_address_params
+    else
+      shipping_address_params
+    end
+  end
 
   def billing_address_params
     @params.require(:billing_address)
@@ -39,10 +47,12 @@ class CheckoutAddressService
 
   def initialize_address(current_user)
     @order.update(user: current_user) if @order.user_id.nil?
-    @billing_address = current_user.addresses.find_by_address_type(:billing)
-    @shipping_address = current_user.addresses.find_by_address_type(:shipping)
-    @billing_address ||= @order.addresses.find_by_address_type(:billing)
-    @shipping_address ||= @order.addresses.find_by_address_type(:shipping)
+    @billing_address =
+      current_user.addresses.find_by_address_type(:billing) ||
+      @order.addresses.find_by_address_type(:billing)
+    @shipping_address =
+      current_user.addresses.find_by_address_type(:shipping) ||
+      @order.addresses.find_by_address_type(:shipping)
   end
 
   def update_address_with_type(order, address_type, params)

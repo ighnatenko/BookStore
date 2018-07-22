@@ -13,8 +13,11 @@ class CheckoutPaymentService
   end
 
   def call
-    @credit_card ? @credit_card.update(credit_card_params) :
-    @credit_card = @order.create_credit_card(credit_card_params)
+    if @credit_card
+      @credit_card.update(credit_card_params)
+    else
+      @credit_card = @order.create_credit_card(credit_card_params)
+    end
     self
   end
 
@@ -23,7 +26,7 @@ class CheckoutPaymentService
   def init_credit_card(current_user)
     @credit_card = CreditCard.find_by(order_id: current_user.orders.first.id)
     @credit_card ||= @order.credit_card
-    @credit_card = CreditCard.new if nil_or_invalid?(@credit_card)
+    @credit_card = CreditCard.new if try_nil_or_invalid?(@credit_card)
   end
 
   def credit_card_params

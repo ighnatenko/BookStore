@@ -41,10 +41,9 @@ class Order < ApplicationRecord
   end
 
   def set_confirmation_token
-    if confirmation_token.blank?
-      self.confirmation_token = SecureRandom.urlsafe_base64.to_s
-      save(validate: false)
-    end
+    return unless confirmation_token.blank?
+    self.confirmation_token = SecureRandom.urlsafe_base64.to_s
+    save(validate: false)
   end
 
   def send_confirmation

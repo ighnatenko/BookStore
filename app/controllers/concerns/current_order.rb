@@ -7,10 +7,8 @@ module CurrentOrder
   included do
     def present_order
       @current_order ||= order_from_current_user || order_from_session
-
-      if @current_order.nil? || !@current_order.in_progress?
-        @current_order = new_order
-      end
+      return unless @current_order.nil? || !@current_order.in_progress?
+      @current_order = new_order
     end
 
     private

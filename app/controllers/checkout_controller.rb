@@ -48,12 +48,12 @@ class CheckoutController < ApplicationController
   end
 
   def show_confirm
-    return jump_to(valid_step) if nil_or_invalid?(current_user
+    return jump_to(valid_step) if try_nil_or_invalid?(current_user
       .orders.last.credit_card)
   end
 
   def show_complete
-    return jump_to(valid_step) if nil_or_invalid?(current_user
+    return jump_to(valid_step) if try_nil_or_invalid?(current_user
       .orders.last.credit_card)
     @shipping_address = @order.addresses.find_by_address_type(:shipping)
     @order.deliver
@@ -75,20 +75,26 @@ class CheckoutController < ApplicationController
 
   def update_payment
     @payment_service = CheckoutPaymentService.new(@order, params).call
-    return unless nil_or_invalid?(@order.credit_card)
+    return unless try_nil_or_invalid?(@order.credit_card)
     render_wizard
   end
 
   def redirect_to_valid_step
-    if nil_or_invalid?(current_user.orders.last.credit_card)
+    if try_nil_or_invalid?(current_user.orders.last.credit_card)
       redirect_to next_wizard_path unless performed?
     else
-      if step == :confirm
-        jump_to(:complete)
-      elsif previous_step == :address || :delivery || :payment
-        jump_to(:confirm)
-      end
+      check_step(step)
       render_wizard unless performed?
+    end
+  end
+
+  def check_step(step)
+    if step == :confirm
+      jump_to(:complete)
+    elsif previous_step == :address ||
+          previous_step == :delivery ||
+          previous_step == :payment
+      jump_to(:confirm)
     end
   end
 
@@ -101,6 +107,7 @@ class CheckoutController < ApplicationController
   def address_valid?(order)
     billing_address = order.addresses.find_by_address_type(:billing)
     shipping_address = order.addresses.find_by_address_type(:shipping)
-    !nil_or_invalid?(billing_address) && !nil_or_invalid?(shipping_address)
+    !try_nil_or_invalid?(billing_address) &&
+      !try_nil_or_invalid?(shipping_address)
   end
 end

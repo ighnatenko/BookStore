@@ -24,12 +24,18 @@ class Book < ApplicationRecord
 
   scope :for_slider, -> { order(:created_at).last(3) }
   scope :best_sellers, -> { where(best_seller: true).last(4) }
-  scope :newest, -> { order('created_at DESC') }
-  scope :popular, -> { order(popular: :desc, created_at: :asc) }
-  scope :price_asc, -> { order('price') }
-  scope :price_desc, -> { order('price DESC') }
-  scope :by_title_asc, -> { order('title') }
-  scope :by_title_desc, -> { order('title DESC') }
+  scope :newest, -> { order(created_at: :desc) }
+  scope :price_asc, -> { order(:price) }
+  scope :price_desc, -> { order(price: :desc) }
+  scope :by_title_asc, -> { order(:title) }
+  scope :by_title_desc, -> { order(title: :desc) }
+
+  scope :popular, (lambda do
+    left_outer_joins(:positions)
+    .select('books.*, COALESCE(SUM(positions.quantity), 0) as positions_sum')
+    .group('books.id')
+    .order('positions_sum desc')
+  end)
 
   scope :by_filter, (lambda do |filter, page|
     public_send(filter).page(CURRENT_PAGE).per(PER_PAGE * page)
