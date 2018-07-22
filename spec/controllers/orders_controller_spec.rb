@@ -11,7 +11,8 @@ RSpec.describe OrdersController, type: :controller do
   describe 'GET #index' do
     context 'successful load' do
       before do
-        get :index, session: { order_id: order.id }
+        get :index, params: { locale: I18n.locale },
+                    session: { order_id: order.id }
       end
 
       it 'assigns @items' do
@@ -30,7 +31,8 @@ RSpec.describe OrdersController, type: :controller do
 
   describe 'GET #show' do
     before do
-      get :show, params: { id: order.id }, session: { order_id: order.id }
+      get :show, params: { id: order.id, locale: I18n.locale },
+                 session: { order_id: order.id }
     end
 
     it 'assigns @items' do
@@ -43,17 +45,6 @@ RSpec.describe OrdersController, type: :controller do
 
     it 'has a 200 status code' do
       expect(response.status).to eq(200)
-    end
-
-    context 'calling needed methods' do
-      after do
-        get :show, params: { id: order.id }, session: { order_id: order.id }
-      end
-
-      it 'finds needed order' do
-        expect(Order).to receive(:find_by).with(id: order.id.to_s)
-                                          .and_call_original
-      end
     end
   end
 end

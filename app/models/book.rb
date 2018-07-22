@@ -23,12 +23,19 @@ class Book < ApplicationRecord
             numericality: { less_than_or_equal_to: Time.current.year }
 
   scope :for_slider, -> { order(:created_at).last(3) }
-  scope :best_sellers, -> { where(best_seller: true).last(4) }
   scope :newest, -> { order(created_at: :desc) }
   scope :price_asc, -> { order(:price) }
   scope :price_desc, -> { order(price: :desc) }
   scope :by_title_asc, -> { order(:title) }
   scope :by_title_desc, -> { order(title: :desc) }
+
+  scope :best_sellers, (lambda do
+    left_outer_joins(:positions)
+    .select('books.*, COALESCE(COUNT(positions.quantity), 0) as count')
+    .group('books.id')
+    .order('count desc')
+    .limit 4
+  end)
 
   scope :popular, (lambda do
     left_outer_joins(:positions)

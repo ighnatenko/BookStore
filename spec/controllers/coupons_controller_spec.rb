@@ -13,7 +13,10 @@ RSpec.describe CouponsController, type: :controller do
 
   describe 'POST #create' do
     context 'coupon does not exist' do
-      before { post :create, params: { coupon: invalid_coupon } }
+      before do
+        post :create, params: { coupon: invalid_coupon,
+                                locale: I18n.locale }
+      end
 
       it 'redirects to cart page' do
         expect(response).to redirect_to(cart_path)
@@ -25,7 +28,10 @@ RSpec.describe CouponsController, type: :controller do
     end
 
     context 'coupon used' do
-      before { post :create, params: { coupon: { code: coupon.code } } }
+      before do
+        post :create, params: { coupon: { code: coupon.code },
+                                locale: I18n.locale }
+      end
 
       it 'redirects to cart page' do
         expect(response).to redirect_to(cart_path)
@@ -37,7 +43,10 @@ RSpec.describe CouponsController, type: :controller do
     end
 
     context 'with valid params' do
-      before { post :create, params: { coupon: { code: unused_coupon.code } } }
+      before do
+        post :create, params: { coupon: { code: unused_coupon.code },
+                                locale: I18n.locale }
+      end
 
       it 'relates coupon with order' do
         expect(Coupon.find(unused_coupon.id).order).not_to be_nil

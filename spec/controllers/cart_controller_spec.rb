@@ -14,7 +14,10 @@ RSpec.describe CartController, type: :controller do
   before { allow(controller).to receive(:current_user).and_return(user) }
 
   describe 'GET #index' do
-    before { get :index, session: { order_id: order.id } }
+    before do
+      get :index, session: { order_id: order.id },
+                  params: { locale: I18n.locale }
+    end
 
     it 'assigns @items' do
       expect(assigns(:items)).not_to be_nil
@@ -42,7 +45,7 @@ RSpec.describe CartController, type: :controller do
       add_item
       expect(Position.find_by(order_id: order.id,
                               book_id: book.id)).not_to be_nil
-      delete :destroy, params: { book_id: book.id }
+      delete :destroy, params: { book_id: book.id, locale: I18n.locale }
       expect(Position.find_by(order_id: order.id,
                               book_id: book.id)).to be_nil
       expect(flash[:notice]).to eq I18n.t('cart.removed')
@@ -51,6 +54,6 @@ RSpec.describe CartController, type: :controller do
 
   def add_item
     session[:order_id] = order.id
-    post :add_item, params: { items: cart_params }
+    post :add_item, params: { items: cart_params, locale: I18n.locale }
   end
 end

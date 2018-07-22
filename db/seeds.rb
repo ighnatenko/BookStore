@@ -46,7 +46,3 @@ end
     )
   end
 end
-
-Book.all.last(10).each do |b|
-  b.update(best_seller: true)
-end

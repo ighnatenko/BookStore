@@ -6,9 +6,10 @@ RSpec.describe CategoriesController, type: :controller do
   let(:book) { FactoryBot.create(:book) }
 
   describe 'GET #index' do
-    before { get :index }
+    before { get :index, params: { locale: I18n.locale } }
     it 'assigns @books' do
-      expect(assigns(:books)).not_to be_nil
+      books = assigns(:category_service).books
+      expect(books).not_to be_nil
     end
 
     it 'has a 200 status code' do
@@ -21,10 +22,11 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe 'GET #show' do
-    before { get :show, params: { id: book.category.id } }
+    before { get :show, params: { id: book.category.id, locale: I18n.locale } }
 
     it 'assigns @books' do
-      expect(assigns(:books)).not_to be_nil
+      books = assigns(:category_service).books
+      expect(books).not_to be_nil
     end
 
     it 'has a 200 status code' do

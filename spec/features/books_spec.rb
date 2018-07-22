@@ -8,7 +8,7 @@ RSpec.feature 'Books', type: :feature do
   let(:review) { create(:review, book: book) }
 
   background do
-    visit book_path(book)
+    visit book_path(book, locale: I18n.locale)
   end
 
   scenario 'check page elements' do
@@ -22,7 +22,8 @@ RSpec.feature 'Books', type: :feature do
 
   scenario 'buy a book' do
     find('.items .btn').click
-    expect(page).to have_css('.alert-success', text: I18n.t('cart.successful_added'))
+    expect(page).to have_css('.alert-success',
+                             text: I18n.t('cart.successful_added'))
   end
 
   scenario 'make a review' do
@@ -30,10 +31,11 @@ RSpec.feature 'Books', type: :feature do
     fill_in 'email', with: user.email
     fill_in 'password', with: user.password
     first('[name = commit]').click
-    visit book_path(book)
+    visit book_path(book, locale: I18n.locale)
     first('i.fa.fa-star.rate-star').click
     fill_in 'review_description', with: review.description
     find('.review .btn').click
-    expect(page).to have_css('.alert-success', text: I18n.t('review.successful.create'))
+    expect(page).to have_css('.alert-success',
+                             text: I18n.t('review.successful.create'))
   end
 end

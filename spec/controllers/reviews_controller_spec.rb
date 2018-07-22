@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ReviewsController, type: :controller do
-  let(:book) { create(:book) }
-  let(:user) { create(:user) }
+  let!(:book) { create(:book) }
+  let!(:user) { create(:user) }
 
   before { allow(controller).to receive(:current_user).and_return(user) }
 
@@ -12,7 +12,8 @@ RSpec.describe ReviewsController, type: :controller do
     context 'valid attributes' do
       before do
         params = { rating: 5, review: { description: 'test' },
-                   book_id: book.id, user_id: user.id }
+                   book_id: book.id, user_id: user.id,
+                   locale: I18n.locale }
         expect { post :create, params: params }.to change(Review, :count).by(1)
       end
 
@@ -28,7 +29,8 @@ RSpec.describe ReviewsController, type: :controller do
     context 'invalid params' do
       before do
         params = { review: { description: 'test' },
-                   book_id: book.id, user_id: user.id }
+                   book_id: book.id, user_id: user.id,
+                   locale: I18n.locale }
         post :create, params: params
       end
 

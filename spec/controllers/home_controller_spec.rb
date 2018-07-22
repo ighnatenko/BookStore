@@ -4,10 +4,12 @@ require 'rails_helper'
 
 RSpec.describe HomeController, type: :controller do
   describe 'GET #index' do
-    before { get :index }
+    before { get :index, params: { locale: I18n.locale } }
     it 'assigns variables' do
-      expect(assigns(:slider_books)).not_to be_nil
-      expect(assigns(:best_seller_books)).not_to be_nil
+      slider_books = assigns(:home_service).slider_books
+      best_seller_books = assigns(:home_service).best_seller_books
+      expect(slider_books).not_to be_nil
+      expect(best_seller_books).not_to be_nil
     end
 
     it 'renders :index template' do

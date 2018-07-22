@@ -17,7 +17,7 @@ RSpec.describe CheckoutController, type: :controller do
 
   describe 'GET #address' do
     it 'show address' do
-      get :index
+      get :index, params: { locale: I18n.locale }
       expect(assigns(:order)).not_to be_nil
       expect(response.status).to eq(302)
     end
@@ -27,7 +27,8 @@ RSpec.describe CheckoutController, type: :controller do
     it 'update address' do
       put :update, params: { id: :address,
                              billing_address: billing_address_params,
-                             shipping_address: shipping_address_params }
+                             shipping_address: shipping_address_params,
+                             locale: I18n.locale }
       expect(assigns(:order)).not_to be_nil
       expect(assigns(:order).addresses.count).to eq(2)
       expect(response.status).to eq(302)
@@ -38,8 +39,9 @@ RSpec.describe CheckoutController, type: :controller do
     it 'show delivery' do
       put :update, params: { id: :address,
                              billing_address: billing_address_params,
-                             shipping_address: shipping_address_params }
-      get :show, params: { id: :delivery }
+                             shipping_address: shipping_address_params,
+                             locale: I18n.locale }
+      get :show, params: { id: :delivery, locale: I18n.locale }
       expect(assigns(:order).addresses.count).to eq(2)
       expect(response.status).to eq(302)
     end
