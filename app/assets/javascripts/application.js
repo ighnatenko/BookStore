@@ -14,9 +14,9 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
-//= require checkout_address
-//= require checkout_delivery
 //= book
 //= reviews
 //= user_settings
+//= require shopping_cart/checkout_address.js
+//= require shopping_cart/checkout_delivery.js
 //= require_tree .

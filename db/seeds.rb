@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-Delivery.destroy_all
-Order.destroy_all
+ShoppingCart::Delivery.destroy_all
+ShoppingCart::Order.destroy_all
 Author.destroy_all
 Book.destroy_all
 Image.destroy_all
 Category.destroy_all
-Coupon.destroy_all
+ShoppingCart::Coupon.destroy_all
 User.destroy_all
 
 User.create(email: 'user@example.com',
@@ -16,13 +16,13 @@ User.create(email: 'user@example.com',
             admin: true)
 
 3.times do |index|
-  Delivery.create(title: 'Delivery - test', price: index * 5 + 5, days: '3 to 5 days')
+  ShoppingCart::Delivery.create(title: 'Delivery - test', price: index * 5 + 5, days: '3 to 5 days')
 end
 
 5.times do |index|
   category = Category.create!(title: Faker::Book.title)
 
-  Coupon.create!(code: "code-#{index}", discount: index + 3)
+  ShoppingCart::Coupon.create!(code: "code-#{index}", discount: index + 3)
 
   10.times do
     book = Book.create(

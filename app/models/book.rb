@@ -12,8 +12,8 @@ class Book < ApplicationRecord
   has_many :images, dependent: :destroy
   belongs_to :category
   has_and_belongs_to_many :authors
-  has_many :positions
-  has_many :orders, through: :positions, dependent: :destroy
+  has_many :positions, class_name: 'ShoppingCart::Position'
+  has_many :orders, through: :positions, dependent: :destroy, class_name: 'ShoppingCart::Order'
   has_many :reviews, dependent: :destroy
 
   validates :title, :price, :materials, presence: true
@@ -31,7 +31,7 @@ class Book < ApplicationRecord
 
   scope :best_sellers, (lambda do
     left_outer_joins(:positions)
-    .select('books.*, COUNT(positions) as count')
+    .select('books.*, COUNT(shopping_cart_positions) as count')
     .group('books.id')
     .order('count desc')
     .limit 4
@@ -39,7 +39,7 @@ class Book < ApplicationRecord
 
   scope :popular, (lambda do
     left_outer_joins(:positions)
-    .select('books.*, COALESCE(SUM(positions.quantity), 0) as positions_sum')
+    .select('books.*, COALESCE(SUM(shopping_cart_positions.quantity), 0) as positions_sum')
     .group('books.id')
     .order('positions_sum desc')
   end)

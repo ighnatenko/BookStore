@@ -23,7 +23,7 @@ class CustomerController < ApplicationController
   def register_successfully(user)
     sign_in(:user, user)
     flash[:success] = t('devise.registrations.signed_up')
-    redirect_to checkout_index_path
+    redirect_to shopping_cart.checkout_index_path
   end
 
   def register_unsuccessfully

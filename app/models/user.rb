@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :destroy, class_name: 'ShoppingCart::Order'
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :reviews, dependent: :destroy
 

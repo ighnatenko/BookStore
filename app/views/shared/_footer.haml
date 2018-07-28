@@ -4,13 +4,13 @@
       .col-sm-9
         %ul.list-inline.general-align.mb-25
           %li= link_to(t('header.home'), root_path, class: 'nav-link')
-          %li= link_to(t('header.catalog'), categories_path, class: 'nav-link')
+          %li= link_to(t('header.catalog'), main_app.categories_path, class: 'nav-link')
           - if current_user
-            %li= link_to(t('header.orders'), orders_path, class: 'nav-link')
-            %li= link_to(t('header.settings'), edit_user_registration_path, class: 'nav-link')
+            %li= link_to(t('header.orders'), shopping_cart.orders_path, class: 'nav-link')
+            %li= link_to(t('header.settings'), main_app.edit_user_registration_path, class: 'nav-link')
           - else
-            %li= link_to(t('header.log_in'), new_user_session_path, class: 'nav-link')
-            %li= link_to(t('header.sign_up'), new_user_registration_path, class: 'nav-link')
+            %li= link_to(t('header.log_in'), main_app.new_user_session_path, class: 'nav-link')
+            %li= link_to(t('header.sign_up'), main_app.new_user_registration_path, class: 'nav-link')
       .col-sm-3
         %p.general-nav-mail support@bookstore.com
         %p.general-nav-number (555)-555-5555
