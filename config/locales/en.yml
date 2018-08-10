@@ -10,6 +10,7 @@ en:
     home: Home
     shop: Shop 
     catalog: Catalog
+    admin_panel: Admin panel
   settings:
     settings: Settings
     address: Address
@@ -113,6 +114,7 @@ en:
     used: Coupon used
     added: Coupon added
   orders:
+    do_not_have_order: You don't have an order
     all: All
     in_progress: In progress
     in_delivery: Sent

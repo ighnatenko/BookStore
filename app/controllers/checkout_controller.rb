@@ -4,83 +4,97 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
   include CheckoutHelper
+  include Rectify::ControllerHelpers
   before_action :authenticate_user!, :set_order
 
   steps :address, :delivery, :payment, :confirm, :complete
 
   def show
     redirect_to root_path if @order.books.count.zero?
-    case step
-    when :address then show_address
-    when :delivery then show_delivery
-    when :payment then show_payment
-    when :confirm  then show_confirm
-    when :complete then show_complete
-    end
+    @order.update(user: current_user) if @order.user_id.nil?
+    send("show_#{step}")
     render_wizard unless performed?
   end
 
   def update
-    case step
-    when :address then update_address
-    when :delivery then update_delivery
-    when :payment then update_payment
-    when :confirm  then update_confirm
-    when :complete then redirect_to root_path
-    end
+    send("update_#{step}")
     redirect_to_valid_step
   end
 
   private
 
   def show_address
-    @address_service = CheckoutAddressService.new(@order, nil, current_user)
+    @form = AddressForm.new(
+      billing_form: address_attributes(@order, :billing),
+      shipping_form: address_attributes(@order, :shipping),
+      use_billing: @order.use_billing
+    )
   end
 
   def show_delivery
-    @delivery_service = CheckoutDeliveryService.new(@order)
-    jump_to(valid_step) unless address_valid?(@order)
+    @deliveries = Delivery.all
+    jump_to(valid_step) if empty_address?(@order)
   end
 
   def show_payment
-    @payment_service = CheckoutPaymentService.new(@order, nil, current_user)
-    jump_to(valid_step) if @order.delivery.nil?
+    return jump_to(valid_step) if @order.delivery.nil?
+    @form = PaymentForm.from_model(@order.credit_card)
   end
 
   def show_confirm
-    return jump_to(valid_step) if try_nil_or_invalid?(current_user
-      .orders.last.credit_card)
+    return jump_to(valid_step) if user_order.credit_card.nil?
   end
 
   def show_complete
-    return jump_to(valid_step) if try_nil_or_invalid?(current_user
-      .orders.last.credit_card)
+    return jump_to(valid_step) if user_order.credit_card.nil?
     @shipping_address = @order.addresses.find_by_address_type(:shipping)
     @order.deliver
   end
 
   def update_address
-    @address_service =
-      CheckoutAddressService.new(@order, params, current_user).call
-    return if @address_service.billing_address.valid? &&
-              @address_service.shipping_address.valid?
+    use_billing = params[:use_billing] || false
+    @order.update(use_billing: use_billing)
+
+    @form = AddressForm.from_params(address_params,
+                                    use_billing: params[:use_billing])
+    if @form.valid?
+      @form.update!(@order)
+      return
+    end
     render_wizard
   end
 
+  def address_attributes(order, address_type)
+    address = order.addresses.find_by_address_type(address_type)
+    address ||= current_user.addresses.find_by_address_type(address_type)
+    address ? address.attributes : {}
+  end
+
   def update_delivery
-    @delivery_service = CheckoutDeliveryService.new(@order, params).call
-    return if @delivery_service.updated
+    @deliveries = Delivery.all
+    if params[:delivery].present?
+      return if @order.update(delivery_id: params[:delivery])
+    end
     render_wizard
   end
 
   def update_payment
-    @payment_service = CheckoutPaymentService.new(@order, params).call
-    return unless try_nil_or_invalid?(@order.credit_card)
+    @form = PaymentForm.from_params(payment_params)
+    if @form.valid?
+      @form.update!(@order)
+      return
+    end
     render_wizard
   end
 
+  def update_confirm; end
+
+  def update_complete
+    redirect_to root_path
+  end
+
   def redirect_to_valid_step
-    if try_nil_or_invalid?(current_user.orders.last.credit_card)
+    if user_order.credit_card.nil?
       redirect_to next_wizard_path unless performed?
     else
       check_step(step)
@@ -89,25 +103,20 @@ class CheckoutController < ApplicationController
   end
 
   def check_step(step)
-    if step == :confirm
-      jump_to(:complete)
-    elsif previous_step == :address ||
-          previous_step == :delivery ||
-          previous_step == :payment
-      jump_to(:confirm)
-    end
+    return jump_to(:complete) if step == :confirm
+    jump_to(:confirm) if %i[address delivery payment].include?(previous_step)
   end
-
-  def update_confirm; end
 
   def set_order
     @order = @current_order
   end
 
-  def address_valid?(order)
-    billing_address = order.addresses.find_by_address_type(:billing)
-    shipping_address = order.addresses.find_by_address_type(:shipping)
-    !try_nil_or_invalid?(billing_address) &&
-      !try_nil_or_invalid?(shipping_address)
+  def address_params
+    params.require(:address)
+  end
+
+  def payment_params
+    params.require(:payment)
+          .permit(:number, :cvv, :expiration_date, :card_name)
   end
 end

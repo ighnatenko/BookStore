@@ -3,6 +3,7 @@
 # HomeController
 class HomeController < ApplicationController
   def index
-    @home_service = HomeService.new
+    @slider_books = Book.for_slider.map(&:decorate)
+    @best_seller_books = Book.best_sellers.map(&:decorate)
   end
 end

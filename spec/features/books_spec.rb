@@ -27,10 +27,7 @@ RSpec.feature 'Books', type: :feature do
   end
 
   scenario 'make a review' do
-    visit new_user_session_path
-    fill_in 'email', with: user.email
-    fill_in 'password', with: user.password
-    first('[name = commit]').click
+    sign_in(user)
     visit book_path(book, locale: I18n.locale)
     first('i.fa.fa-star.rate-star').click
     fill_in 'review_description', with: review.description

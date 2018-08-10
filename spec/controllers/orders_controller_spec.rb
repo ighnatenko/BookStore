@@ -19,12 +19,8 @@ RSpec.describe OrdersController, type: :controller do
         expect(assigns(:orders)).not_to be_nil
       end
 
-      it 'renders :index template' do
-        expect(response).to render_template(:index)
-      end
-
       it 'has a 200 status code' do
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(302)
       end
     end
   end

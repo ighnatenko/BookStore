@@ -13,10 +13,16 @@ RSpec.describe Book, type: :model do
     end
 
     %i[height width depth].each do |field|
-      it { is_expected.to validate_numericality_of(field).is_greater_than_or_equal_to 0 }
+      it do
+        is_expected.to validate_numericality_of(field)
+          .is_greater_than_or_equal_to 0
+      end
     end
 
-    it { should validate_numericality_of(:publication_year).is_less_than_or_equal_to Time.current.year }
+    it do
+      should validate_numericality_of(:publication_year)
+        .is_less_than_or_equal_to Time.current.year
+    end
   end
 
   context 'associations' do

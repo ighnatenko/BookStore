@@ -12,7 +12,7 @@
           class: ['in-gold-500', ('lead' if params[:locale] == 'en')]
         = link_to "ru", url_for( :locale => 'ru' ),
           class: ['in-gold-500', ('lead' if params[:locale] == 'ru')]
-      = link_to cart_path, class: 'shop-link pull-right visible-xs' do
+      = link_to cart_path, id: 'shop-link', class: 'shop-link pull-right visible-xs' do
         %span.shop-icon
           %span.shop-quantity= quantity_book_in_cart
     = link_to cart_path, class: 'shop-link pull-right hidden-xs' do
@@ -35,6 +35,8 @@
               %ul#account.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
                 %li= link_to t('header.orders'), orders_path
                 %li= link_to t('header.settings'), addresses_path
+                - if current_user.admin
+                  %li= link_to(t('header.admin_panel'), rails_admin_path)  
             %li.divider{role: "separator"}
             %li= link_to t('header.log_out'), destroy_user_session_path, method: :delete
           - else
@@ -55,6 +57,8 @@
               %ul.dropdown-menu
                 %li= link_to(t('header.orders'), orders_path)
                 %li= link_to(t('header.settings'), addresses_path)
+                - if current_user.admin
+                  %li= link_to(t('header.admin_panel'), rails_admin_path) 
                 %li.divider{role: "separator"}
                 %li= link_to(t('header.log_out'), destroy_user_session_path, method: :delete)
           - else

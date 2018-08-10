@@ -31,7 +31,7 @@ class Book < ApplicationRecord
 
   scope :best_sellers, (lambda do
     left_outer_joins(:positions)
-    .select('books.*, COALESCE(COUNT(positions.quantity), 0) as count')
+    .select('books.*, COUNT(positions) as count')
     .group('books.id')
     .order('count desc')
     .limit 4

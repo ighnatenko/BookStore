@@ -13,16 +13,16 @@
         .col-md-5.col-md-offset-1
           %h3.general-subtitle.mt-0= t('settings.shipping_address')
     .row
-      = simple_form_for(@address_service.billing_address, url: addresses_path, method: :post) do |f|
+      = simple_form_for(@billing_form, url: addresses_path, method: :post) do |f|
         .col-md-5.mb-40
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('settings.billing_address')
-          = render 'shared/address_form', f: f, address_type: :billing, visible_submit_btn: true
-      = simple_form_for(@address_service.shipping_address, url: addresses_path, method: :post) do |f|    
+          = render 'address_form', f: f, address_type: :billing, visible_submit_btn: true
+      = simple_form_for(@shipping_form, url: addresses_path, method: :post) do |f|    
         .col-md-5.col-md-offset-1.mb-25
           .visible-xs.visible-sm
             %h3.general-subtitle.mt-0= t('settings.shipping_address')
-          = render 'shared/address_form', f: f, address_type: :shipping, visible_submit_btn: true
+          = render 'address_form', f: f, address_type: :shipping, visible_submit_btn: true
   #privacy.tab-pane.fade{role: "tabpanel"}
     .row.mb-60
       .col-sm-5

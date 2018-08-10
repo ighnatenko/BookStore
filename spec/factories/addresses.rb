@@ -7,7 +7,7 @@ FactoryBot.define do
     address { Faker::Address.street_name }
     city { Faker::Address.city }
     zipcode { Faker::Address.zip_code }
-    country { Faker::Address.country }
+    country { 'LS' }
     phone { Faker::PhoneNumber.phone_number }
 
     trait :shipping do

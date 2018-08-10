@@ -27,7 +27,7 @@ RSpec.feature 'Homes', type: :feature do
       expect(page).to have_selector('ul.nav', text: title)
     end
     find('.nav .dropdown').click
-    Category.all.each do|category|
+    Category.all.each do |category|
       expect(page).to have_selector('.dropdown-menu li', text: category.title)
     end
   end

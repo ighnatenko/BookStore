@@ -10,6 +10,7 @@ ru:
     home: Главная
     shop: Магазин
     catalog: Каталог
+    admin_panel: Панель администратора
   settings:
     settings: Настройки
     address: Адрес
@@ -113,6 +114,7 @@ ru:
     used: Купон использован
     added: Добавлен купон
   orders:
+    do_not_have_order: У вас нет заказа
     all: Все
     in_progress: В процессe
     in_delivery: Отправлен

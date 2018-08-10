@@ -5,8 +5,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.2'
 
-# 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
 gem 'aasm', '~> 4.12', '>= 4.12.3'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'cancancan', '~> 2.0'
@@ -31,6 +29,8 @@ gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.4'
 gem 'rails-i18n'
 gem 'rails_admin', '~> 1.2'
+gem 'rails_admin-i18n'
+gem 'rectify'
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'simple_form'
 gem 'turbolinks', '~> 5'

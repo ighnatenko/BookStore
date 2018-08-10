@@ -7,9 +7,9 @@ RSpec.describe CategoriesController, type: :controller do
 
   describe 'GET #index' do
     before { get :index, params: { locale: I18n.locale } }
-    it 'assigns @books' do
-      books = assigns(:category_service).books
-      expect(books).not_to be_nil
+    it 'assigns instance variables' do
+      expect(:page_number).not_to be_nil
+      expect(:books).not_to be_nil
     end
 
     it 'has a 200 status code' do
@@ -25,8 +25,9 @@ RSpec.describe CategoriesController, type: :controller do
     before { get :show, params: { id: book.category.id, locale: I18n.locale } }
 
     it 'assigns @books' do
-      books = assigns(:category_service).books
-      expect(books).not_to be_nil
+      expect(:category).not_to be_nil
+      expect(:page_number).not_to be_nil
+      expect(:books).not_to be_nil
     end
 
     it 'has a 200 status code' do
