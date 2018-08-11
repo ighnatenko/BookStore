@@ -11,7 +11,6 @@ RailsAdmin.config do |config|
     dashboard
     index
     new
-    # export
     bulk_delete { except %i[Address CreditCard Position User Order] }
     show
     edit { except %i[Address CreditCard Position User Order] }
