@@ -37,11 +37,15 @@ RailsAdmin.config do |config|
     exclude_fields :orders
   end
 
-  [Position, Author, Category].each do |model|
+  [Position, Author, Category, CreditCard].each do |model|
     config.model model do
       exclude_fields :created_at
       exclude_fields :updated_at
     end
+  end
+
+  config.model CreditCard do
+    exclude_fields :cardable_type
   end
 
   config.model Coupon do

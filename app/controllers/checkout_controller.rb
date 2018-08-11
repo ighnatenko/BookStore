@@ -87,7 +87,9 @@ class CheckoutController < ApplicationController
     render_wizard
   end
 
-  def update_confirm; end
+  def update_confirm
+    @order.update(summary_price: @order.decorate.order_total)
+  end
 
   def update_complete
     redirect_to root_path
