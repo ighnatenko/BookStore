@@ -11,11 +11,49 @@ RailsAdmin.config do |config|
     dashboard
     index
     new
-    export
-    bulk_delete
+    # export
+    bulk_delete { except %i[Address CreditCard Position User Order] }
     show
-    edit
-    delete
-    show_in_app
+    edit { except %i[Address CreditCard Position User Order] }
+    delete { except %i[Address CreditCard Position User Order] }
+  end
+
+  config.included_models = [Address, Author, Book, Category, Position, Order,
+                            Coupon, Delivery, Image, User, CreditCard]
+
+  config.model Address do
+    %i[firstname lastname address zipcode
+       city country phone address_type].each do |field|
+      field field
+    end
+  end
+
+  config.model Book do
+    field :title
+    field :description
+    field :price
+  end
+
+  config.model Delivery do
+    exclude_fields :orders
+  end
+
+  [Position, Author, Category].each do |model|
+    config.model model do
+      exclude_fields :created_at
+      exclude_fields :updated_at
+    end
+  end
+
+  config.model Coupon do
+    field :code
+    field :discount
+  end
+
+  config.model User do
+    field :email
+    field :created_at
+    field :admin
+    edit { exclude_fields :created_at }
   end
 end
