@@ -13,7 +13,7 @@ RailsAdmin.config do |config|
     new
     bulk_delete { except %i[Address CreditCard Position User Order] }
     show
-    edit { except %i[Address CreditCard Position User Order] }
+    edit { except %i[Address CreditCard Position Order] }
     delete { except %i[Address CreditCard Position User Order] }
   end
 
