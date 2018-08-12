@@ -2,16 +2,30 @@
 
 # CouponsController
 class CouponsController < ApplicationController
+  # include Rectify::ControllerHelpers
+
   def create
     coupon = Coupon.find_by(code: coupon_params[:code])
-    return redirect_to cart_path, alert: t('coupon.not_exist') unless coupon
-    return redirect_to cart_path, alert: t('coupon.used') if coupon.order
-    @order = @current_order
-    @order.update(coupon: coupon)
-    redirect_to cart_path, notice: t('coupon.added')
+    use_coupon(coupon)
   end
 
   private
+
+  def use_coupon(coupon)
+    UseCoupon.call(coupon) do
+      on(:ok) do
+        update_order_with_coupon(coupon)
+        redirect_to cart_path, notice: t('coupon.added')
+      end
+      on(:not_exist) { redirect_to cart_path, alert: t('coupon.not_exist') }
+      on(:already_used) { redirect_to cart_path, alert: t('coupon.used') }
+    end
+  end
+
+  def update_order_with_coupon(coupon)
+    @order = @current_order
+    @order.update(coupon: coupon)
+  end
 
   def coupon_params
     params.require(:coupon).permit(:code)

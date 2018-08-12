@@ -3,7 +3,7 @@
   .dropdowns.pull-right
     .dropdown.width-240
       %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-        = t("catalog.filters.#{@filter.to_s}")
+        = t("catalog.filters.#{@present.filter.to_s}")
         %i.fa.fa-angle-down.dropdown-icon.pull-right
       %ul.dropdown-menu
         - Book::FILTERS.each do |filter|
@@ -31,7 +31,7 @@
   %p.lead.small.mb-10= t('catalog.for_mobile.sort_by')
   .dropdown
     %a.dropdown-toggle.lead.small{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      = t("catalog.filters.#{@filter.to_s}")
+      = t("catalog.filters.#{@present.filter.to_s}")
       %i.fa.fa-angle-down.dropdown-icon.pull-right
     %ul.dropdown-menu
       - Book::FILTERS.each do |filter|
@@ -44,7 +44,7 @@
   - if @active_more_btn
     - if @category.nil?
       .text-center
-        = link_to t('catalog.view_more_btn'), categories_path(filter: @filter, page: @page_number), class: 'btn btn-primary'
+        = link_to t('catalog.view_more_btn'), categories_path(filter: @present.filter, page: @present.page_number), class: 'btn btn-primary'
     - else  
       .text-center
-        = link_to t('catalog.view_more_btn'), categories_path(id: params[:id], filter: @filter, page: @page_number), class: 'btn btn-primary'
+        = link_to t('catalog.view_more_btn'), categories_path(id: params[:id], filter: @present.filter, page: @present.page_number), class: 'btn btn-primary'

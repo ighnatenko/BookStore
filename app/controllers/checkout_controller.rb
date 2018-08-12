@@ -119,6 +119,5 @@ class CheckoutController < ApplicationController
 
   def payment_params
     params.require(:payment)
-          .permit(:number, :cvv, :expiration_date, :card_name)
   end
 end

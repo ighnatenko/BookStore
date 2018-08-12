@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
     @orders = current_user.orders.newest
     @orders = @orders.by_state(params[:state].to_sym) if valid_state?
 
-    if @orders.to_a.size.zero?
+    unless @orders.exists?
       return redirect_to root_path, notice: t('orders.do_not_have_order')
     end
     @orders

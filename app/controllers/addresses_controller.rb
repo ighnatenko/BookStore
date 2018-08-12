@@ -50,7 +50,5 @@ class AddressesController < ApplicationController
 
   def address_params
     params.require(:address_fields)
-          .permit(:firstname, :lastname, :address, :city,
-                  :zipcode, :country, :phone, :address_type)
   end
 end
