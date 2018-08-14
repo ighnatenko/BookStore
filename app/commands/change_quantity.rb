@@ -2,7 +2,7 @@
 
 # UseCoupon
 class ChangeQuantity < Rectify::Command
-  def initialize(increment, order_id, book_id)
+  def initialize(order_id, book_id, increment: true)
     @increment = increment
     @order_id = order_id
     @book_id = book_id

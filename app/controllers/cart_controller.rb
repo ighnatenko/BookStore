@@ -22,11 +22,11 @@ class CartController < ApplicationController
   end
 
   def increment
-    change_quantity(true)
+    change_quantity(increment: true)
   end
 
   def decrement
-    change_quantity(false)
+    change_quantity(increment: false)
   end
 
   private
@@ -35,8 +35,8 @@ class CartController < ApplicationController
     @order = @current_order
   end
 
-  def change_quantity(increment)
-    ChangeQuantity.call(increment, @order.id, params[:book_id]) do
+  def change_quantity(increment: true)
+    ChangeQuantity.call(@order.id, params[:book_id], increment: increment) do
       on(:ok) { redirect_to cart_path }
     end
   end

@@ -2,8 +2,6 @@
 
 # CategoriesController
 class CategoriesController < ApplicationController
-  include ApplicationHelper
-  include Rectify::ControllerHelpers
   before_action :init_values, only: %i[index show]
 
   def index
@@ -15,33 +13,23 @@ class CategoriesController < ApplicationController
   private
 
   def init_values
-    @present = CategoriesPresenter.new(params: params)
-    load_books_with_category(params) if params[:id]
-    load_books_without_category unless params[:id]
-    @active_more_btn = show_more_button?(params)
+    @presenter = CategoriesPresenter.new(params: params)
+    @category = params[:id] ? Category.find(params[:id]) : nil
+    @books = if @category
+               books_with_category(@category)
+             else
+               books_without_category
+             end.to_a
+    @presenter.books = @books
+    @presenter.category = @category
   end
 
-  def load_books_without_category
-    @category = nil
-    @books = Book.by_filter(@present.filter, @present.page_number)
+  def books_without_category
+    Book.by_filter(@presenter.filter, @presenter.page_number)
   end
 
-  def load_books_with_category(params)
-    @category = Category.find(params[:id])
-    category_id = params[:id]
-    @books = Book.where(category_id: category_id)
-                 .by_filter(@present.filter, @present.page_number)
-  end
-
-  def show_more_button?(params)
-    return false unless @books.exists?
-
-    if params[:id]
-      return true if @books.to_a.size != qunatity_book_in_category(@category.id)
-      return false
-    elsif @books.to_a.size != Book.all.count
-      return true
-    end
-    false
+  def books_with_category(category)
+    Book.where(category_id: category.id)
+        .by_filter(@presenter.filter, @presenter.page_number)
   end
 end
