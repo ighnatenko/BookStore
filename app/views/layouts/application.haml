@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title Bookstore
+    = csrf_meta_tags
+    %meta{ charset: "UTF-8" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    = render 'shared/header'
+    %main.container
+      = render 'shared/flash'
+      = yield
+    = render 'shared/footer'

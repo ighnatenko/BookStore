@@ -1,0 +1,26 @@
+.text-center
+  %h3.general-login-title= t('register.login')
+  = link_to user_facebook_omniauth_authorize_path, class: 'general-login-icon' do
+    %i.fa.fa-facebook-official
+  %p.general-login-text= t('register.or')
+= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'general-form'}) do |f|
+  .form-group.mb-30
+    = f.label :email, t('register.email'), class: 'control-label input-label', html: {  'data-bar' => t('register.enter_email') }
+    = f.email_field :email, autofocus: true, autocomplete: "email", id: 'email', class: 'form-control', placeholder: t('register.enter_email')
+  .form-group.mb-30
+    = f.label :password, t('register.password'), class: 'control-label input-label', html: { 'data-bar' => t('register.password') }
+    = f.password_field :password, autocomplete: "off", id: 'password', class: 'form-control', placeholder: t('register.password')
+    - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+      = link_to t('register.forgot_password'), new_password_path(resource_name), class: 'help-block in-gold-500'
+  .form-group.checkbox.text-center.mb-30
+    - if devise_mapping.rememberable?
+      %label.checkbox-label
+        = f.check_box :remember_me, class:'checkbox-input', hidden: "true"
+        %span.checkbox-icon
+          %i.fa.fa-check
+        %span.checkbox-text= t('register.remember_me')
+  .text-center
+    = f.submit t('register.back_to_store'), class: 'btn btn-default mb-20'
+%p.general-sign-text.text-center
+  = t('register.do_not_have')
+  = link_to t('register.signup'), new_user_registration_path, class: 'in-gold-500'

@@ -1,0 +1,18 @@
+.general-message-wrap.divider-lg
+  .clearfix
+    - if review.decorate.owner.image
+      = cl_image_tag(review.decorate.owner.image, class: 'img-circle logo-size inlide-block pull-left')
+    - else
+      %span.img-circle.logo-size.inlide-block.pull-left.logo-empty M
+    .ml-70
+      %div
+        .general-message-date.hidden-xs= review.created_at.strftime("%d/%m/%y")
+        .max-240
+          .general-message-verified.pull-right Verified Reviewer
+          .general-message-name= (review.decorate.owner.name ? review.decorate.owner.name : 'John Doe')
+      .mb-15
+        - review.rating.times do |i|
+          %i.fa.fa-star.rate-star
+        - (5 - review.rating).times do |i|
+          %i.fa.fa-star.rate-star.rate-empty
+      %p= review.description
