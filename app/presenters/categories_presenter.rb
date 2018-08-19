@@ -16,7 +16,7 @@ class CategoriesPresenter < Rectify::Presenter
   end
 
   def active_more_btn
-    return books.count != Book.count unless params[:id]
-    books.count != qunatity_book_in_category(category.id)
+    return books.size != Book.count unless params[:id]
+    books.size != qunatity_book_in_category(category.id)
   end
 end

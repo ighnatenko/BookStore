@@ -39,9 +39,8 @@ class Book < ApplicationRecord
 
   scope :popular, (lambda do
     left_outer_joins(:positions)
-    .select('books.*, COALESCE(SUM(positions.quantity), 0) as positions_sum')
     .group('books.id')
-    .order('positions_sum desc')
+    .order('COALESCE(SUM(positions.quantity), 0) desc')
   end)
 
   scope :by_filter, (lambda do |filter, page|

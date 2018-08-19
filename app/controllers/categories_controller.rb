@@ -19,7 +19,7 @@ class CategoriesController < ApplicationController
                books_with_category(@category)
              else
                books_without_category
-             end.to_a
+             end
     @presenter.books = @books
     @presenter.category = @category
   end

@@ -34,6 +34,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_record_group_count (0.0.1)
+      rails (>= 3.1.0)
     activejob (5.1.6)
       activesupport (= 5.1.6)
       globalid (>= 0.3.6)
@@ -490,6 +492,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (~> 4.12, >= 4.12.3)
+  active_record_group_count
   bootstrap-sass (~> 3.3.7)
   byebug
   cancancan (~> 2.0)
