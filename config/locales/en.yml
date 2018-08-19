@@ -1,170 +1,33 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
 en:
-  header:
-    account: My Account
-    orders: Orders
-    settings: Settings
-    log_out: Log Out
-    log_in: Log In
-    sign_up: Sign Up
-    brand: Bookstore
-    home: Home
-    shop: Shop 
-    catalog: Catalog
-    admin_panel: Admin panel
-  settings:
-    settings: Settings
-    address: Address
-    privacy: Privacy
-    billing_address: Billing Address
-    shipping_address: Shipping Address
-    save: Save
-    remove_account: Remove Account
-    understand: I understand that all data will be lost
-    please_remove_account: Please Remove My Account
-  checkout:
-    cvv_tooltip: 3-digit security code, usually found on the back of your card.
-    back_to_tore: Back to Store
-    edit: edit
-    place_order: Place Order
-    cvv: CVV
-    expiration_date: MM / YY
-    card_name: Name on Card
-    card_number: Card Number
-    save: Save and Continue
-    payment_info: Payment Information
-    shipments: Shipments
-    confirmation: "An order confirmation has been has been sent to %{email}"
-    thank_for_order: Thank You for your Order!
-    checkout: Checkout
-    address: Address
-    delivery: Delivery
-    payment: Payment
-    confirm: Confirm
-    complete: Complete
-    use_billing_adress: Use Billing Adress
-    shipping_address: Shipping Address
-    required: all fields are required
-    billing_address: Billing Address
-  home:
-    buy_now: Buy Now
-    best_sellers: Best Sellers
-    get_started_btn: Get Started
-    welcome_to_bookstore: Welcome to our amazing Bookstore!
-    description: We pore through hundreds of new books each month and select the five best we can find to share with our members.
-  catalog:
-    title: Сatalog
-    view_more_btn: View More
-    all_categories: 'All'
-    for_mobile:
-      filter_by_category: Filter by category
-      sort_by: Sort by
-    filters:
-      newest: Newest first
-      popular: Popular first
-      price_asc: "Price: Low to high"
-      price_desc: "Price: High to low"
-      by_title_asc: "Title: A - Z"
-      by_title_desc: "Title: Z - A"
-  review:
-    successful:
-      create: Thanks for Review
-    failure:
-      create: Review does not sended
-  cart:
-    cart: Cart
-    credit_card:
-      title: Credit Card
-      method: Method
-      days: Days
-    total: Total
-    empty_cart: Empty cart
-    back_to_store: 'Back to Store'
-    checkout: Checkout
-    order_total: Order Total
-    shipping: Shipping
-    coupon: Coupon
-    price: Price
-    quantity: Quantity
-    product: Product
-    subtotal: SubTotal
-    order_summary: Order Summary
-    apply_coupon: Apply Coupon
-    enter_coupon: Enter Your Coupon Code
-    alredy_added: Book alredy added
-    successful_added: Book added successful
-    removed: Book successful removed from cart
-  address:
-    successful:
-      create: Address successful created
-      update: Address successful updated
-    failure:
-      create: Address does not created
-      update: Address does not updated    
-    inputs_fields:
-      phone: Phone
-      first_name: First Name
-      last_name: Last Name
-      address: Address
-      city: City
-      zip: Zip
-      country: Country
-      phone_example: Example +355 66 123 4567
-  coupon:
-    not_exist: Coupon not exist
-    used: Coupon used
-    added: Coupon added
-  orders:
-    do_not_have_order: You don't have an order
-    all: All
-    in_progress: In progress
-    in_delivery: Sent
-    delivered: Delivered
-    mailer:
-      title: Confirm your order
-      confirm_message: To confirm your order, just follow this link
-    order: Order
-    shipments: Shipments
-    sort_by: Sort by
-    title: My Orders
-    status: Status
-    completed_at: Completed at
-    number: Number
-    successful: Successful order
-    not_exist: Sorry. Order does not exist
-  books:
-    book: Book
-    send_btn: Send Review 
-    add_review: Add a review
-    add_to_cart: Add to Cart
-    read_more: Read More
-    reviews: Reviews
-    publication_year: Year of publication
-    dimensions: Dimensions
-    materials: Materials
-  link:
-    back: Back to results 
-  customer:
-    user_exist: User already exists
-    returning_customer: Returning Customer
-    new_customer: New Customer
-    quick_register: Quick Register
-    log_in_with_password: Log In with Password
-    able_create_password_later: You'll be able to create password later
-    continue_to_checkout: Continue to Checkout
-  register:
-    email_instructions: Email Instructions
-    cancel: Cancel
-    or: or
-    enter_email: Enter Email
-    back_to_store: Back to Store
-    email: Email
-    password: Password
-    confirm_pasword: Confirm Password
-    have_account:
-    signup: Sign Up
-    login: Log In
-    remember_me: Remember me
-    forgot_password: Forgot your password?
-    forgot_password_message: We'll email you instructions on how to reset it
-    do_not_have: Don’t have an Account?
-    have_account: Have an Account?
+  hello: "Hello world"
