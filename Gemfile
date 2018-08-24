@@ -6,6 +6,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.4.2'
 
 gem 'aasm', '~> 4.12', '>= 4.12.3'
+gem 'active_record_group_count', git: 'https://github.com/mrbrdo/active_record_group_count.git',
+                                 branch: 'master'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'cancancan', '~> 2.0'
 gem 'carrierwave', '~> 1.2', '>= 1.2.2'
