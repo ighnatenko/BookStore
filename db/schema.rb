@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180513212552) do
+ActiveRecord::Schema.define(version: 2019_03_22_214745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,87 @@ ActiveRecord::Schema.define(version: 20180513212552) do
     t.bigint "book_id"
     t.index ["book_id"], name: "index_reviews_on_book_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "shopping_cart_addresses", force: :cascade do |t|
+    t.string "address", null: false
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.string "country", null: false
+    t.string "city", null: false
+    t.string "zipcode", null: false
+    t.string "phone", null: false
+    t.integer "address_type"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_sh_addresses_on_addressable_type_and_addressable_id"
+  end
+
+  create_table "shopping_cart_books", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "width", precision: 4, scale: 1, null: false
+    t.decimal "height", precision: 4, scale: 1, null: false
+    t.decimal "depth", precision: 4, scale: 1, null: false
+    t.integer "publication_year", null: false
+    t.string "materials", null: false
+    t.bigint "category_id"
+    t.integer "quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shopping_cart_coupons", force: :cascade do |t|
+    t.bigint "order_id"
+    t.string "code", null: false
+    t.decimal "discount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shopping_cart_credit_cards", force: :cascade do |t|
+    t.string "number"
+    t.string "cvv"
+    t.bigint "order_id"
+    t.string "card_name", null: false
+    t.string "expiration_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shopping_cart_deliveries", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "days", null: false
+    t.decimal "price", precision: 5, scale: 2, null: false
+    t.boolean "active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shopping_cart_orders", force: :cascade do |t|
+    t.decimal "summary_price", precision: 10, scale: 2
+    t.bigint "user_id"
+    t.boolean "use_billing", default: false, null: false
+    t.datetime "completed_date"
+    t.boolean "email_confirmed", default: false
+    t.string "confirmation_token"
+    t.string "state", default: "in_progress"
+    t.string "tracking_number"
+    t.decimal "total_price", precision: 10, scale: 2, default: "0.0"
+    t.bigint "delivery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shopping_cart_positions", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "order_id"
+    t.integer "quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

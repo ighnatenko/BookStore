@@ -23,11 +23,4 @@ module FeatureHelper
     select('Ukraine', from: "address_#{type}_form_country")
     fill_in("address_#{type}_form_phone", with: address.phone)
   end
-
-  def fill_credit_card(card)
-    fill_in('payment_number', with: card.number)
-    fill_in('payment_card_name', with: card.card_name)
-    fill_in('payment_expiration_date', with: card.expiration_date)
-    fill_in('payment_cvv', with: card.cvv)
-  end
 end

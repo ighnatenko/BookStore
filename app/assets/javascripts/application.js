@@ -19,4 +19,6 @@
 //= book
 //= reviews
 //= user_settings
+//= require shopping_cart/checkout_address.js
+//= require shopping_cart/checkout_delivery.js
 //= require_tree .

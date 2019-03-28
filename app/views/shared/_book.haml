@@ -6,7 +6,7 @@
         .general-thumb-link-wrap
           = link_to book_path(book.id), class: 'thumb-hover-link eye-show-book-btn' do
             %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-          = link_to cart_item_path(items: {price: book.price, quantity: 1, book_id: book.id}), method: :post, class: 'thumb-hover-link shopping-cart-buy-btn' do
+          = link_to shopping_cart.cart_item_path(items: {price: book.price, quantity: 1, book_id: book.id}), method: :post, class: 'thumb-hover-link shopping-cart-buy-btn' do
             %i.fa.fa-shopping-cart.thumb-icon
   .general-thumb-info
     %p.title= book.title

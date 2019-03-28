@@ -9,8 +9,8 @@ FactoryBot.define do
       "person#{n}@example.com"
     end
 
-    password '123456'
-    password_confirmation '123456'
-    admin true
+    password { '123456' }
+    password_confirmation { '123456' }
+    admin { true }
   end
 end

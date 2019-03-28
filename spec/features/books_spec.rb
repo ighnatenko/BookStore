@@ -20,12 +20,6 @@ RSpec.feature 'Books', type: :feature do
     expect(page).to have_css('p', text: book.dimensions)
   end
 
-  scenario 'buy a book' do
-    find('.items .btn').click
-    expect(page).to have_css('.alert-success',
-                             text: I18n.t('cart.successful_added'))
-  end
-
   scenario 'make a review' do
     sign_in(user)
     visit book_path(book, locale: I18n.locale)
